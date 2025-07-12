@@ -4,5 +4,8 @@ A graph editor with nesting for planning personal or team projects where you hav
 
 This version is made for ease of editing and clarity of presentation, not for scaling to very large projects or doing analysis or automated suggestions on them.
 
-originally set up in stackblitz, which is a pretty good in-browser scratchpad for svelte projects:
+To run locally:
+`npm install && npm run dev && open http://localhost:5173`
+
+Originally set up in stackblitz, which is a pretty good in-browser scratchpad for svelte projects:
 [Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/DireLines/svelteflow-graph-editor)
