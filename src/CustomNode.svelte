@@ -4,7 +4,7 @@
     type NodeProps,
     Handle,
     Position,
-    } from '@xyflow/svelte';
+    } from '@xyflow/svelte'; //test commit
   import { onMount } from 'svelte';
   let { isConnectable,id,data,selected }: NodeProps = $props();
 
