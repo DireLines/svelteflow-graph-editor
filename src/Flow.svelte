@@ -335,8 +335,6 @@
     try {
       const text = await file.text();
       const data = JSON.parse(text);
-      // now you have your JSON state in `data`
-      console.log("Loaded JSON:", data);
       nodes = data.nodes;
       edges = data.edges;
       //set id to max of incoming node ids + 1
@@ -381,13 +379,7 @@
 <svelte:window on:beforeunload={handleBeforeUnload} />
 
 <!-- Hidden file input for “Load” -->
-<input
-  type="file"
-  accept="application/json"
-  bind:this={fileInput}
-  on:change={handleFileChange}
-  style="display: none;"
-/>
+<input type="file" accept="application/json" bind:this={fileInput} onchange={handleFileChange} style="display: none;" />
 
 <SvelteFlow
   bind:nodes
@@ -405,9 +397,8 @@
   <Controls />
   <MiniMap />
   <Panel>
-    <button on:click={triggerLoad}> 📂 Load </button>
-
-    <button on:click={() => triggerSave({ nodes, edges })}> 💾 Save </button>
+    <button onclick={triggerLoad}> 📂 Load </button>
+    <button onclick={() => triggerSave({ nodes, edges })}> 💾 Save </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
