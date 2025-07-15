@@ -397,8 +397,8 @@
   <Controls />
   <MiniMap />
   <Panel>
-    <button onclick={triggerLoad}> 📂 Load </button>
-    <button onclick={() => triggerSave({ nodes, edges })}> 💾 Save </button>
+    <button onclick={() => triggerSave({ nodes, edges })}> 💾 Export </button>
+    <button onclick={triggerLoad}> 📂 Import </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
