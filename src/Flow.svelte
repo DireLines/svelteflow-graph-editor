@@ -21,6 +21,7 @@
 
   import { initialNodes, initialEdges, nodeDefaults, edgeDefaults } from "./nodes-and-edges";
   import { addPositions, subPositions } from "./math.ts";
+  import { onMount } from "svelte";
   const {
     screenToFlowPosition,
     flowToScreenPosition,
@@ -36,6 +37,16 @@
 
   let nodes = $state.raw<Node[]>(initialNodes);
   let edges = $state.raw<Edge[]>(initialEdges);
+
+  // — track whether there are unsaved changes
+  let unsavedChanges = $state(false);
+
+  function handleBeforeUnload(event) {
+    if (!unsavedChanges) return;
+    // tell the browser to prompt the user
+    event.preventDefault();
+    event.returnValue = "";
+  }
 
   let id = 1;
   const getId = () => `${id++}`;
@@ -239,6 +250,7 @@
   };
   //stop dragging node
   const handleNodeDragStop: NodeTargetEventWithPointer = (event) => {
+    unsavedChanges = true;
     const { clientX, clientY } = event?.event;
     const thisNode = event.targetNode;
     const parent = getParentNode(clientX, clientY, thisNode.id);
@@ -263,6 +275,7 @@
   };
   //right click inside node
   const handleNodeContextMenu = ({ event, node }) => {
+    unsavedChanges = true;
     // Prevent native context menu from showing
     event.preventDefault();
 
@@ -273,6 +286,7 @@
   };
   //right click on background
   const handlePaneContextMenu = ({ event }) => {
+    unsavedChanges = true;
     // Prevent native context menu from showing
     event.preventDefault();
 
@@ -282,6 +296,7 @@
   };
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
+    unsavedChanges = true;
     if (connectionState.isValid) return;
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
@@ -294,7 +309,85 @@
     nodes = [...nodes, newNode];
     edges = [...edges, newEdge];
   };
+
+  let fileInput; // for “Load” dialog
+
+  const containsOnlyDigits = (value) => {
+    return /^-?\d+$/.test(value);
+  };
+
+  // --- LOADING (open file) ---
+  function triggerLoad() {
+    //TODO: if unsaved local changes, warn before letting the user load
+    if (unsavedChanges) {
+      const discard = window.confirm("You have unsaved changes – loading new JSON will discard them. Continue?");
+      if (!discard) {
+        return;
+      }
+    }
+    fileInput.click();
+  }
+
+  async function handleFileChange(event) {
+    const [file] = event.target.files;
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      // now you have your JSON state in `data`
+      console.log("Loaded JSON:", data);
+      nodes = data.nodes;
+      edges = data.edges;
+      //set id to max of incoming node ids + 1
+      for (const n of nodes) {
+        if (containsOnlyDigits(n.id)) {
+          const parsed = parseInt(n.id);
+          if (parsed > id) {
+            id = parsed;
+          }
+        }
+      }
+      id++;
+      unsavedChanges = false;
+    } catch (err) {
+      console.error("Failed to load/parse JSON", err);
+    } finally {
+      // reset so the same file can be re-selected later if desired
+      event.target.value = "";
+    }
+  }
+
+  // --- SAVING (download file) ---
+  function triggerSave(stateObj) {
+    const json = JSON.stringify(stateObj, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.download = "graph-project.json"; //TODO: use project name for filename
+    a.href = url;
+    document.body.appendChild(a);
+    a.click();
+
+    // cleanup
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    unsavedChanges = false;
+  }
 </script>
+
+<!-- hook into the window event declaratively -->
+<svelte:window on:beforeunload={handleBeforeUnload} />
+
+<!-- Hidden file input for “Load” -->
+<input
+  type="file"
+  accept="application/json"
+  bind:this={fileInput}
+  on:change={handleFileChange}
+  style="display: none;"
+/>
 
 <SvelteFlow
   bind:nodes
@@ -312,6 +405,9 @@
   <Controls />
   <MiniMap />
   <Panel>
+    <button on:click={triggerLoad}> 📂 Load </button>
+
+    <button on:click={() => triggerSave({ nodes, edges })}> 💾 Save </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
