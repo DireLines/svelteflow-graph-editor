@@ -25,11 +25,26 @@
       sel.addRange(range);
     });
   });
+  const stopPropagation = (e: Event) => e.stopPropagation(); //used for giving input edit events priority over node drag events
 </script>
 
 <Handle type="target" position={Position.Left} {isConnectable} />
 <div class="sf-node">
-  <div class="sf-node__label" contenteditable="true" bind:this={editable} oninput={handleInput}>
+  <!-- TODO: checkbox -->
+  <!-- TODO: top justify label -->
+  <div
+    class="sf-node__label"
+    contenteditable="true"
+    spellcheck="false"
+    bind:this={editable}
+    oninput={handleInput}
+    onmousedowncapture={stopPropagation}
+    onmouseupcapture={stopPropagation}
+    onclickcapture={stopPropagation}
+    onkeydowncapture={stopPropagation}
+    oncompositionstartcapture={stopPropagation}
+    oncompositionendcapture={stopPropagation}
+  >
     {data.label}
   </div>
 </div>

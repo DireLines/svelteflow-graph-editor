@@ -17,38 +17,58 @@
 
   import "@xyflow/svelte/dist/style.css";
   import CustomNode from "./CustomNode.svelte";
-  import { tick } from "svelte";
+  import { writable } from "svelte/store";
 
-  import { initialNodes, initialEdges, nodeDefaults, edgeDefaults } from "./nodes-and-edges";
+  import { nodeDefaults, edgeDefaults } from "./nodes-and-edges";
   import { addPositions, subPositions } from "./math.ts";
-  import { onMount } from "svelte";
   const {
     screenToFlowPosition,
-    flowToScreenPosition,
-    isNodeIntersecting,
+    // flowToScreenPosition,
+    // isNodeIntersecting,
     getIntersectingNodes,
-    fitBounds,
+    // fitBounds,
     getNodesBounds,
-    getNode,
+    // getNode,
     updateNode,
   } = useSvelteFlow();
+  const STORAGE_KEY = "graph";
 
+  // load existing or fall back
+  let initial;
+  const defaultValue = { nodes: [], edges: [] };
+  try {
+    const json = localStorage.getItem(STORAGE_KEY);
+    initial = json ? JSON.parse(json) : defaultValue;
+  } catch {
+    initial = defaultValue;
+  }
   const nodeTypes = { custom: CustomNode };
+  let nodes = $state.raw<Node[]>(initial.nodes);
+  let edges = $state.raw<Edge[]>(initial.edges);
 
-  let nodes = $state.raw<Node[]>(initialNodes);
-  let edges = $state.raw<Edge[]>(initialEdges);
-
-  // — track whether there are unsaved changes
   let unsavedChanges = $state(false);
 
-  function handleBeforeUnload(event) {
+  const handleBeforeUnload = (event) => {
     if (!unsavedChanges) return;
     // tell the browser to prompt the user
     event.preventDefault();
     event.returnValue = "";
-  }
+  };
 
+  //set id to max of incoming node ids + 1
   let id = 1;
+  const containsOnlyDigits = (value) => {
+    return /^-?\d+$/.test(value);
+  };
+  for (const n of nodes) {
+    if (containsOnlyDigits(n.id)) {
+      const parsed = parseInt(n.id);
+      if (parsed > id) {
+        id = parsed;
+      }
+    }
+  }
+  id++;
   const getId = () => `${id++}`;
   const getParentNode = (clientX, clientY, ignoreNodeId = null) => {
     // project the screen coordinates to pane coordinates
@@ -158,7 +178,7 @@
     }
     return flowToLocalPosition(subPositions(flowPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
   };
-  function buildTree(nodes) {
+  const buildTree = (nodes) => {
     const nodeMap = new Map();
     const tree = [];
 
@@ -181,7 +201,7 @@
     }
 
     return tree;
-  }
+  };
   const preorderTraverse = (node) => {
     const thisNodeWithoutChildren = { ...node };
     delete thisNodeWithoutChildren.children;
@@ -312,23 +332,18 @@
 
   let fileInput; // for “Load” dialog
 
-  const containsOnlyDigits = (value) => {
-    return /^-?\d+$/.test(value);
-  };
-
   // --- LOADING (open file) ---
-  function triggerLoad() {
-    //TODO: if unsaved local changes, warn before letting the user load
-    if (unsavedChanges) {
-      const discard = window.confirm("You have unsaved changes – loading new JSON will discard them. Continue?");
+  const triggerLoad = () => {
+    if (nodes.length > 0 || edges.length > 0) {
+      const discard = window.confirm("You have unsaved changes - importing from a file will discard them. Continue?");
       if (!discard) {
         return;
       }
     }
     fileInput.click();
-  }
+  };
 
-  async function handleFileChange(event) {
+  const handleFileChange = async (event) => {
     const [file] = event.target.files;
     if (!file) return;
 
@@ -354,10 +369,10 @@
       // reset so the same file can be re-selected later if desired
       event.target.value = "";
     }
-  }
+  };
 
   // --- SAVING (download file) ---
-  function triggerSave(stateObj) {
+  const triggerSave = (stateObj) => {
     const json = JSON.stringify(stateObj, null, 2);
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -372,7 +387,25 @@
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     unsavedChanges = false;
-  }
+  };
+
+  const clearGraph = () => {
+    if (nodes.length > 0 || edges.length > 0) {
+      const discard = window.confirm("Clear entire graph?");
+      if (!discard) {
+        return;
+      }
+    }
+    nodes = [];
+    edges = [];
+    id = 1;
+    unsavedChanges = false;
+  };
+
+  $effect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ nodes, edges }));
+    unsavedChanges = false;
+  });
 </script>
 
 <!-- hook into the window event declaratively -->
@@ -399,6 +432,7 @@
   <Panel>
     <button onclick={() => triggerSave({ nodes, edges })}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
+    <button onclick={clearGraph}> Clear </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
