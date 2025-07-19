@@ -27,21 +27,24 @@
 
 <Handle type="target" position={Position.Left} {isConnectable} />
 <div class="sf-node">
-  <!-- TODO: checkbox -->
-  <div
-    class="sf-node__label"
-    contenteditable="true"
-    spellcheck="false"
-    bind:this={editable}
-    oninput={handleInput}
-    onmousedowncapture={stopPropagation}
-    onmouseupcapture={stopPropagation}
-    onclickcapture={stopPropagation}
-    onkeydowncapture={stopPropagation}
-    oncompositionstartcapture={stopPropagation}
-    oncompositionendcapture={stopPropagation}
-  >
-    {data.label}
+  <div style="display:flex; flex-direction: row; gap:5px;">
+    <!-- TODO: checkbox -->
+    <!-- TODO: click to focus -->
+    <div
+      class="sf-node__label"
+      contenteditable="true"
+      spellcheck="false"
+      bind:this={editable}
+      oninput={handleInput}
+      onmousedowncapture={stopPropagation}
+      onmouseupcapture={stopPropagation}
+      onclickcapture={stopPropagation}
+      onkeydowncapture={stopPropagation}
+      oncompositionstartcapture={stopPropagation}
+      oncompositionendcapture={stopPropagation}
+    >
+      {data.label}
+    </div>
   </div>
 </div>
 <Handle type="source" position={Position.Right} {isConnectable} />

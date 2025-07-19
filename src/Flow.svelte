@@ -426,6 +426,8 @@
   onnodedragstop={handleNodeDragStop}
   onpanecontextmenu={handlePaneContextMenu}
   onnodecontextmenu={handleNodeContextMenu}
+  minZoom={0.2}
+  maxZoom={8}
 >
   <Background />
   <Controls />
