@@ -17,7 +17,6 @@
 
   import "@xyflow/svelte/dist/style.css";
   import CustomNode from "./CustomNode.svelte";
-  import { writable } from "svelte/store";
 
   import { nodeDefaults, edgeDefaults } from "./nodes-and-edges";
   import { addPositions, subPositions } from "./math.ts";
@@ -237,7 +236,7 @@
     const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
     //want that
     // - children stay where they are globally
-    // - size of parent node changes to encapsulate children with some padding on all sides
+    // - size of parent node changes to encapsulate children and parent contents with some padding on all sides
     // - center of parent node moves to center of child bounds
     const boundsLocal = flowToLocalPosition(bounds, nodeId); //get xy in local coords
     const padding = 50;
