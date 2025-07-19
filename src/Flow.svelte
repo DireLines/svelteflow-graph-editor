@@ -29,6 +29,7 @@
     getNodesBounds,
     // getNode,
     updateNode,
+    deleteElements,
   } = useSvelteFlow();
   const STORAGE_KEY = "graph";
 
@@ -349,6 +350,7 @@
     try {
       const text = await file.text();
       const data = JSON.parse(text);
+      await deleteElements({ nodes, edges });
       nodes = data.nodes;
       edges = data.edges;
       //set id to max of incoming node ids + 1
