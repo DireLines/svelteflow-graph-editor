@@ -28,7 +28,6 @@
 <Handle type="target" position={Position.Left} {isConnectable} />
 <div class="sf-node">
   <!-- TODO: checkbox -->
-  <!-- TODO: top justify label -->
   <div
     class="sf-node__label"
     contenteditable="true"
