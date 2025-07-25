@@ -62,7 +62,6 @@
   // When focus leaves, turn editing off
   function disableEdit() {
     editing = false;
-    updateNodeData(id, { label: editable.innerText });
   }
 </script>
 
