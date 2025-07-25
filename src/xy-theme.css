@@ -22,6 +22,14 @@
   border: var(--xy-node-border-default);
   color: var(--xy-node-color, var(--xy-node-color-default));
 }
+.svelte-flow__node:hover .resize-handle {
+  opacity: 1;
+  pointer-events: all;
+}
+.resize-handle {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .svelte-flow__node.selectable:focus {
   border-color: #d9d9d9;
