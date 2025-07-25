@@ -35,7 +35,6 @@
   // Whenever the user types, update `text` and let parent know
   function handleLabelInput() {
     data.label = editable.innerText;
-    updateNodeData(id, { label: editable.innerText });
   }
 
   function handleCheckboxChange(e) {
@@ -63,6 +62,7 @@
   // When focus leaves, turn editing off
   function disableEdit() {
     editing = false;
+    updateNodeData(id, { label: editable.innerText });
   }
 </script>
 
@@ -86,6 +86,7 @@
         onkeydowncapture={stopPropagation}
         oncompositionstartcapture={stopPropagation}
         oncompositionendcapture={stopPropagation}
+        onblur={disableEdit}
       >
         {data.label}
       </div>
