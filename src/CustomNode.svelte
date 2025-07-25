@@ -69,7 +69,7 @@
 <div style={styleOpacity()}>
   <Handle type="target" position={Position.Left} {isConnectable} />
   <div class="sf-node">
-    <div style="display:flex; flex-direction: row; gap:5px;">
+    <div style="display:flex; flex-direction: row; gap:2px;">
       <!-- TODO: checkbox -->
       <input type="checkbox" bind:checked={completed as boolean} onchange={handleCheckboxChange} />
       <!-- TODO: click to focus -->
@@ -77,6 +77,7 @@
         class="sf-node__label"
         contenteditable="true"
         spellcheck="false"
+        style="display: inline-block; vertical-align: middle; line-height: 20px;"
         bind:this={editable}
         oninput={handleLabelInput}
         onmousedowncapture={stopPropagation}
