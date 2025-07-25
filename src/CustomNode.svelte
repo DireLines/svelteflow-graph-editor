@@ -1,22 +1,34 @@
 <!-- EditableNode.svelte: A custom node component for in-place editing of node labels in SvelteFlow -->
 <script lang="ts">
-  import { type NodeProps, Handle, Position } from "@xyflow/svelte"; //test commit
+  import { type NodeProps, Handle, Position, useNodeConnections, useNodesData, useSvelteFlow } from "@xyflow/svelte";
   import { onMount, tick } from "svelte";
-  let { isConnectable, data }: NodeProps = $props();
+  const { updateNodeData } = useSvelteFlow();
+  let { isConnectable, id, data }: NodeProps = $props();
 
   let editable;
   let editing = false;
   let completed = $state(data.completed);
 
+  // let connections = useNodeConnections({
+  //   handleType: "target",
+  // });
+  // const nodesData = $derived(useNodesData(connections.current.map((connection) => connection.source)));
+  // let workable = $state(true);
+  // for (const node of nodesData.current) {
+  //   if (!node.data.completed) {
+  //     workable = false;
+  //   }
+  // }
+
   let styleOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
 
   // Whenever the user types, update `text` and let parent know
   function handleLabelInput() {
-    data.label = editable.innerText;
+    updateNodeData(id, { label: editable.innerText });
   }
 
   function handleCheckboxChange(e) {
-    data.completed = completed;
+    updateNodeData(id, { completed });
   }
 
   // Optional: keep caret at end when programmatically updating
