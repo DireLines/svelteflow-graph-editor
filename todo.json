@@ -337,56 +337,6 @@
       "style": "opacity:100%"
     },
     {
-      "id": "15",
-      "data": {
-        "label": "mark as in progress",
-        "completed": false
-      },
-      "position": {
-        "x": 709.6287450256686,
-        "y": 636.739194527699
-      },
-      "type": "custom",
-      "sourcePosition": "right",
-      "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
-      "measured": {
-        "width": 149,
-        "height": 42
-      },
-      "selected": false,
-      "dragging": false,
-      "style": "opacity:100%"
-    },
-    {
-      "id": "16",
-      "data": {
-        "label": "set assignees",
-        "completed": false
-      },
-      "position": {
-        "x": 668.0574869590032,
-        "y": 539.8561237556229
-      },
-      "type": "custom",
-      "sourcePosition": "right",
-      "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
-      "measured": {
-        "width": 117,
-        "height": 42
-      },
-      "selected": false,
-      "dragging": false,
-      "style": "opacity:100%"
-    },
-    {
       "id": "17",
       "data": {
         "label": "resize handle in bottom right of node",
@@ -418,8 +368,8 @@
         "completed": true
       },
       "position": {
-        "x": -446.6625503851394,
-        "y": 856.8483080125887
+        "x": -567.6599323971298,
+        "y": 848.9040354562459
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -467,8 +417,8 @@
         "completed": false
       },
       "position": {
-        "x": 598.7319395091915,
-        "y": 913.6845044264044
+        "x": 464.6193212955412,
+        "y": 928.6839419897731
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -488,12 +438,12 @@
     {
       "id": "25",
       "data": {
-        "label": "double click to edit node",
+        "label": "button to edit node",
         "completed": false
       },
       "position": {
-        "x": 102.31711710054833,
-        "y": 571.672991055414
+        "x": -78.52865001871385,
+        "y": 642.4959249054932
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -503,7 +453,7 @@
         0.5
       ],
       "measured": {
-        "width": 173,
+        "width": 143,
         "height": 42
       },
       "selected": false,
@@ -588,12 +538,12 @@
     {
       "id": "33",
       "data": {
-        "label": "node description component",
+        "label": "node editor modal component",
         "completed": false
       },
       "position": {
-        "x": 384.3131019689807,
-        "y": 513.4188414611056
+        "x": 484.16466175372324,
+        "y": 591.1070047567631
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -603,14 +553,116 @@
         0.5
       ],
       "measured": {
-        "width": 226,
-        "height": 43
+        "width": 455,
+        "height": 145
       },
       "selected": false,
       "dragging": false,
       "style": "opacity:100%",
-      "width": 226,
-      "height": 43
+      "width": 455.00320407268634,
+      "height": 145.0203550993598
+    },
+    {
+      "id": "15",
+      "data": {
+        "label": "mark as in progress",
+        "completed": false
+      },
+      "position": {
+        "x": 284.38185130752817,
+        "y": 112.18545295639035
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 149,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false,
+      "style": "opacity:100%",
+      "parentId": "33"
+    },
+    {
+      "id": "16",
+      "data": {
+        "label": "set assignees",
+        "completed": false
+      },
+      "position": {
+        "x": 364.33075470395994,
+        "y": 59.1650978570305
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 117,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false,
+      "style": "opacity:100%",
+      "parentId": "33"
+    },
+    {
+      "id": "73",
+      "data": {
+        "label": "title (keep synced with node component)",
+        "completed": false
+      },
+      "position": {
+        "x": 147.32755063127368,
+        "y": 66.81856799537496
+      },
+      "parentId": "33",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 259,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "74",
+      "data": {
+        "label": "description",
+        "completed": false
+      },
+      "position": {
+        "x": 72.42633609399363,
+        "y": 105.11124572631473
+      },
+      "parentId": "33",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 102,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
     },
     {
       "id": "34",
@@ -767,7 +819,7 @@
     {
       "id": "41",
       "data": {
-        "label": "automatic node layout",
+        "label": "automatic node layout (maybe just use whatever mermaid does?)",
         "completed": false
       },
       "position": {
@@ -782,7 +834,7 @@
         0.5
       ],
       "measured": {
-        "width": 161,
+        "width": 392,
         "height": 42
       },
       "selected": false,
@@ -796,8 +848,8 @@
         "completed": true
       },
       "position": {
-        "x": 227.00203316155623,
-        "y": 896.220311407903
+        "x": 166.50334215556103,
+        "y": 876.6651789615206
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -821,7 +873,7 @@
         "completed": true
       },
       "position": {
-        "x": -57.36946360458512,
+        "x": -189.36660761766558,
         "y": 750.7304181933101
       },
       "type": "custom",
@@ -846,8 +898,8 @@
         "completed": false
       },
       "position": {
-        "x": 1078.8174491744905,
-        "y": 578.7922913270953
+        "x": 1062.436990971468,
+        "y": 582.584866376541
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -857,24 +909,24 @@
         0.5
       ],
       "measured": {
-        "width": 433,
-        "height": 139
+        "width": 430,
+        "height": 187
       },
       "selected": false,
       "dragging": false,
-      "width": 433.05957366308303,
-      "height": 139.30612952237357,
+      "width": 430.05957366308303,
+      "height": 186.73107930858765,
       "style": "opacity:100%"
     },
     {
       "id": "42",
       "data": {
-        "label": "filter to in progress / workable / set of assignees",
+        "label": "filter nodes to in progress / workable / set of assignees",
         "completed": false
       },
       "position": {
-        "x": 212.3265640601955,
-        "y": 65.58714765984348
+        "x": 174.99391002966337,
+        "y": 61.08377749984035
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -884,7 +936,7 @@
         0.5
       ],
       "measured": {
-        "width": 297,
+        "width": 333,
         "height": 42
       },
       "selected": false,
@@ -899,8 +951,8 @@
         "completed": false
       },
       "position": {
-        "x": 309.3261542748212,
-        "y": 110.40358267987722
+        "x": 285.72780901087054,
+        "y": 112.08065146483588
       },
       "parentId": "47",
       "type": "custom",
@@ -925,8 +977,8 @@
         "completed": false
       },
       "position": {
-        "x": 113.26658061173816,
-        "y": 112.89327718221705
+        "x": 89.66823534778752,
+        "y": 114.57034596717571
       },
       "parentId": "47",
       "type": "custom",
@@ -944,14 +996,39 @@
       "dragging": false
     },
     {
+      "id": "78",
+      "data": {
+        "label": "organize nodes",
+        "completed": false
+      },
+      "position": {
+        "x": 248.15924434335489,
+        "y": 155.814856808428
+      },
+      "parentId": "47",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 126,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
       "id": "51",
       "data": {
         "label": "bug: when saving / loading, keep newlines and other stuff in content",
         "completed": false
       },
       "position": {
-        "x": 139.68260843992402,
-        "y": 376.8070681728962
+        "x": 107.2689813930578,
+        "y": 377.985745520055
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -999,8 +1076,8 @@
         "completed": false
       },
       "position": {
-        "x": 44.82165272096803,
-        "y": 250.08790700089736
+        "x": -86.60087148723488,
+        "y": 195.2794103580145
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1043,12 +1120,12 @@
     {
       "id": "64",
       "data": {
-        "label": "bug: if node has been manually resized, only resize if new size >= this size in both dimensions",
+        "label": "bug: if node has been manually resized, only auto-resize if new size >= this size in both dimensions",
         "completed": false
       },
       "position": {
-        "x": 138.65809279597485,
-        "y": 178.21034508651715
+        "x": 303.4313439265631,
+        "y": 208.87611318791772
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1058,11 +1135,13 @@
         0.5
       ],
       "measured": {
-        "width": 544,
-        "height": 42
+        "width": 339,
+        "height": 64
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "width": 339,
+      "height": 64
     },
     {
       "id": "65",
@@ -1108,6 +1187,102 @@
       ],
       "measured": {
         "width": 260,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "67",
+      "data": {
+        "label": "bug: when adding a newline, it seems to fuck up the contents of the node",
+        "completed": true
+      },
+      "position": {
+        "x": 116.07509210534246,
+        "y": 435.56778107094954
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 432,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "72",
+      "data": {
+        "label": "styling: reorganize checkbox, edit, focus controls to on-hover menu above node",
+        "completed": false
+      },
+      "position": {
+        "x": 523.9448732586025,
+        "y": 481.2012621537895
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 466,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "76",
+      "data": {
+        "label": "select multiple nodes (click & drag rect or shift-click)",
+        "completed": false
+      },
+      "position": {
+        "x": 566.2605086842822,
+        "y": 1589.630108214224
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 319,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "80",
+      "data": {
+        "label": "grey out incoming edges to completed nodes",
+        "completed": false
+      },
+      "position": {
+        "x": 25.102900359631064,
+        "y": 945.7094163746134
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 283,
         "height": 42
       },
       "selected": false,
@@ -1252,12 +1427,6 @@
       "selected": false
     },
     {
-      "source": "41",
-      "target": "35",
-      "id": "xy-edge__41-35",
-      "selected": false
-    },
-    {
       "source": "16",
       "target": "42",
       "id": "xy-edge__16-42",
@@ -1317,6 +1486,33 @@
       },
       "zIndex": 10000,
       "selected": false
+    },
+    {
+      "source": "54",
+      "target": "64",
+      "id": "xy-edge__54-64",
+      "selected": false
+    },
+    {
+      "source": "25",
+      "target": "72",
+      "id": "xy-edge__25-72",
+      "selected": false
+    },
+    {
+      "source": "41",
+      "target": "35",
+      "id": "xy-edge__41-35"
+    },
+    {
+      "source": "18",
+      "target": "80",
+      "id": "xy-edge__18-80"
+    },
+    {
+      "source": "80",
+      "target": "10",
+      "id": "xy-edge__80-10"
     }
   ]
 }

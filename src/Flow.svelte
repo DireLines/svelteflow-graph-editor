@@ -450,5 +450,9 @@
       <option value="light">light mode</option>
       <option value="system">system</option>
     </select>
+    <!--TODO checkbox for show/hide completed nodes-->
+    <!--TODO checkbox for show only workable nodes-->
+    <!--TODO filter by set of assignees-->
+    <!--TODO node search bar-->
   </Panel>
 </SvelteFlow>

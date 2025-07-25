@@ -22,11 +22,11 @@
   border: var(--xy-node-border-default);
   color: var(--xy-node-color, var(--xy-node-color-default));
 }
-.svelte-flow__node:hover .resize-handle {
+.svelte-flow__node:hover .node-hover-controls {
   opacity: 1;
   pointer-events: all;
 }
-.resize-handle {
+.node-hover-controls {
   opacity: 0;
   pointer-events: none;
 }

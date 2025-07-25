@@ -69,9 +69,10 @@
   <Handle type="target" position={Position.Left} {isConnectable} />
   <div class="sf-node">
     <div style="display:flex; flex-direction: row; gap:2px;">
-      <!-- TODO: checkbox -->
+      <!--TODO move to above-node hover menu-->
       <input type="checkbox" bind:checked={completed as boolean} onchange={handleCheckboxChange} />
       <!-- TODO: click to focus -->
+      <!-- TODO: click to edit node -->
       <div
         class="sf-node__label"
         contenteditable="true"
@@ -91,7 +92,12 @@
       </div>
     </div>
   </div>
-  <NodeResizeControl class="resize-handle" minWidth={100} minHeight={5} style="background: transparent; border: none;">
+  <NodeResizeControl
+    class="node-hover-controls"
+    minWidth={100}
+    minHeight={5}
+    style="background: transparent; border: none;"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="10"
