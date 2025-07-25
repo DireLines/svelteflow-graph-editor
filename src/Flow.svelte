@@ -128,7 +128,7 @@
     //make node as child of parent
     const newNode: Node = {
       id,
-      data: { label: `Task ${id}` },
+      data: { label: `Task ${id}`, completed: false },
       position,
       parentId: parent?.id,
       ...nodeDefaults,
@@ -403,9 +403,18 @@
     unsavedChanges = false;
   };
 
-  $effect(() => {
+  function saveGraph() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ nodes, edges }));
     unsavedChanges = false;
+  }
+  function recolorNodes() {
+    for (const node of nodes) {
+      updateNode(node.id, { style: "opacity:100%" });
+    }
+  }
+  $effect(() => {
+    saveGraph();
+    // recolorNodes();
   });
 </script>
 
@@ -427,12 +436,12 @@
   onpanecontextmenu={handlePaneContextMenu}
   onnodecontextmenu={handleNodeContextMenu}
   minZoom={0.2}
-  maxZoom={8}
+  maxZoom={6}
 >
   <Background />
   <Controls />
   <MiniMap />
-  <Panel>
+  <Panel style="display:flex; flex-direction: column; gap:2px;">
     <button onclick={() => triggerSave({ nodes, edges })}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
     <button onclick={clearGraph}> Clear </button>
