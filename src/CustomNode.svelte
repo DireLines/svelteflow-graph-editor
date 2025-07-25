@@ -65,31 +65,32 @@
   }
 </script>
 
+<div class="control-panel">
+  <input type="checkbox" bind:checked={completed as boolean} onchange={handleCheckboxChange} />
+  <!-- add more buttons here -->
+  <!-- TODO: click to edit node -->
+  <!-- <button onclick={() => console.log("edit")}>✏️</button> -->
+  <!-- TODO: click to focus -->
+  <!-- <button onclick={() => console.log("focus")}>⛶</button> -->
+</div>
 <div style={styleOpacity()}>
   <Handle type="target" position={Position.Left} {isConnectable} />
   <div class="sf-node">
-    <div style="display:flex; flex-direction: row; gap:2px;">
-      <!--TODO move to above-node hover menu-->
-      <input type="checkbox" bind:checked={completed as boolean} onchange={handleCheckboxChange} />
-      <!-- TODO: click to focus -->
-      <!-- TODO: click to edit node -->
-      <div
-        class="sf-node__label"
-        contenteditable="true"
-        spellcheck="false"
-        style="display: inline-block; vertical-align: middle; line-height: 20px;"
-        bind:this={editable}
-        oninput={handleLabelInput}
-        onmousedowncapture={stopPropagation}
-        onmouseupcapture={stopPropagation}
-        onclickcapture={stopPropagation}
-        onkeydowncapture={stopPropagation}
-        oncompositionstartcapture={stopPropagation}
-        oncompositionendcapture={stopPropagation}
-        onblur={disableEdit}
-      >
-        {data.label}
-      </div>
+    <div
+      class="sf-node__label"
+      contenteditable="true"
+      spellcheck="false"
+      bind:this={editable}
+      oninput={handleLabelInput}
+      onmousedowncapture={stopPropagation}
+      onmouseupcapture={stopPropagation}
+      onclickcapture={stopPropagation}
+      onkeydowncapture={stopPropagation}
+      oncompositionstartcapture={stopPropagation}
+      oncompositionendcapture={stopPropagation}
+      onblur={disableEdit}
+    >
+      {data.label}
     </div>
   </div>
   <NodeResizeControl

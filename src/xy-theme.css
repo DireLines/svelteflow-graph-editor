@@ -31,6 +31,24 @@
   pointer-events: none;
 }
 
+.control-panel {
+  position: absolute;
+  top: -25px; /* adjust depending on panel height */
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  gap: 0.5rem;
+  background: #1e1e1e;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  pointer-events: auto;
+}
+
+.svelte-flow__node:hover .control-panel {
+  display: flex;
+}
+
 .svelte-flow__node.selectable:focus {
   border-color: #d9d9d9;
 }

@@ -1100,8 +1100,8 @@
         "completed": true
       },
       "position": {
-        "x": 98.07103219928501,
-        "y": 310.89440729112977
+        "x": 78.04679843935688,
+        "y": 306.0697331268537
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1111,11 +1111,13 @@
         0.5
       ],
       "measured": {
-        "width": 310,
+        "width": 342,
         "height": 42
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "width": 342,
+      "height": 42
     },
     {
       "id": "64",
@@ -1220,11 +1222,11 @@
       "id": "72",
       "data": {
         "label": "styling: reorganize checkbox, edit, focus controls to on-hover menu above node",
-        "completed": false
+        "completed": true
       },
       "position": {
-        "x": 523.9448732586025,
-        "y": 481.2012621537895
+        "x": -606.7368953076277,
+        "y": 412.29304480944097
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1234,11 +1236,13 @@
         0.5
       ],
       "measured": {
-        "width": 466,
-        "height": 42
+        "width": 214,
+        "height": 90
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "width": 214,
+      "height": 90
     },
     {
       "id": "76",
@@ -1283,6 +1287,126 @@
       ],
       "measured": {
         "width": 283,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "81",
+      "data": {
+        "label": "styling: make node label font size proportional to node size",
+        "completed": false
+      },
+      "position": {
+        "x": 680.6622238042931,
+        "y": 345.7992772995503
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 356,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "83",
+      "data": {
+        "label": "button to duplicate node (incl child nodes)",
+        "completed": false
+      },
+      "position": {
+        "x": 865.3235539064356,
+        "y": 1772.8292738348557
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 265,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "84",
+      "data": {
+        "label": "duplicate arbitrary set of nodes under a node - new ids, same data/connections",
+        "completed": false
+      },
+      "position": {
+        "x": 278.15417019179813,
+        "y": 1766.4269749460532
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 464,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "86",
+      "data": {
+        "label": "import graph into a node",
+        "completed": false
+      },
+      "position": {
+        "x": 892.2662968504942,
+        "y": 1675.1832111715069
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 174,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "87",
+      "data": {
+        "label": "make a copy of this node every x hours (for recurring tasks)",
+        "completed": false
+      },
+      "position": {
+        "x": 836.5684964406065,
+        "y": 1885.961161742258
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 360,
         "height": 42
       },
       "selected": false,
@@ -1494,25 +1618,54 @@
       "selected": false
     },
     {
-      "source": "25",
-      "target": "72",
-      "id": "xy-edge__25-72",
-      "selected": false
-    },
-    {
       "source": "41",
       "target": "35",
-      "id": "xy-edge__41-35"
+      "id": "xy-edge__41-35",
+      "selected": false
     },
     {
       "source": "18",
       "target": "80",
-      "id": "xy-edge__18-80"
+      "id": "xy-edge__18-80",
+      "selected": false
     },
     {
       "source": "80",
       "target": "10",
-      "id": "xy-edge__80-10"
+      "id": "xy-edge__80-10",
+      "selected": false
+    },
+    {
+      "source": "84",
+      "target": "83",
+      "id": "84->83",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false
+    },
+    {
+      "source": "84",
+      "target": "86",
+      "id": "84->86",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false
+    },
+    {
+      "source": "84",
+      "target": "87",
+      "id": "xy-edge__84-87",
+      "selected": false
     }
   ]
 }
