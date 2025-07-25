@@ -5,7 +5,7 @@ export default {
   preprocess: vitePreprocess(),
   kit: {
     paths: {
-      base: process.env.NODE_ENV === "production" ? "/svelteflow-graph-editor" : "",
+      base: process.env.NODE_ENV === "production" ? "/svelteflow-graph-editor/" : "",
     },
   },
 };
