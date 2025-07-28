@@ -33,6 +33,10 @@
   } = useSvelteFlow();
   const STORAGE_KEY = "graph";
 
+  let showCompleted = $state(true);
+  let showWorkable = $state(true);
+  let showUpcoming = $state(true);
+
   // load existing or fall back
   let initial;
   const defaultValue = { nodes: [], edges: [] };
@@ -450,8 +454,16 @@
       <option value="light">light mode</option>
       <option value="system">system</option>
     </select>
-    <!--TODO checkbox for show/hide completed nodes-->
-    <!--TODO checkbox for show only workable nodes-->
+    <div style="color:beige">Show</div>
+    <div style="color:beige">
+      <input type="checkbox" bind:checked={showCompleted as boolean} />past
+    </div>
+    <div style="color:beige">
+      <input type="checkbox" bind:checked={showWorkable as boolean} />present
+    </div>
+    <div style="color:beige">
+      <input type="checkbox" bind:checked={showUpcoming as boolean} />future
+    </div>
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
   </Panel>
