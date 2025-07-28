@@ -18,8 +18,8 @@
         0.5
       ],
       "measured": {
-        "width": 254,
-        "height": 42
+        "width": 232,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -43,37 +43,10 @@
         0.5
       ],
       "measured": {
-        "width": 345,
-        "height": 42
+        "width": 323,
+        "height": 36
       },
       "selected": false,
-      "dragging": false,
-      "style": "opacity:100%"
-    },
-    {
-      "id": "4",
-      "data": {
-        "label": "one of",
-        "completed": false
-      },
-      "position": {
-        "x": 162.65521705536315,
-        "y": 1062.6830310056507
-      },
-      "type": "custom",
-      "sourcePosition": "right",
-      "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
-      "measured": {
-        "width": 381,
-        "height": 138
-      },
-      "selected": false,
-      "width": 381,
-      "height": 138.3115807013511,
       "dragging": false,
       "style": "opacity:100%"
     },
@@ -84,10 +57,9 @@
         "completed": false
       },
       "position": {
-        "x": 179.70713684532396,
-        "y": 53.996976481772265
+        "x": 191.97188727577176,
+        "y": 1046.877792376206
       },
-      "parentId": "4",
       "type": "custom",
       "sourcePosition": "right",
       "targetPosition": "left",
@@ -96,38 +68,14 @@
         0.5
       ],
       "measured": {
-        "width": 328,
-        "height": 42
+        "width": 377,
+        "height": 54
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
-    },
-    {
-      "id": "5",
-      "data": {
-        "label": "svelteflow hide nodes / zoom to fit",
-        "completed": false
-      },
-      "position": {
-        "x": 184.02839621314902,
-        "y": 100.30855718312336
-      },
-      "parentId": "4",
-      "type": "custom",
-      "sourcePosition": "right",
-      "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
-      "measured": {
-        "width": 224,
-        "height": 42
-      },
-      "selected": false,
-      "dragging": false,
-      "style": "opacity:100%"
+      "style": "opacity:100%",
+      "width": 377,
+      "height": 54
     },
     {
       "id": "27",
@@ -136,8 +84,8 @@
         "completed": false
       },
       "position": {
-        "x": -44.43544816337982,
-        "y": 1239.6692286178175
+        "x": -46.63596055740568,
+        "y": 1249.0214062924274
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -147,8 +95,8 @@
         0.5
       ],
       "measured": {
-        "width": 159,
-        "height": 42
+        "width": 137,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -200,8 +148,8 @@
         0.5
       ],
       "measured": {
-        "width": 331,
-        "height": 42
+        "width": 309,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -210,12 +158,12 @@
     {
       "id": "7",
       "data": {
-        "label": "buttons to enter node / go up a level",
+        "label": "buttons to enter node / go up a level / go to top level",
         "completed": false
       },
       "position": {
-        "x": 1431.6261378998881,
-        "y": 973.214941691496
+        "x": 1477.1261378998881,
+        "y": 968.714941691496
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -225,24 +173,24 @@
         0.5
       ],
       "measured": {
-        "width": 248,
-        "height": 44
+        "width": 339,
+        "height": 35
       },
       "selected": false,
       "dragging": false,
       "style": "opacity:100%",
-      "width": 248,
-      "height": 44
+      "width": 339,
+      "height": 35
     },
     {
       "id": "8",
       "data": {
-        "label": "do not show nodes at levels more than 3 beneath current",
+        "label": "do not show nodes at levels more than 2 beneath current",
         "completed": false
       },
       "position": {
-        "x": 976.1342595956432,
-        "y": 1056.7295081144978
+        "x": 908.2734834963742,
+        "y": 1059.4082229605215
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -252,8 +200,8 @@
         0.5
       ],
       "measured": {
-        "width": 347,
-        "height": 42
+        "width": 325,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -304,8 +252,8 @@
         0.5
       ],
       "measured": {
-        "width": 270,
-        "height": 42
+        "width": 248,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -318,8 +266,8 @@
         "completed": false
       },
       "position": {
-        "x": 564.365718740721,
-        "y": 714.7812843874216
+        "x": 425.0885033002703,
+        "y": 717.3446687206814
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -329,8 +277,8 @@
         0.5
       ],
       "measured": {
-        "width": 444,
-        "height": 42
+        "width": 422,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -343,8 +291,8 @@
         "completed": true
       },
       "position": {
-        "x": -472.11928966034327,
-        "y": 593.4060265646361
+        "x": -568.8003265918264,
+        "y": 521.1864568085886
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -354,8 +302,8 @@
         0.5
       ],
       "measured": {
-        "width": 238,
-        "height": 42
+        "width": 216,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -379,8 +327,8 @@
         0.5
       ],
       "measured": {
-        "width": 258,
-        "height": 42
+        "width": 236,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -404,8 +352,8 @@
         0.5
       ],
       "measured": {
-        "width": 314,
-        "height": 42
+        "width": 292,
+        "height": 36
       },
       "selected": false,
       "style": "opacity:100%"
@@ -428,8 +376,8 @@
         0.5
       ],
       "measured": {
-        "width": 176,
-        "height": 42
+        "width": 154,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -442,7 +390,7 @@
         "completed": false
       },
       "position": {
-        "x": -78.52865001871385,
+        "x": 752.0289340722752,
         "y": 642.4959249054932
       },
       "type": "custom",
@@ -453,8 +401,8 @@
         0.5
       ],
       "measured": {
-        "width": 143,
-        "height": 42
+        "width": 121,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -478,8 +426,8 @@
         0.5
       ],
       "measured": {
-        "width": 303,
-        "height": 42
+        "width": 281,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -503,8 +451,8 @@
         0.5
       ],
       "measured": {
-        "width": 578,
-        "height": 42
+        "width": 556,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -528,8 +476,8 @@
         0.5
       ],
       "measured": {
-        "width": 376,
-        "height": 42
+        "width": 354,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -542,8 +490,8 @@
         "completed": false
       },
       "position": {
-        "x": 484.16466175372324,
-        "y": 591.1070047567631
+        "x": 393.0305803870701,
+        "y": 555.5137671603316
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -553,14 +501,14 @@
         0.5
       ],
       "measured": {
-        "width": 455,
-        "height": 145
+        "width": 433,
+        "height": 139
       },
       "selected": false,
       "dragging": false,
       "style": "opacity:100%",
-      "width": 455.00320407268634,
-      "height": 145.0203550993598
+      "width": 433.00320407268623,
+      "height": 138.6870913069904
     },
     {
       "id": "15",
@@ -569,8 +517,8 @@
         "completed": false
       },
       "position": {
-        "x": 284.38185130752817,
-        "y": 112.18545295639035
+        "x": 299.0892371768062,
+        "y": 108.45044933859754
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -580,8 +528,8 @@
         0.5
       ],
       "measured": {
-        "width": 149,
-        "height": 42
+        "width": 127,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -595,8 +543,8 @@
         "completed": false
       },
       "position": {
-        "x": 364.33075470395994,
-        "y": 59.1650978570305
+        "x": 353.3355608129893,
+        "y": 56.164453660959055
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -606,8 +554,8 @@
         0.5
       ],
       "measured": {
-        "width": 117,
-        "height": 42
+        "width": 95,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -621,8 +569,8 @@
         "completed": false
       },
       "position": {
-        "x": 147.32755063127368,
-        "y": 66.81856799537496
+        "x": 136.33235674030303,
+        "y": 63.817923799303514
       },
       "parentId": "33",
       "type": "custom",
@@ -633,8 +581,8 @@
         0.5
       ],
       "measured": {
-        "width": 259,
-        "height": 42
+        "width": 237,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -646,8 +594,8 @@
         "completed": false
       },
       "position": {
-        "x": 72.42633609399363,
-        "y": 105.11124572631473
+        "x": 61.43114220302297,
+        "y": 102.11060153024329
       },
       "parentId": "33",
       "type": "custom",
@@ -658,8 +606,33 @@
         0.5
       ],
       "measured": {
-        "width": 102,
-        "height": 42
+        "width": 80,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "94",
+      "data": {
+        "label": "time estimates",
+        "completed": false
+      },
+      "position": {
+        "x": 164.31346166112013,
+        "y": 108.85154496794951
+      },
+      "parentId": "33",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 99,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -682,8 +655,8 @@
         0.5
       ],
       "measured": {
-        "width": 327,
-        "height": 42
+        "width": 305,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -707,8 +680,8 @@
         0.5
       ],
       "measured": {
-        "width": 164,
-        "height": 42
+        "width": 142,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -732,8 +705,8 @@
         0.5
       ],
       "measured": {
-        "width": 150,
-        "height": 42
+        "width": 128,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -742,12 +715,12 @@
     {
       "id": "38",
       "data": {
-        "label": "editor state history buffer",
+        "label": "append to state history buffer when state changed",
         "completed": false
       },
       "position": {
-        "x": 938.3357141164757,
-        "y": 1112.856168289296
+        "x": 494.17366019162347,
+        "y": 1173.793124644725
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -757,14 +730,14 @@
         0.5
       ],
       "measured": {
-        "width": 217,
-        "height": 41
+        "width": 227,
+        "height": 57
       },
       "selected": false,
       "dragging": false,
       "style": "opacity:100%",
-      "width": 217,
-      "height": 41
+      "width": 227,
+      "height": 57
     },
     {
       "id": "39",
@@ -773,8 +746,8 @@
         "completed": false
       },
       "position": {
-        "x": 1226.0148466949308,
-        "y": 1110.6593534827464
+        "x": 938.0698871252488,
+        "y": 1154.7734837789371
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -784,8 +757,8 @@
         0.5
       ],
       "measured": {
-        "width": 167,
-        "height": 42
+        "width": 145,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -794,12 +767,12 @@
     {
       "id": "40",
       "data": {
-        "label": "when to record state changes?",
+        "label": "determine when to record state changes?",
         "completed": false
       },
       "position": {
-        "x": 540.0897451424158,
-        "y": 1157.3952287293262
+        "x": 102.15674256568492,
+        "y": 1161.405604210798
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -809,8 +782,8 @@
         0.5
       ],
       "measured": {
-        "width": 208,
-        "height": 42
+        "width": 243,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -834,8 +807,8 @@
         0.5
       ],
       "measured": {
-        "width": 392,
-        "height": 42
+        "width": 370,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -859,8 +832,8 @@
         0.5
       ],
       "measured": {
-        "width": 169,
-        "height": 42
+        "width": 147,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -884,8 +857,8 @@
         0.5
       ],
       "measured": {
-        "width": 402,
-        "height": 42
+        "width": 380,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -898,8 +871,8 @@
         "completed": false
       },
       "position": {
-        "x": 1062.436990971468,
-        "y": 582.584866376541
+        "x": 1086.3619114152266,
+        "y": 562.9322531548822
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -936,8 +909,8 @@
         0.5
       ],
       "measured": {
-        "width": 333,
-        "height": 42
+        "width": 311,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -963,8 +936,8 @@
         0.5
       ],
       "measured": {
-        "width": 195,
-        "height": 42
+        "width": 173,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -989,8 +962,8 @@
         0.5
       ],
       "measured": {
-        "width": 173,
-        "height": 42
+        "width": 151,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1014,8 +987,8 @@
         0.5
       ],
       "measured": {
-        "width": 126,
-        "height": 42
+        "width": 104,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1023,7 +996,7 @@
     {
       "id": "51",
       "data": {
-        "label": "bug: when saving / loading, keep newlines and other stuff in content",
+        "label": "bug: instead of entering newline, enter should stop editing title",
         "completed": false
       },
       "position": {
@@ -1038,8 +1011,8 @@
         0.5
       ],
       "measured": {
-        "width": 404,
-        "height": 42
+        "width": 351,
+        "height": 36
       },
       "selected": false,
       "dragging": false,
@@ -1063,8 +1036,8 @@
         0.5
       ],
       "measured": {
-        "width": 241,
-        "height": 42
+        "width": 219,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1076,8 +1049,8 @@
         "completed": false
       },
       "position": {
-        "x": -86.60087148723488,
-        "y": 195.2794103580145
+        "x": 63.36595669575191,
+        "y": 156.85815685658812
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1087,8 +1060,8 @@
         0.5
       ],
       "measured": {
-        "width": 193,
-        "height": 42
+        "width": 171,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1126,8 +1099,8 @@
         "completed": false
       },
       "position": {
-        "x": 303.4313439265631,
-        "y": 208.87611318791772
+        "x": 69.80533473240601,
+        "y": 233.66401867270895
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1173,7 +1146,7 @@
     {
       "id": "66",
       "data": {
-        "label": "bug: text should not overflow out of node",
+        "label": "bug: text should not overflow out of node - scroll bar instead",
         "completed": false
       },
       "position": {
@@ -1188,8 +1161,8 @@
         0.5
       ],
       "measured": {
-        "width": 260,
-        "height": 42
+        "width": 340,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1212,8 +1185,8 @@
         0.5
       ],
       "measured": {
-        "width": 432,
-        "height": 42
+        "width": 410,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1225,8 +1198,8 @@
         "completed": true
       },
       "position": {
-        "x": -606.7368953076277,
-        "y": 412.29304480944097
+        "x": -240.96350623693718,
+        "y": 659.23594212846
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1262,8 +1235,8 @@
         0.5
       ],
       "measured": {
-        "width": 319,
-        "height": 42
+        "width": 297,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1275,8 +1248,8 @@
         "completed": false
       },
       "position": {
-        "x": 25.102900359631064,
-        "y": 945.7094163746134
+        "x": 117.97776587298165,
+        "y": 966.513386249604
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1286,8 +1259,8 @@
         0.5
       ],
       "measured": {
-        "width": 283,
-        "height": 42
+        "width": 261,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1299,8 +1272,8 @@
         "completed": false
       },
       "position": {
-        "x": 680.6622238042931,
-        "y": 345.7992772995503
+        "x": 68.34455549062758,
+        "y": -22.216137635907884
       },
       "type": "custom",
       "sourcePosition": "right",
@@ -1310,8 +1283,8 @@
         0.5
       ],
       "measured": {
-        "width": 356,
-        "height": 42
+        "width": 334,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1334,8 +1307,8 @@
         0.5
       ],
       "measured": {
-        "width": 265,
-        "height": 42
+        "width": 243,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1358,8 +1331,8 @@
         0.5
       ],
       "measured": {
-        "width": 464,
-        "height": 42
+        "width": 442,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1382,8 +1355,8 @@
         0.5
       ],
       "measured": {
-        "width": 174,
-        "height": 42
+        "width": 152,
+        "height": 36
       },
       "selected": false,
       "dragging": false
@@ -1406,20 +1379,310 @@
         0.5
       ],
       "measured": {
-        "width": 360,
-        "height": 42
+        "width": 338,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "89",
+      "data": {
+        "label": "react at graph level to events at node level",
+        "completed": false
+      },
+      "position": {
+        "x": -448.21628958238944,
+        "y": 937.4738000674967
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 247,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "90",
+      "data": {
+        "label": "semantics: checkboxes for letting the program warn / error on certain conditions",
+        "completed": false
+      },
+      "position": {
+        "x": 1714.5665845781778,
+        "y": 564.947492754855
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 384,
+        "height": 204
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 384,
+      "height": 203.74176565933317
+    },
+    {
+      "id": "92",
+      "data": {
+        "label": "dependencies going between levels",
+        "completed": false
+      },
+      "position": {
+        "x": 181.15590619027694,
+        "y": 64.84485631149715
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 212,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "93",
+      "data": {
+        "label": "task marked in progress / complete with incomplete dependencies",
+        "completed": false
+      },
+      "position": {
+        "x": 193.5296442443355,
+        "y": 106.07877908491213
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 334,
+        "height": 39
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 334,
+      "height": 39
+    },
+    {
+      "id": "96",
+      "data": {
+        "label": "task marked complete with incomplete subtasks",
+        "completed": false
+      },
+      "position": {
+        "x": 193.96001178036818,
+        "y": 156.00057664840773
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 276,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "102",
+      "data": {
+        "label": "cyclic dependencies",
+        "completed": false
+      },
+      "position": {
+        "x": 189.250521665542,
+        "y": 182.58662197083038
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 129,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "97",
+      "data": {
+        "label": "get nodes at or up to n levels below arbitrary node",
+        "completed": false
+      },
+      "position": {
+        "x": -570.5432787880873,
+        "y": 1073.1606755221862
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 288,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "99",
+      "data": {
+        "label": "replace graph state smoothly",
+        "completed": false
+      },
+      "position": {
+        "x": -217.10054531969138,
+        "y": 1144.1829008468296
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 176,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "104",
+      "data": {
+        "label": "UX: it is hard to find the title text field after the user completely clears it",
+        "completed": false
+      },
+      "position": {
+        "x": 102.8397029770012,
+        "y": 44.86957340660913
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 396,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "105",
+      "data": {
+        "label": "styling: checkbox in side panel with visible label",
+        "completed": false
+      },
+      "position": {
+        "x": 103.14881633004653,
+        "y": -119.0194303246214
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 274,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "106",
+      "data": {
+        "label": "cache side panel settings in localStorage",
+        "completed": false
+      },
+      "position": {
+        "x": 1600.9088197093456,
+        "y": 384.4030024454838
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 239,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "108",
+      "data": {
+        "label": "convert between nested format and flat list with parent ids",
+        "completed": false
+      },
+      "position": {
+        "x": -684.256985284835,
+        "y": 1155.8775091454252
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 328,
+        "height": 36
       },
       "selected": false,
       "dragging": false
     }
   ],
   "edges": [
-    {
-      "source": "4",
-      "target": "6",
-      "id": "xy-edge__4-6",
-      "selected": false
-    },
     {
       "source": "6",
       "target": "7",
@@ -1431,12 +1694,6 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
-    },
-    {
-      "source": "4",
-      "target": "8",
-      "id": "xy-edge__4-8",
       "selected": false
     },
     {
@@ -1581,12 +1838,6 @@
       "selected": false
     },
     {
-      "source": "25",
-      "target": "33",
-      "id": "xy-edge__25-33",
-      "selected": false
-    },
-    {
       "source": "52",
       "target": "10",
       "id": "xy-edge__52-10",
@@ -1609,12 +1860,6 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
-    },
-    {
-      "source": "54",
-      "target": "64",
-      "id": "xy-edge__54-64",
       "selected": false
     },
     {
@@ -1666,6 +1911,94 @@
       "target": "87",
       "id": "xy-edge__84-87",
       "selected": false
+    },
+    {
+      "source": "89",
+      "target": "80",
+      "id": "xy-edge__89-80",
+      "selected": false
+    },
+    {
+      "source": "89",
+      "target": "52",
+      "id": "xy-edge__89-52",
+      "selected": false
+    },
+    {
+      "source": "89",
+      "target": "13",
+      "id": "xy-edge__89-13",
+      "selected": false
+    },
+    {
+      "source": "47",
+      "target": "90",
+      "id": "xy-edge__47-90",
+      "selected": false
+    },
+    {
+      "source": "3",
+      "target": "6",
+      "id": "xy-edge__3-6",
+      "selected": false
+    },
+    {
+      "source": "3",
+      "target": "8",
+      "id": "xy-edge__3-8",
+      "selected": false
+    },
+    {
+      "source": "97",
+      "target": "3",
+      "id": "97->3",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false
+    },
+    {
+      "source": "99",
+      "target": "3",
+      "id": "xy-edge__99-3",
+      "selected": false
+    },
+    {
+      "source": "72",
+      "target": "25",
+      "id": "xy-edge__72-25",
+      "selected": false
+    },
+    {
+      "source": "97",
+      "target": "52",
+      "id": "xy-edge__97-52",
+      "selected": false
+    },
+    {
+      "source": "97",
+      "target": "26",
+      "id": "xy-edge__97-26",
+      "selected": false
+    },
+    {
+      "source": "33",
+      "target": "25",
+      "id": "xy-edge__33-25"
+    },
+    {
+      "source": "47",
+      "target": "106",
+      "id": "xy-edge__47-106"
+    },
+    {
+      "source": "108",
+      "target": "3",
+      "id": "xy-edge__108-3"
     }
   ]
 }
