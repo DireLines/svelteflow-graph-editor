@@ -7,16 +7,13 @@
         "completed": false
       },
       "position": {
-        "x": 1044.8969294417566,
-        "y": 744.6861476640304
+        "x": 1037.0441298626854,
+        "y": 751.2990315200905
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 232,
         "height": 36
@@ -36,12 +33,9 @@
         "y": 860.7014698608366
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 323,
         "height": 36
@@ -61,12 +55,9 @@
         "y": 1046.877792376206
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 377,
         "height": 54
@@ -88,12 +79,9 @@
         "y": 1249.0214062924274
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 137,
         "height": 36
@@ -113,12 +101,9 @@
         "y": 932.5198018693519
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 359,
         "height": 86
@@ -141,12 +126,9 @@
       },
       "parentId": "6",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 309,
         "height": 36
@@ -162,25 +144,22 @@
         "completed": false
       },
       "position": {
-        "x": 1477.1261378998881,
-        "y": 968.714941691496
+        "x": 1602.4844834632806,
+        "y": 950.3297596123576
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
-        "width": 339,
-        "height": 35
+        "width": 171,
+        "height": 54
       },
       "selected": false,
       "dragging": false,
       "style": "opacity:100%",
-      "width": 339,
-      "height": 35
+      "width": 171,
+      "height": 54
     },
     {
       "id": "8",
@@ -193,12 +172,9 @@
         "y": 1059.4082229605215
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 325,
         "height": 36
@@ -218,12 +194,9 @@
         "y": 812.1724424424233
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 193,
         "height": 46
@@ -245,12 +218,9 @@
         "y": 855.0015007960445
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 248,
         "height": 36
@@ -270,12 +240,9 @@
         "y": 717.3446687206814
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 422,
         "height": 36
@@ -295,12 +262,9 @@
         "y": 521.1864568085886
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 216,
         "height": 36
@@ -320,12 +284,9 @@
         "y": 848.9040354562459
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 236,
         "height": 36
@@ -345,12 +306,9 @@
         "y": 1011.6086989249508
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 292,
         "height": 36
@@ -365,16 +323,13 @@
         "completed": false
       },
       "position": {
-        "x": 464.6193212955412,
-        "y": 928.6839419897731
+        "x": 476.8572926347011,
+        "y": 962.573708775139
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 154,
         "height": 36
@@ -394,12 +349,9 @@
         "y": 642.4959249054932
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 121,
         "height": 36
@@ -419,12 +371,9 @@
         "y": 1323.4685213462515
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 281,
         "height": 36
@@ -444,12 +393,9 @@
         "y": 1305.1251006178686
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 556,
         "height": 36
@@ -469,12 +415,9 @@
         "y": 1363.9727178246715
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 354,
         "height": 36
@@ -490,24 +433,21 @@
         "completed": false
       },
       "position": {
-        "x": 393.0305803870701,
-        "y": 555.5137671603316
+        "x": 348.74421821771796,
+        "y": 544.6026344519405
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
-        "width": 433,
+        "width": 441,
         "height": 139
       },
       "selected": false,
       "dragging": false,
       "style": "opacity:100%",
-      "width": 433.00320407268623,
+      "width": 441.3636445704572,
       "height": 138.6870913069904
     },
     {
@@ -517,16 +457,13 @@
         "completed": false
       },
       "position": {
-        "x": 299.0892371768062,
-        "y": 108.45044933859754
+        "x": 303.2710594620348,
+        "y": 108.29399499209273
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 127,
         "height": 36
@@ -543,16 +480,13 @@
         "completed": false
       },
       "position": {
-        "x": 353.3355608129893,
-        "y": 56.164453660959055
+        "x": 357.5173830982179,
+        "y": 56.00799931445425
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 95,
         "height": 36
@@ -565,23 +499,20 @@
     {
       "id": "73",
       "data": {
-        "label": "title (keep synced with node component)",
+        "label": "title (keep synced with node label component)",
         "completed": false
       },
       "position": {
-        "x": 136.33235674030303,
-        "y": 63.817923799303514
+        "x": 146.15373852776062,
+        "y": 63.66146945279877
       },
       "parentId": "33",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
-        "width": 237,
+        "width": 265,
         "height": 36
       },
       "selected": false,
@@ -594,17 +525,14 @@
         "completed": false
       },
       "position": {
-        "x": 61.43114220302297,
-        "y": 102.11060153024329
+        "x": 65.61296448825158,
+        "y": 101.95414718373848
       },
       "parentId": "33",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 80,
         "height": 36
@@ -619,17 +547,14 @@
         "completed": false
       },
       "position": {
-        "x": 164.31346166112013,
-        "y": 108.85154496794951
+        "x": 168.49528394634874,
+        "y": 108.6950906214447
       },
       "parentId": "33",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 99,
         "height": 36
@@ -648,12 +573,9 @@
         "y": 1411.9035619696003
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 305,
         "height": 36
@@ -673,12 +595,9 @@
         "y": 1438.02356744468
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 142,
         "height": 36
@@ -698,12 +617,9 @@
         "y": 1378.8636037369504
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 128,
         "height": 36
@@ -723,12 +639,9 @@
         "y": 1173.793124644725
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 227,
         "height": 57
@@ -750,12 +663,9 @@
         "y": 1154.7734837789371
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 145,
         "height": 36
@@ -775,12 +685,9 @@
         "y": 1161.405604210798
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 243,
         "height": 36
@@ -800,12 +707,9 @@
         "y": 1544.8157846925442
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 370,
         "height": 36
@@ -825,12 +729,9 @@
         "y": 876.6651789615206
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 147,
         "height": 36
@@ -850,12 +751,9 @@
         "y": 750.7304181933101
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 380,
         "height": 36
@@ -875,12 +773,9 @@
         "y": 562.9322531548822
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 430,
         "height": 187
@@ -902,12 +797,9 @@
         "y": 61.08377749984035
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 311,
         "height": 36
@@ -929,12 +821,9 @@
       },
       "parentId": "47",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 173,
         "height": 36
@@ -955,12 +844,9 @@
       },
       "parentId": "47",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 151,
         "height": 36
@@ -980,12 +866,9 @@
       },
       "parentId": "47",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 104,
         "height": 36
@@ -1004,12 +887,9 @@
         "y": 377.985745520055
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 351,
         "height": 36
@@ -1029,12 +909,9 @@
         "y": 788.2424984612151
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 219,
         "height": 36
@@ -1049,16 +926,13 @@
         "completed": false
       },
       "position": {
-        "x": 63.36595669575191,
-        "y": 156.85815685658812
+        "x": 57.81129952858508,
+        "y": 158.24682114837984
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 171,
         "height": 36
@@ -1077,12 +951,9 @@
         "y": 306.0697331268537
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 342,
         "height": 42
@@ -1103,12 +974,9 @@
         "y": 233.66401867270895
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 339,
         "height": 64
@@ -1129,12 +997,9 @@
         "y": 538.5394083141755
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 209,
         "height": 48
@@ -1154,12 +1019,9 @@
         "y": 106.68493059653267
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 340,
         "height": 36
@@ -1178,12 +1040,9 @@
         "y": 435.56778107094954
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 410,
         "height": 36
@@ -1202,12 +1061,9 @@
         "y": 659.23594212846
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 214,
         "height": 90
@@ -1228,12 +1084,9 @@
         "y": 1589.630108214224
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 297,
         "height": 36
@@ -1252,12 +1105,9 @@
         "y": 966.513386249604
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 261,
         "height": 36
@@ -1276,12 +1126,9 @@
         "y": -22.216137635907884
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 334,
         "height": 36
@@ -1300,12 +1147,9 @@
         "y": 1772.8292738348557
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 243,
         "height": 36
@@ -1324,12 +1168,9 @@
         "y": 1766.4269749460532
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 442,
         "height": 36
@@ -1348,12 +1189,9 @@
         "y": 1675.1832111715069
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 152,
         "height": 36
@@ -1372,12 +1210,9 @@
         "y": 1885.961161742258
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 338,
         "height": 36
@@ -1392,16 +1227,13 @@
         "completed": false
       },
       "position": {
-        "x": -448.21628958238944,
-        "y": 937.4738000674967
+        "x": -969.5049385855041,
+        "y": 644.874248861142
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 247,
         "height": 36
@@ -1420,12 +1252,9 @@
         "y": 564.947492754855
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 384,
         "height": 204
@@ -1447,12 +1276,9 @@
       },
       "parentId": "90",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 212,
         "height": 36
@@ -1472,12 +1298,9 @@
       },
       "parentId": "90",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 334,
         "height": 39
@@ -1499,12 +1322,9 @@
       },
       "parentId": "90",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 276,
         "height": 36
@@ -1524,12 +1344,9 @@
       },
       "parentId": "90",
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 129,
         "height": 36
@@ -1548,12 +1365,9 @@
         "y": 1073.1606755221862
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 288,
         "height": 36
@@ -1568,16 +1382,13 @@
         "completed": false
       },
       "position": {
-        "x": -217.10054531969138,
-        "y": 1144.1829008468296
+        "x": -574.4298564957389,
+        "y": 1004.6714569367857
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 176,
         "height": 36
@@ -1596,12 +1407,9 @@
         "y": 44.86957340660913
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 396,
         "height": 36
@@ -1620,12 +1428,9 @@
         "y": -119.0194303246214
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 274,
         "height": 36
@@ -1644,12 +1449,9 @@
         "y": 384.4030024454838
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 239,
         "height": 36
@@ -1664,22 +1466,63 @@
         "completed": false
       },
       "position": {
-        "x": -684.256985284835,
-        "y": 1155.8775091454252
+        "x": -599.9317007643577,
+        "y": 1160.2580434062293
       },
       "type": "custom",
-      "sourcePosition": "right",
+      "sourcePosition": "bottom",
       "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
+      "origin": [0.5, 0.5],
       "measured": {
         "width": 328,
         "height": 36
       },
       "selected": false,
       "dragging": false
+    },
+    {
+      "id": "112",
+      "data": {
+        "label": "real-time collab mode - investigate Automerge",
+        "completed": false
+      },
+      "position": {
+        "x": 667.1695066755325,
+        "y": 1473.1659872388727
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [0.5, 0.5],
+      "measured": {
+        "width": 266,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "113",
+      "data": {
+        "label": "get size of node content in flow coordinates at graph level",
+        "completed": false
+      },
+      "position": {
+        "x": -456.68162083397374,
+        "y": 239.08948338820915
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [0.5, 0.5],
+      "measured": {
+        "width": 188,
+        "height": 59
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 188,
+      "height": 59
     }
   ],
   "edges": [
@@ -1999,6 +1842,16 @@
       "source": "108",
       "target": "3",
       "id": "xy-edge__108-3"
+    },
+    {
+      "source": "113",
+      "target": "54",
+      "id": "xy-edge__113-54"
+    },
+    {
+      "source": "89",
+      "target": "113",
+      "id": "xy-edge__89-113"
     }
   ]
 }

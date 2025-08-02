@@ -1,8 +1,6 @@
 <script module>
-  class BgColor {
-    current = $state("#F7F9FB");
-  }
-  export const bgColor = new BgColor();
+  //functions on the graph state that need to be called from inside the node
+  export const globalFuncs = $state({ recolorNodes: null });
 </script>
 
 <script lang="ts">

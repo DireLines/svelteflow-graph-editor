@@ -1,6 +1,5 @@
 <script lang="ts">
-  // when dropping a node, should base getParent off the center of the node rather than cursor position (maybe?)
-  // when node gets reparented, resize new and previous parent (and their parents recursively) to encapsulate children
+  //TODO move things into module-level script when applicable
   import {
     SvelteFlow,
     useSvelteFlow,
@@ -13,13 +12,18 @@
     type ColorMode,
     type OnConnectEnd,
     type NodeTargetEventWithPointer,
+    getIncomers,
+    getOutgoers,
   } from "@xyflow/svelte";
 
   import "@xyflow/svelte/dist/style.css";
   import CustomNode from "./CustomNode.svelte";
 
+  import { globalFuncs } from "./App.svelte";
+
   import { nodeDefaults, edgeDefaults } from "./nodes-and-edges";
-  import { addPositions, subPositions } from "./math.ts";
+  import { addPositions, subPositions } from "./math";
+  import { getBackgroundColor, getTextColor } from "./colors";
   const {
     screenToFlowPosition,
     // flowToScreenPosition,
@@ -60,7 +64,8 @@
   };
 
   //set id to max of incoming node ids + 1
-  let id = 1;
+  let id = 0;
+  //TODO:utils
   const containsOnlyDigits = (value) => {
     return /^-?\d+$/.test(value);
   };
@@ -238,6 +243,7 @@
         children.push(node);
       }
     }
+    console.log(thisNode);
     const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
     //want that
     // - children stay where they are globally
@@ -411,14 +417,25 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ nodes, edges }));
     unsavedChanges = false;
   }
-  function recolorNodes() {
+
+  globalFuncs.recolorNodes = () => {
     for (const node of nodes) {
-      updateNode(node.id, { style: "opacity:100%" });
+      if (node.data.completed) {
+        continue;
+      }
+      let workable = true;
+      const incomingNodes = getIncomers(node, nodes, edges);
+      for (const incomingNode of incomingNodes) {
+        if (!incomingNode.data.completed) {
+          workable = false;
+        }
+      }
+      const desiredColor = workable ? "green" : "white";
+      updateNode(node.id, { style: "color:" + desiredColor });
     }
-  }
+  };
   $effect(() => {
     saveGraph();
-    // recolorNodes();
   });
 </script>
 
@@ -448,20 +465,20 @@
   <Panel style="display:flex; flex-direction: column; gap:2px;">
     <button onclick={() => triggerSave({ nodes, edges })}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
-    <button onclick={clearGraph}> Clear </button>
+    <button onclick={clearGraph}> 🗑️ Clear </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
       <option value="system">system</option>
     </select>
-    <div style="color:beige">Show</div>
-    <div style="color:beige">
+    <div style="color:#f8f8f8">Show</div>
+    <div style="color:#f8f8f8">
       <input type="checkbox" bind:checked={showCompleted as boolean} />past
     </div>
-    <div style="color:beige">
+    <div style="color:#f8f8f8">
       <input type="checkbox" bind:checked={showWorkable as boolean} />present
     </div>
-    <div style="color:beige">
+    <div style="color:#f8f8f8">
       <input type="checkbox" bind:checked={showUpcoming as boolean} />future
     </div>
     <!--TODO filter by set of assignees-->

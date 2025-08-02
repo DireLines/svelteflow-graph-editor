@@ -1,4 +1,3 @@
-<!-- EditableNode.svelte: A custom node component for in-place editing of node labels in SvelteFlow -->
 <script lang="ts">
   import {
     type NodeProps,
@@ -9,11 +8,14 @@
     useSvelteFlow,
     NodeResizeControl,
   } from "@xyflow/svelte";
-  import { onMount, tick } from "svelte";
-  const { updateNodeData, updateEdge } = useSvelteFlow();
-  let { isConnectable, id, data, selected }: NodeProps = $props();
+  import { onMount } from "svelte";
+  import { globalFuncs } from "./App.svelte";
+  const { updateNodeData } = useSvelteFlow();
+  let { isConnectable, id, data }: NodeProps = $props();
+  const { recolorNodes } = globalFuncs;
 
   let editable;
+  let displayedContent;
   let editing = false;
   let completed = $state(data.completed);
 
@@ -34,11 +36,13 @@
 
   // Whenever the user types, update `text` and let parent know
   function handleLabelInput() {
+    // console.log(displayedContent.getBoundingClientRect()); //this gets rect in screen coordinates not flow coordinates
     data.label = editable.innerText;
   }
 
   function handleCheckboxChange(e) {
     updateNodeData(id, { completed });
+    recolorNodes();
   }
 
   // Optional: keep caret at end when programmatically updating
@@ -75,7 +79,7 @@
 </div>
 <div style={styleOpacity()}>
   <Handle type="target" position={Position.Left} {isConnectable} />
-  <div class="sf-node">
+  <div class="sf-node" bind:this={displayedContent}>
     <div
       class="sf-node__label"
       contenteditable="true"
