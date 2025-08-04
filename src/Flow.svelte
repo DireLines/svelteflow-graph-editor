@@ -455,7 +455,8 @@
       const sourceHidden = getNode(edge.source)?.hidden;
       const targetHidden = getNode(edge.target)?.hidden;
       const shouldHide = sourceHidden || targetHidden;
-      updateEdge(edge.id, { hidden: shouldHide });
+      const shouldGrey = getNode(edge.target)?.data.completed; //TODO: set edge opacity to 30% if shouldGrey, else 100%
+      updateEdge(edge.id, { hidden: shouldHide ?? undefined });
     }
   };
   globalFuncs.restyleNodes();
@@ -499,34 +500,13 @@
     </select>
     <div style="color:#f8f8f8">Show</div>
     <div style="color:#f8f8f8">
-      <input
-        type="checkbox"
-        checked={showCompleted as boolean}
-        onclick={() => {
-          showCompleted = !showCompleted;
-          globalFuncs.restyleNodes();
-        }}
-      />past
+      <input type="checkbox" bind:checked={showCompleted as boolean} onchange={globalFuncs.restyleNodes} />past
     </div>
     <div style="color:#f8f8f8">
-      <input
-        type="checkbox"
-        checked={showWorkable as boolean}
-        onclick={() => {
-          showWorkable = !showWorkable;
-          globalFuncs.restyleNodes();
-        }}
-      />present
+      <input type="checkbox" bind:checked={showWorkable as boolean} onchange={globalFuncs.restyleNodes} />present
     </div>
     <div style="color:#f8f8f8">
-      <input
-        type="checkbox"
-        checked={showUpcoming as boolean}
-        onclick={() => {
-          showUpcoming = !showUpcoming;
-          globalFuncs.restyleNodes();
-        }}
-      />future
+      <input type="checkbox" bind:checked={showUpcoming as boolean} onchange={globalFuncs.restyleNodes} />future
     </div>
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
