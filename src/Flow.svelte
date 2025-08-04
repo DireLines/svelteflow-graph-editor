@@ -314,7 +314,7 @@
     //make child node inside this node
     const id = getId();
     nodes = [...nodes, makeNode(id, clientX, clientY)];
-    globalFuncs.restyleNodes();
+    globalFuncs.restyleGraph();
   };
   //right click on background
   const handlePaneContextMenu = ({ event }) => {
@@ -325,13 +325,13 @@
     const { clientX, clientY } = event;
     const id = getId();
     nodes = [...nodes, makeNode(id, clientX, clientY)];
-    globalFuncs.restyleNodes();
+    globalFuncs.restyleGraph();
   };
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
     unsavedChanges = true;
     if (connectionState.isValid) {
-      globalFuncs.restyleNodes();
+      globalFuncs.restyleGraph();
       return;
     }
     const draggingFromSource = connectionState.fromHandle?.type === "source";
@@ -344,7 +344,7 @@
     const newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
     nodes = [...nodes, newNode];
     edges = [...edges, newEdge];
-    globalFuncs.restyleNodes();
+    globalFuncs.restyleGraph();
   };
 
   let fileInput; // for “Load” dialog
@@ -435,9 +435,9 @@
 
   //TODO: this should handle all node display changes in response to changes to the graph
   //(e.g. progress indicators) and get called everywhere appropriate
-  globalFuncs.restyleNodes = () => {
+  globalFuncs.restyleGraph = () => {
     for (const node of nodes) {
-      //TODO: if this node is a child
+      //TODO: if this node is a child, handle status of parent(s)
       //if parent is not workable, this should be displayed as not workable
       //if parent is completed, this should be displayed as completed
       let workable = true;
@@ -459,7 +459,7 @@
       updateEdge(edge.id, { hidden: shouldHide ?? undefined });
     }
   };
-  globalFuncs.restyleNodes();
+  globalFuncs.restyleGraph();
 
   $effect(() => {
     saveGraph();
@@ -500,13 +500,13 @@
     </select>
     <div style="color:#f8f8f8">Show</div>
     <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showCompleted as boolean} onchange={globalFuncs.restyleNodes} />past
+      <input type="checkbox" bind:checked={showCompleted as boolean} onchange={globalFuncs.restyleGraph} />past
     </div>
     <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showWorkable as boolean} onchange={globalFuncs.restyleNodes} />present
+      <input type="checkbox" bind:checked={showWorkable as boolean} onchange={globalFuncs.restyleGraph} />present
     </div>
     <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showUpcoming as boolean} onchange={globalFuncs.restyleNodes} />future
+      <input type="checkbox" bind:checked={showUpcoming as boolean} onchange={globalFuncs.restyleGraph} />future
     </div>
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->

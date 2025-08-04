@@ -12,7 +12,7 @@
   import { globalFuncs } from "./App.svelte";
   const { updateNodeData } = useSvelteFlow();
   let { isConnectable, id, data }: NodeProps = $props();
-  const { restyleNodes } = globalFuncs;
+  const { restyleGraph } = globalFuncs;
 
   let editable;
   let displayedContent;
@@ -43,7 +43,7 @@
 
   function handleCheckboxChange(e) {
     updateNodeData(id, { completed });
-    restyleNodes();
+    restyleGraph();
   }
 
   // Optional: keep caret at end when programmatically updating
