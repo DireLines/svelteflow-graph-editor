@@ -12,7 +12,7 @@
   import { globalFuncs } from "./App.svelte";
   const { updateNodeData } = useSvelteFlow();
   let { isConnectable, id, data }: NodeProps = $props();
-  const { recolorNodes } = globalFuncs;
+  const { restyleNodes } = globalFuncs;
 
   let editable;
   let displayedContent;
@@ -32,17 +32,18 @@
   //     }
   //   }
   // });
-  let styleOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
+  let getOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
 
   // Whenever the user types, update `text` and let parent know
   function handleLabelInput() {
-    // console.log(displayedContent.getBoundingClientRect()); //this gets rect in screen coordinates not flow coordinates
     data.label = editable.innerText;
+    //TODO: update parent size recursively
+    // console.log(displayedContent.getBoundingClientRect()); //this gets rect in screen coordinates not flow coordinates
   }
 
   function handleCheckboxChange(e) {
     updateNodeData(id, { completed });
-    recolorNodes();
+    restyleNodes();
   }
 
   // Optional: keep caret at end when programmatically updating
@@ -77,7 +78,7 @@
   <!-- TODO: click to focus -->
   <!-- <button onclick={() => console.log("focus")}>⛶</button> -->
 </div>
-<div style={styleOpacity()}>
+<div style={getOpacity()}>
   <Handle type="target" position={Position.Left} {isConnectable} />
   <div class="sf-node" bind:this={displayedContent}>
     <div
@@ -97,12 +98,7 @@
       {data.label}
     </div>
   </div>
-  <NodeResizeControl
-    class="node-hover-controls"
-    minWidth={100}
-    minHeight={5}
-    style="background: transparent; border: none;"
-  >
+  <NodeResizeControl class="node-hover" minWidth={100} minHeight={5} style="background: transparent; border: none;">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="10"

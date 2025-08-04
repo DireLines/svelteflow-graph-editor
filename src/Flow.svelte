@@ -13,7 +13,6 @@
     type OnConnectEnd,
     type NodeTargetEventWithPointer,
     getIncomers,
-    getOutgoers,
   } from "@xyflow/svelte";
 
   import "@xyflow/svelte/dist/style.css";
@@ -34,6 +33,8 @@
     // getNode,
     updateNode,
     deleteElements,
+    getNode,
+    updateEdge,
   } = useSvelteFlow();
   const STORAGE_KEY = "graph";
 
@@ -313,6 +314,7 @@
     //make child node inside this node
     const id = getId();
     nodes = [...nodes, makeNode(id, clientX, clientY)];
+    globalFuncs.restyleNodes();
   };
   //right click on background
   const handlePaneContextMenu = ({ event }) => {
@@ -323,11 +325,15 @@
     const { clientX, clientY } = event;
     const id = getId();
     nodes = [...nodes, makeNode(id, clientX, clientY)];
+    globalFuncs.restyleNodes();
   };
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
     unsavedChanges = true;
-    if (connectionState.isValid) return;
+    if (connectionState.isValid) {
+      globalFuncs.restyleNodes();
+      return;
+    }
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
     const sourceNodeId = connectionState.fromNode?.id ?? "1";
@@ -338,6 +344,7 @@
     const newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
     nodes = [...nodes, newNode];
     edges = [...edges, newEdge];
+    globalFuncs.restyleNodes();
   };
 
   let fileInput; // for “Load” dialog
@@ -365,6 +372,7 @@
       edges = data.edges;
       //set id to max of incoming node ids + 1
       for (const n of nodes) {
+        n.hidden = false;
         if (containsOnlyDigits(n.id)) {
           const parsed = parseInt(n.id);
           if (parsed > id) {
@@ -414,15 +422,24 @@
   };
 
   function saveGraph() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ nodes, edges }));
+    //TODO: more defined serializeNode function to clean node for serialization
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        nodes: nodes.map((n) => ({ ...n, hidden: false })),
+        edges: edges.map((e) => ({ ...e, hidden: false })),
+      })
+    );
     unsavedChanges = false;
   }
 
-  globalFuncs.recolorNodes = () => {
+  //TODO: this should handle all node display changes in response to changes to the graph
+  //(e.g. progress indicators) and get called everywhere appropriate
+  globalFuncs.restyleNodes = () => {
     for (const node of nodes) {
-      if (node.data.completed) {
-        continue;
-      }
+      //TODO: if this node is a child
+      //if parent is not workable, this should be displayed as not workable
+      //if parent is completed, this should be displayed as completed
       let workable = true;
       const incomingNodes = getIncomers(node, nodes, edges);
       for (const incomingNode of incomingNodes) {
@@ -430,10 +447,20 @@
           workable = false;
         }
       }
-      const desiredColor = workable ? "green" : "white";
-      updateNode(node.id, { style: "color:" + desiredColor });
+      const desiredColor = node.data.completed ? "grey" : workable ? "lightgreen" : "grey";
+      const shouldHide = !(node.data.completed ? showCompleted : workable ? showWorkable : showUpcoming);
+      updateNode(node.id, { style: "border-color:" + desiredColor, hidden: shouldHide }); //TODO: only set border-color when workable, otherwise do not override
+    }
+    for (const edge of edges) {
+      //if both endpoints of edge should be visible, so should edge, otherwise it should be hidden
+      const sourceHidden = getNode(edge.source)?.hidden;
+      const targetHidden = getNode(edge.target)?.hidden;
+      const shouldHide = sourceHidden || targetHidden;
+      updateEdge(edge.id, { hidden: shouldHide });
     }
   };
+  globalFuncs.restyleNodes();
+
   $effect(() => {
     saveGraph();
   });
@@ -473,13 +500,34 @@
     </select>
     <div style="color:#f8f8f8">Show</div>
     <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showCompleted as boolean} />past
+      <input
+        type="checkbox"
+        checked={showCompleted as boolean}
+        onclick={() => {
+          showCompleted = !showCompleted;
+          globalFuncs.restyleNodes();
+        }}
+      />past
     </div>
     <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showWorkable as boolean} />present
+      <input
+        type="checkbox"
+        checked={showWorkable as boolean}
+        onclick={() => {
+          showWorkable = !showWorkable;
+          globalFuncs.restyleNodes();
+        }}
+      />present
     </div>
     <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showUpcoming as boolean} />future
+      <input
+        type="checkbox"
+        checked={showUpcoming as boolean}
+        onclick={() => {
+          showUpcoming = !showUpcoming;
+          globalFuncs.restyleNodes();
+        }}
+      />future
     </div>
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
