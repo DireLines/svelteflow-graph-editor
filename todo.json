@@ -20,7 +20,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "2",
@@ -42,7 +42,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "3",
@@ -64,14 +64,14 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%",
       "width": 377,
-      "height": 54
+      "height": 54,
+      "hidden": false
     },
     {
       "id": "27",
       "data": {
-        "label": "dropdown component",
+        "label": "dropdown component in-line with text",
         "completed": false
       },
       "position": {
@@ -83,12 +83,12 @@
       "targetPosition": "left",
       "origin": [0.5, 0.5],
       "measured": {
-        "width": 137,
+        "width": 220,
         "height": 36
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "6",
@@ -112,7 +112,7 @@
       "dragging": false,
       "width": 359,
       "height": 86,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "23",
@@ -135,7 +135,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "7",
@@ -157,9 +157,9 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%",
       "width": 171,
-      "height": 54
+      "height": 54,
+      "hidden": false
     },
     {
       "id": "8",
@@ -181,7 +181,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "10",
@@ -202,10 +202,10 @@
         "height": 46
       },
       "selected": false,
-      "style": "opacity:100%",
       "dragging": false,
       "width": 193,
-      "height": 46
+      "height": 46,
+      "hidden": false
     },
     {
       "id": "11",
@@ -227,7 +227,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "13",
@@ -249,7 +249,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "17",
@@ -271,7 +271,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "18",
@@ -293,7 +293,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "20",
@@ -314,7 +314,7 @@
         "height": 36
       },
       "selected": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "22",
@@ -336,7 +336,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "25",
@@ -358,7 +358,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "26",
@@ -380,7 +380,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "30",
@@ -402,7 +402,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "32",
@@ -424,7 +424,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "33",
@@ -446,9 +446,9 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%",
-      "width": 441.3636445704572,
-      "height": 138.6870913069904
+      "width": 441.3636445704574,
+      "height": 138.6870913069905,
+      "hidden": false
     },
     {
       "id": "15",
@@ -457,8 +457,8 @@
         "completed": false
       },
       "position": {
-        "x": 303.2710594620348,
-        "y": 108.29399499209273
+        "x": 303.4528817472635,
+        "y": 108.13754064558799
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -470,8 +470,8 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%",
-      "parentId": "33"
+      "parentId": "33",
+      "hidden": false
     },
     {
       "id": "16",
@@ -480,8 +480,8 @@
         "completed": false
       },
       "position": {
-        "x": 357.5173830982179,
-        "y": 56.00799931445425
+        "x": 357.6992053834466,
+        "y": 55.85154496794951
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -493,8 +493,8 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%",
-      "parentId": "33"
+      "parentId": "33",
+      "hidden": false
     },
     {
       "id": "73",
@@ -503,8 +503,8 @@
         "completed": false
       },
       "position": {
-        "x": 146.15373852776062,
-        "y": 63.66146945279877
+        "x": 146.3355608129893,
+        "y": 63.505015106294024
       },
       "parentId": "33",
       "type": "custom",
@@ -516,7 +516,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "74",
@@ -525,8 +526,8 @@
         "completed": false
       },
       "position": {
-        "x": 65.61296448825158,
-        "y": 101.95414718373848
+        "x": 65.79478677348027,
+        "y": 101.79769283723374
       },
       "parentId": "33",
       "type": "custom",
@@ -538,7 +539,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "94",
@@ -547,8 +549,8 @@
         "completed": false
       },
       "position": {
-        "x": 168.49528394634874,
-        "y": 108.6950906214447
+        "x": 168.67710623157743,
+        "y": 108.53863627493996
       },
       "parentId": "33",
       "type": "custom",
@@ -560,7 +562,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "34",
@@ -582,7 +585,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "35",
@@ -604,7 +607,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "36",
@@ -626,7 +629,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "38",
@@ -648,9 +651,9 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%",
       "width": 227,
-      "height": 57
+      "height": 57,
+      "hidden": false
     },
     {
       "id": "39",
@@ -672,7 +675,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "40",
@@ -694,7 +697,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "41",
@@ -716,7 +719,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "43",
@@ -738,7 +741,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "46",
@@ -760,7 +763,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "47",
@@ -784,7 +787,7 @@
       "dragging": false,
       "width": 430.05957366308303,
       "height": 186.73107930858765,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "42",
@@ -807,13 +810,13 @@
       "selected": false,
       "dragging": false,
       "parentId": "47",
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "48",
       "data": {
         "label": "show / hide completed tasks",
-        "completed": false
+        "completed": true
       },
       "position": {
         "x": 285.72780901087054,
@@ -830,7 +833,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "53",
@@ -852,7 +855,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "78",
@@ -874,7 +878,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "51",
@@ -896,7 +901,7 @@
       },
       "selected": false,
       "dragging": false,
-      "style": "opacity:100%"
+      "hidden": false
     },
     {
       "id": "52",
@@ -917,7 +922,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "54",
@@ -938,7 +944,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "63",
@@ -961,7 +968,8 @@
       "selected": false,
       "dragging": false,
       "width": 342,
-      "height": 42
+      "height": 42,
+      "hidden": false
     },
     {
       "id": "64",
@@ -984,7 +992,8 @@
       "selected": false,
       "dragging": false,
       "width": 339,
-      "height": 64
+      "height": 64,
+      "hidden": false
     },
     {
       "id": "65",
@@ -1006,7 +1015,8 @@
       },
       "selected": false,
       "width": 209,
-      "height": 48
+      "height": 48,
+      "hidden": false
     },
     {
       "id": "66",
@@ -1027,7 +1037,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "67",
@@ -1048,7 +1059,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "72",
@@ -1071,7 +1083,8 @@
       "selected": false,
       "dragging": false,
       "width": 214,
-      "height": 90
+      "height": 90,
+      "hidden": false
     },
     {
       "id": "76",
@@ -1092,7 +1105,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "80",
@@ -1113,7 +1127,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "81",
@@ -1134,7 +1149,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "83",
@@ -1155,7 +1171,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "84",
@@ -1176,7 +1193,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "86",
@@ -1197,7 +1215,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "87",
@@ -1218,17 +1237,18 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "89",
       "data": {
         "label": "react at graph level to events at node level",
-        "completed": false
+        "completed": true
       },
       "position": {
-        "x": -969.5049385855041,
-        "y": 644.874248861142
+        "x": -862.6973663045602,
+        "y": 702.2239669716707
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1239,7 +1259,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "90",
@@ -1262,7 +1283,8 @@
       "selected": false,
       "dragging": false,
       "width": 384,
-      "height": 203.74176565933317
+      "height": 203.74176565933317,
+      "hidden": false
     },
     {
       "id": "92",
@@ -1284,7 +1306,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "93",
@@ -1308,7 +1331,8 @@
       "selected": false,
       "dragging": false,
       "width": 334,
-      "height": 39
+      "height": 39,
+      "hidden": false
     },
     {
       "id": "96",
@@ -1330,7 +1354,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "102",
@@ -1352,7 +1377,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "97",
@@ -1361,8 +1387,8 @@
         "completed": false
       },
       "position": {
-        "x": -570.5432787880873,
-        "y": 1073.1606755221862
+        "x": -601.7742308485018,
+        "y": 1085.8843967319847
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1373,7 +1399,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "99",
@@ -1394,7 +1421,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "104",
@@ -1415,17 +1443,18 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "105",
       "data": {
         "label": "styling: checkbox in side panel with visible label",
-        "completed": false
+        "completed": true
       },
       "position": {
-        "x": 103.14881633004653,
-        "y": -119.0194303246214
+        "x": 79.97882767045895,
+        "y": -80.40278255864214
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1436,7 +1465,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "106",
@@ -1457,7 +1487,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "108",
@@ -1478,7 +1509,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "112",
@@ -1499,7 +1531,8 @@
         "height": 36
       },
       "selected": false,
-      "dragging": false
+      "dragging": false,
+      "hidden": false
     },
     {
       "id": "113",
@@ -1508,21 +1541,22 @@
         "completed": false
       },
       "position": {
-        "x": -456.68162083397374,
-        "y": 239.08948338820915
+        "x": -394.18162083397374,
+        "y": 246.58948338820915
       },
       "type": "custom",
       "sourcePosition": "bottom",
       "targetPosition": "left",
       "origin": [0.5, 0.5],
       "measured": {
-        "width": 188,
-        "height": 59
+        "width": 175,
+        "height": 65
       },
       "selected": false,
       "dragging": false,
-      "width": 188,
-      "height": 59
+      "width": 175,
+      "height": 65,
+      "hidden": false
     }
   ],
   "edges": [
@@ -1537,7 +1571,8 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "2",
@@ -1550,25 +1585,29 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "13",
       "target": "1",
       "id": "xy-edge__13-1",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "18",
       "target": "10",
       "id": "xy-edge__18-10",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "20",
       "target": "7",
       "id": "xy-edge__20-7",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "22",
@@ -1581,19 +1620,22 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "26",
       "target": "30",
       "id": "xy-edge__26-30",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "26",
       "target": "32",
       "id": "xy-edge__26-32",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "34",
@@ -1606,91 +1648,106 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "34",
       "target": "36",
       "id": "xy-edge__34-36",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "35",
       "target": "32",
       "id": "xy-edge__35-32",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "36",
       "target": "30",
       "id": "xy-edge__36-30",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "38",
       "target": "39",
       "id": "xy-edge__38-39",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "40",
       "target": "38",
       "id": "xy-edge__40-38",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "27",
       "target": "30",
       "id": "xy-edge__27-30",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "27",
       "target": "32",
       "id": "xy-edge__27-32",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "16",
       "target": "42",
       "id": "xy-edge__16-42",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "15",
       "target": "42",
       "id": "xy-edge__15-42",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "18",
       "target": "43",
       "id": "xy-edge__18-43",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "18",
       "target": "46",
       "id": "xy-edge__18-46",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "46",
       "target": "43",
       "id": "xy-edge__46-43",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "52",
       "target": "10",
       "id": "xy-edge__52-10",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "18",
       "target": "52",
       "id": "xy-edge__18-52",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "17",
@@ -1703,25 +1760,29 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "41",
       "target": "35",
       "id": "xy-edge__41-35",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "18",
       "target": "80",
       "id": "xy-edge__18-80",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "80",
       "target": "10",
       "id": "xy-edge__80-10",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "84",
@@ -1734,7 +1795,8 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "84",
@@ -1747,49 +1809,57 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "84",
       "target": "87",
       "id": "xy-edge__84-87",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "89",
       "target": "80",
       "id": "xy-edge__89-80",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "89",
       "target": "52",
       "id": "xy-edge__89-52",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "89",
       "target": "13",
       "id": "xy-edge__89-13",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "47",
       "target": "90",
       "id": "xy-edge__47-90",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "3",
       "target": "6",
       "id": "xy-edge__3-6",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "3",
       "target": "8",
       "id": "xy-edge__3-8",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "97",
@@ -1802,56 +1872,66 @@
         "height": 15
       },
       "zIndex": 10000,
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "99",
       "target": "3",
       "id": "xy-edge__99-3",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "72",
       "target": "25",
       "id": "xy-edge__72-25",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "97",
       "target": "52",
       "id": "xy-edge__97-52",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "97",
       "target": "26",
       "id": "xy-edge__97-26",
-      "selected": false
+      "selected": false,
+      "hidden": false
     },
     {
       "source": "33",
       "target": "25",
-      "id": "xy-edge__33-25"
+      "id": "xy-edge__33-25",
+      "hidden": false
     },
     {
       "source": "47",
       "target": "106",
-      "id": "xy-edge__47-106"
+      "id": "xy-edge__47-106",
+      "hidden": false
     },
     {
       "source": "108",
       "target": "3",
-      "id": "xy-edge__108-3"
+      "id": "xy-edge__108-3",
+      "hidden": false
     },
     {
       "source": "113",
       "target": "54",
-      "id": "xy-edge__113-54"
+      "id": "xy-edge__113-54",
+      "hidden": true
     },
     {
       "source": "89",
       "target": "113",
-      "id": "xy-edge__89-113"
+      "id": "xy-edge__89-113",
+      "hidden": true
     }
   ]
 }

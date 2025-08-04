@@ -447,9 +447,8 @@
           workable = false;
         }
       }
-      const desiredColor = node.data.completed ? "grey" : workable ? "lightgreen" : "grey";
       const shouldHide = !(node.data.completed ? showCompleted : workable ? showWorkable : showUpcoming);
-      updateNode(node.id, { style: "border-color:" + desiredColor, hidden: shouldHide }); //TODO: only set border-color when workable, otherwise do not override
+      updateNode(node.id, { hidden: shouldHide }); //TODO: set border-color when workable, otherwise do not override
     }
     for (const edge of edges) {
       //if both endpoints of edge should be visible, so should edge, otherwise it should be hidden
