@@ -1,0 +1,17 @@
+- example of text-based graph serialization format
+    desc: goal is to emulate what people do naturally when writing e.g. todo.txt in a repo or during a meeting.
+    a dash denotes a task, indentation denotes a subtask, and dependencies are specified by giving tasks ids and then putting 
+    "id1 -> id2" somewhere (does not have to be at the "right" indentation level).
+    additional attributes are specified by starting a line with one of a number of keywords followed by a colon
+    (for example, "desc:" or "description:" starts the longer description for the node)
+    - flahdsf
+    - c: althalnbaf
+    - adhfadsf
+        - a: aldfh adhfadsf
+        - lakdhfadf
+            1. lskjdfa
+            2. lkdjfad
+            3. asdoihv
+        - b: asldjasd
+        a -> b
+c -> b

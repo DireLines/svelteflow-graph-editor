@@ -35,6 +35,7 @@ export type NodeData = {
   //content
   label: string; // title for the node
   description?: string; // longer description
+  filename?: string; //when saved to a file, what should this node be saved as? assumed to be a legal filename, defaults to id if not set, set if user renames from id
 
   //task management stuff
   completed: boolean; //is the node completed?
