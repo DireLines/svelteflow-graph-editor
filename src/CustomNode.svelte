@@ -12,7 +12,6 @@
   import { globalFuncs } from "./App.svelte";
   const { updateNodeData } = useSvelteFlow();
   let { isConnectable, id, data }: NodeProps = $props();
-  const { restyleGraph } = globalFuncs;
 
   let editable;
   let displayedContent;
@@ -32,19 +31,19 @@
   //     }
   //   }
   // });
-  let getOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
+  const getOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
 
   // Whenever the user types, update `text` and let parent know
-  function handleLabelInput() {
+  const handleLabelInput = () => {
     data.label = editable.innerText;
     //TODO: update parent size recursively
-    // console.log(displayedContent.getBoundingClientRect()); //this gets rect in screen coordinates not flow coordinates
-  }
+    console.log(displayedContent.getBoundingClientRect()); //this gets rect in screen coordinates not flow coordinates
+  };
 
-  function handleCheckboxChange(e) {
+  const handleCheckboxChange = (e) => {
     updateNodeData(id, { completed });
-    restyleGraph();
-  }
+    globalFuncs.restyleGraph();
+  };
 
   // Optional: keep caret at end when programmatically updating
   onMount(() => {
@@ -65,9 +64,9 @@
   };
 
   // When focus leaves, turn editing off
-  function disableEdit() {
+  const disableEdit = () => {
     editing = false;
-  }
+  };
 </script>
 
 <div class="control-panel">

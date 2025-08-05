@@ -421,7 +421,7 @@
     unsavedChanges = false;
   };
 
-  function saveGraph() {
+  const saveGraph = () => {
     //TODO: more defined serializeNode function to clean node for serialization
     localStorage.setItem(
       STORAGE_KEY,
@@ -431,8 +431,9 @@
       })
     );
     unsavedChanges = false;
-  }
+  };
 
+  globalFuncs.screenToFlowPosition = screenToFlowPosition;
   //TODO: this should handle all node display changes in response to changes to the graph
   //(e.g. progress indicators) and get called everywhere appropriate
   globalFuncs.restyleGraph = () => {
