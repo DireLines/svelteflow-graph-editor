@@ -8,14 +8,21 @@
     useSvelteFlow,
     NodeResizeControl,
   } from "@xyflow/svelte";
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { globalFuncs } from "./App.svelte";
-  const { updateNodeData } = useSvelteFlow();
+  import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
   let { isConnectable, id, data }: NodeProps = $props();
+  const { updateNodeData } = useSvelteFlow();
 
-  let editable;
-  let displayedContent;
-  let editing = false;
+  let displayedContent: HTMLElement;
+  onMount(() => {
+    registerNodeLabelElement(id, displayedContent);
+  });
+  onDestroy(() => {
+    unregisterNodeLabelElement(id);
+  });
+
+  let editable: HTMLElement;
   let completed = $state(data.completed);
 
   // let workable = $state(true);
@@ -62,11 +69,6 @@
     e.stopPropagation();
     // }
   };
-
-  // When focus leaves, turn editing off
-  const disableEdit = () => {
-    editing = false;
-  };
 </script>
 
 <div class="control-panel">
@@ -92,7 +94,6 @@
       onkeydowncapture={stopPropagation}
       oncompositionstartcapture={stopPropagation}
       oncompositionendcapture={stopPropagation}
-      onblur={disableEdit}
     >
       {data.label}
     </div>

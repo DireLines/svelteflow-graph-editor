@@ -22,6 +22,7 @@
 
   import { nodeDefaults, edgeDefaults } from "./nodes-and-edges";
   import { addPositions, subPositions } from "./math";
+  import { getNodeLabelElement } from "./nodeElements";
   import { getBackgroundColor, getTextColor } from "./colors";
   const {
     screenToFlowPosition,
@@ -35,6 +36,7 @@
     deleteElements,
     getNode,
     updateEdge,
+    getZoom,
   } = useSvelteFlow();
   const STORAGE_KEY = "graph";
 
@@ -136,7 +138,7 @@
       position = flowToLocalPosition(position, parent.id);
     }
     //make node as child of parent
-    const newNode: Node = {
+    const newNode: any = {
       id,
       data: { label: `Task ${id}`, completed: false },
       position,
@@ -268,10 +270,10 @@
       resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById);
     }
   };
-  const getEncapsulatingSize = (targetNodeId, nodes) => {
+  const getEncapsulatingSize = (nodeId, nodes) => {
     const objectsToEncapsulate = [];
     for (const node of nodes) {
-      if (node.parentId === targetNodeId) {
+      if (node.parentId === nodeId) {
         objectsToEncapsulate.push(node);
       }
     }
@@ -421,6 +423,17 @@
     unsavedChanges = false;
   };
 
+  const getNodeFlowSize = (nodeId: string) => {
+    const el = getNodeLabelElement(nodeId);
+    if (!el) return undefined;
+    const rect = el.getBoundingClientRect();
+    const zoom = getZoom();
+    return {
+      width: Math.round(rect.width / zoom),
+      height: Math.round(rect.height / zoom),
+    };
+  };
+
   const saveGraph = () => {
     //TODO: more defined serializeNode function to clean node for serialization
     localStorage.setItem(
@@ -432,8 +445,6 @@
     );
     unsavedChanges = false;
   };
-
-  globalFuncs.screenToFlowPosition = screenToFlowPosition;
   //TODO: this should handle all node display changes in response to changes to the graph
   //(e.g. progress indicators) and get called everywhere appropriate
   globalFuncs.restyleGraph = () => {
@@ -460,7 +471,6 @@
       updateEdge(edge.id, { hidden: shouldHide ?? undefined });
     }
   };
-  globalFuncs.restyleGraph();
 
   $effect(() => {
     saveGraph();
