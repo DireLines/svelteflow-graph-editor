@@ -874,8 +874,8 @@
         "completed": false
       },
       "position": {
-        "x": 1069.2731147095544,
-        "y": 559.134742775844
+        "x": 1067.1888209210922,
+        "y": 536.2075111027589
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -885,13 +885,13 @@
         0.5
       ],
       "measured": {
-        "width": 430,
-        "height": 187
+        "width": 451,
+        "height": 183
       },
       "selected": false,
       "dragging": false,
-      "width": 430.05957366308303,
-      "height": 186.73107930858765,
+      "width": 451.3219319571476,
+      "height": 183.42262643493746,
       "hidden": false
     },
     {
@@ -901,8 +901,8 @@
         "completed": false
       },
       "position": {
-        "x": 174.99391002966337,
-        "y": 61.08377749984035
+        "x": 185.815841986811,
+        "y": 59.2027772658341
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -927,8 +927,8 @@
         "completed": true
       },
       "position": {
-        "x": 285.72780901087054,
-        "y": 112.08065146483588
+        "x": 296.54974096801817,
+        "y": 110.19965123082963
       },
       "parentId": "47",
       "type": "custom",
@@ -953,8 +953,8 @@
         "completed": false
       },
       "position": {
-        "x": 89.66823534778752,
-        "y": 114.57034596717571
+        "x": 100.49016730493514,
+        "y": 112.68934573316946
       },
       "parentId": "47",
       "type": "custom",
@@ -979,8 +979,8 @@
         "completed": false
       },
       "position": {
-        "x": 248.15924434335489,
-        "y": 155.814856808428
+        "x": 374.3120992620827,
+        "y": 156.01815036288406
       },
       "parentId": "47",
       "type": "custom",
@@ -997,6 +997,32 @@
       "selected": false,
       "dragging": false,
       "hidden": false
+    },
+    {
+      "id": "106",
+      "data": {
+        "label": "cache side panel settings in localStorage",
+        "completed": false
+      },
+      "position": {
+        "x": 160.82144701688844,
+        "y": 156.62540370077159
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 239,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false,
+      "parentId": "47"
     },
     {
       "id": "51",
@@ -1664,31 +1690,6 @@
       "hidden": false
     },
     {
-      "id": "106",
-      "data": {
-        "label": "cache side panel settings in localStorage",
-        "completed": false
-      },
-      "position": {
-        "x": 1600.9088197093456,
-        "y": 384.4030024454838
-      },
-      "type": "custom",
-      "sourcePosition": "bottom",
-      "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
-      "measured": {
-        "width": 239,
-        "height": 36
-      },
-      "selected": false,
-      "dragging": false,
-      "hidden": false
-    },
-    {
       "id": "108",
       "data": {
         "label": "convert between nested format and flat list with parent ids",
@@ -1742,11 +1743,11 @@
       "id": "113",
       "data": {
         "label": "get size of node content in flow coordinates at graph level",
-        "completed": false
+        "completed": true
       },
       "position": {
-        "x": -394.18162083397374,
-        "y": 246.58948338820915
+        "x": -447.8413443352091,
+        "y": 282.758625815086
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1756,13 +1757,13 @@
         0.5
       ],
       "measured": {
-        "width": 175,
-        "height": 65
+        "width": 209,
+        "height": 68
       },
       "selected": false,
       "dragging": false,
-      "width": 175,
-      "height": 65,
+      "width": 209,
+      "height": 68,
       "hidden": false
     },
     {
@@ -1860,6 +1861,56 @@
       "hidden": false,
       "measured": {
         "width": 331,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "119",
+      "data": {
+        "label": "bug: some edges react strangely to past/present/future checkboxes",
+        "completed": false
+      },
+      "position": {
+        "x": 37.428575571247336,
+        "y": -195.25981407985267
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 380,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "120",
+      "data": {
+        "label": "styling: all colors should adapt to light/dark mode",
+        "completed": false
+      },
+      "position": {
+        "x": 51.94381388377292,
+        "y": -251.3642784496355
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 281,
         "height": 36
       },
       "selected": false,
@@ -2214,55 +2265,57 @@
       "source": "33",
       "target": "25",
       "id": "xy-edge__33-25",
-      "hidden": false
-    },
-    {
-      "source": "47",
-      "target": "106",
-      "id": "xy-edge__47-106",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     },
     {
       "source": "108",
       "target": "3",
       "id": "xy-edge__108-3",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     },
     {
       "source": "113",
       "target": "54",
       "id": "xy-edge__113-54",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     },
     {
       "source": "89",
       "target": "113",
       "id": "xy-edge__89-113",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     },
     {
       "source": "114",
       "target": "80",
       "id": "xy-edge__114-80",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     },
     {
       "source": "114",
       "target": "116",
       "id": "xy-edge__114-116",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     },
     {
       "source": "108",
       "target": "117",
       "id": "xy-edge__108-117",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     },
     {
       "source": "117",
       "target": "3",
       "id": "xy-edge__117-3",
-      "hidden": false
+      "hidden": false,
+      "selected": false
     }
   ]
 }

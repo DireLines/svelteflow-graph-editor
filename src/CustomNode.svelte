@@ -43,8 +43,6 @@
   // Whenever the user types, update `text` and let parent know
   const handleLabelInput = () => {
     data.label = editable.innerText;
-    //TODO: update parent size recursively
-    console.log(displayedContent.getBoundingClientRect()); //this gets rect in screen coordinates not flow coordinates
   };
 
   const handleCheckboxChange = (e) => {

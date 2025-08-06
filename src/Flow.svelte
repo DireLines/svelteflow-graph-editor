@@ -30,7 +30,6 @@
     // isNodeIntersecting,
     getIntersectingNodes,
     // fitBounds,
-    getNodesBounds,
     // getNode,
     updateNode,
     deleteElements,
@@ -236,6 +235,7 @@
     };
     return subPositions(newOffset, existingOffset);
   };
+  const isNil = (x) => x === null || x === undefined;
   const resizeNodeToEncapsulateChildren = (nodeId, nodesById) => {
     console.log("resizing", nodeId);
     const thisNode = nodesById[nodeId];
@@ -246,7 +246,7 @@
         children.push(node);
       }
     }
-    console.log(thisNode);
+    const contentSize = getNodeFlowSize(nodeId);
     const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
     //want that
     // - children stay where they are globally
@@ -266,20 +266,9 @@
     }
     updateNode(thisNode.id, { width: newSize.width, height: newSize.height });
     //resize parent recursively
-    if (thisNode.parentId !== null && thisNode.parentId !== undefined) {
+    if (!isNil(thisNode.parentId)) {
       resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById);
     }
-  };
-  const getEncapsulatingSize = (nodeId, nodes) => {
-    const objectsToEncapsulate = [];
-    for (const node of nodes) {
-      if (node.parentId === nodeId) {
-        objectsToEncapsulate.push(node);
-      }
-    }
-    const bounds = getNodesBounds(objectsToEncapsulate);
-    const padding = 50; //pixels
-    return { width: bounds.width + padding, height: bounds.height + padding };
   };
   //stop dragging node
   const handleNodeDragStop: NodeTargetEventWithPointer = (event) => {
@@ -293,15 +282,15 @@
       const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
       const newPos = flowToLocalPosition(globalCoords, parent.id);
       updateNode(thisNode.id, { parentId: parent.id, position: newPos });
-    } else if (thisNode.parentId !== null && thisNode.parentId !== undefined) {
+    } else if (!isNil(thisNode.parentId)) {
       const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
       updateNode(thisNode.id, { parentId: undefined, position: globalCoords });
     }
     const nodesById = getNodesById(nodes);
-    if (newParentId !== null && newParentId !== undefined) {
+    if (!isNil(newParentId)) {
       resizeNodeToEncapsulateChildren(newParentId, nodesById);
     }
-    if (oldParentId !== null && oldParentId !== undefined) {
+    if (!isNil(oldParentId)) {
       resizeNodeToEncapsulateChildren(oldParentId, nodesById);
     }
     nodes = reorderParentsFirst(nodes);
@@ -349,7 +338,7 @@
     globalFuncs.restyleGraph();
   };
 
-  let fileInput; // for “Load” dialog
+  let fileInput: HTMLInputElement; // for “Load” dialog
 
   // --- LOADING (open file) ---
   const triggerLoad = () => {

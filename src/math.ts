@@ -1,4 +1,4 @@
-import { type XYPosition } from '@xyflow/svelte';
+import { type XYPosition } from "@xyflow/svelte";
 
 export const addPositions = (a: XYPosition, b: XYPosition) => ({
   x: a.x + b.x,
