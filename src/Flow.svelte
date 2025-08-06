@@ -246,7 +246,7 @@
         children.push(node);
       }
     }
-    const contentSize = getNodeFlowSize(nodeId);
+    const contentSize = getNodeLabelSize(nodeId);
     const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
     //want that
     // - children stay where they are globally
@@ -412,7 +412,7 @@
     unsavedChanges = false;
   };
 
-  const getNodeFlowSize = (nodeId: string) => {
+  const getNodeLabelSize = (nodeId: string) => {
     const el = getNodeLabelElement(nodeId);
     if (!el) return undefined;
     const rect = el.getBoundingClientRect();
