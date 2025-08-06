@@ -9,6 +9,7 @@
     Panel,
     type Node,
     type Edge,
+    type Rect,
     type ColorMode,
     type OnConnectEnd,
     type NodeTargetEventWithPointer,
@@ -21,7 +22,7 @@
   import { globalFuncs } from "./App.svelte";
 
   import { nodeDefaults, edgeDefaults } from "./nodes-and-edges";
-  import { addPositions, subPositions } from "./math";
+  import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
   import { getNodeLabelElement } from "./nodeElements";
   import { getBackgroundColor, getTextColor } from "./colors";
   const {
@@ -31,6 +32,7 @@
     getIntersectingNodes,
     // fitBounds,
     // getNode,
+    getNodesBounds,
     updateNode,
     deleteElements,
     getNode,
