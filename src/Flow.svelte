@@ -238,7 +238,9 @@
     return subPositions(newOffset, existingOffset);
   };
   const isNil = (x) => x === null || x === undefined;
-  const resizeNodeToEncapsulateChildren = (nodeId, nodesById) => {
+  //resizedNodesById caches nodes which have been resized by this resize operation and their new sizes
+  //this is because that info doesn't propagate immediately in svelteflow
+  const resizeNodeToEncapsulateChildren = (nodeId, nodesById, resizedNodesById = {}) => {
     console.log("resizing", nodeId);
     const thisNode = nodesById[nodeId];
     const children = [];
@@ -248,15 +250,27 @@
         children.push(node);
       }
     }
+    const padding = 40; // padding on all sides
     const contentSize = getNodeLabelSize(nodeId);
+    if (children.length > 0) {
+      contentSize.height += 10; //vertical pad before child nodes
+    }
+    const childBounds = getBoundingRect(children.map((n) => getNodeRectFlowCoordinates(n, resizedNodesById)));
+    const contentPos = localToFlowPosition(childBounds, nodeId);
+    const contentBounds = {
+      x: contentPos.x,
+      y: contentPos.y - contentSize.height,
+      width: Math.max(contentSize.width, childBounds.width),
+      height: contentSize.height + childBounds.height,
+    };
     const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
+    console.log(contentBounds, childBounds, bounds);
     //want that
     // - children stay where they are globally
     // - size of parent node changes to encapsulate children and parent contents with some padding on all sides
-    // - center of parent node moves to center of child bounds
+    // - center of parent node moves to center of (children and parent contents)
     const boundsLocal = flowToLocalPosition(bounds, nodeId); //get xy in local coords
-    const padding = 50;
-    const newSize = { width: bounds.width + padding, height: bounds.height + padding };
+    const newSize = { width: contentBounds.width + padding, height: contentBounds.height + padding };
     // const newParentCenterPos = {x:}
     console.log(newSize);
     //figure out diff in local position for children
@@ -269,7 +283,7 @@
     updateNode(thisNode.id, { width: newSize.width, height: newSize.height });
     //resize parent recursively
     if (!isNil(thisNode.parentId)) {
-      resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById);
+      resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);
     }
   };
   //stop dragging node

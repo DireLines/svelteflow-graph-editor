@@ -644,7 +644,7 @@
       "id": "34",
       "data": {
         "label": "create a nested bulleted list text format for the graphs",
-        "completed": false
+        "completed": true
       },
       "position": {
         "x": -198.4505620862276,
@@ -795,7 +795,7 @@
     {
       "id": "41",
       "data": {
-        "label": "automatic node layout (maybe just use whatever mermaid does?)",
+        "label": "automatic node layout (first try dagre.js)",
         "completed": false
       },
       "position": {
@@ -810,7 +810,7 @@
         0.5
       ],
       "measured": {
-        "width": 370,
+        "width": 233,
         "height": 36
       },
       "selected": false,
@@ -901,8 +901,8 @@
         "completed": false
       },
       "position": {
-        "x": 185.815841986811,
-        "y": 59.2027772658341
+        "x": 195.815841986811,
+        "y": 59.7027772658341
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -912,13 +912,15 @@
         0.5
       ],
       "measured": {
-        "width": 311,
-        "height": 36
+        "width": 331,
+        "height": 37
       },
       "selected": false,
       "dragging": false,
       "parentId": "47",
-      "hidden": false
+      "hidden": false,
+      "width": 331,
+      "height": 37
     },
     {
       "id": "48",
@@ -927,8 +929,8 @@
         "completed": true
       },
       "position": {
-        "x": 296.54974096801817,
-        "y": 110.19965123082963
+        "x": 272.04974096801817,
+        "y": 113.69965123082963
       },
       "parentId": "47",
       "type": "custom",
@@ -939,12 +941,14 @@
         0.5
       ],
       "measured": {
-        "width": 173,
-        "height": 36
+        "width": 124,
+        "height": 43
       },
       "selected": false,
       "dragging": false,
-      "hidden": false
+      "hidden": false,
+      "width": 124,
+      "height": 43
     },
     {
       "id": "53",
@@ -1027,7 +1031,7 @@
     {
       "id": "51",
       "data": {
-        "label": "bug: instead of entering newline, enter should stop editing title",
+        "label": "bug: instead of entering newline, pressing enter should stop editing title",
         "completed": false
       },
       "position": {
@@ -1042,7 +1046,7 @@
         0.5
       ],
       "measured": {
-        "width": 351,
+        "width": 400,
         "height": 36
       },
       "selected": false,
@@ -1106,8 +1110,8 @@
         "completed": true
       },
       "position": {
-        "x": 78.04679843935688,
-        "y": 306.0697331268537
+        "x": 75.60019497962314,
+        "y": 316.34546765773536
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1133,8 +1137,8 @@
         "completed": false
       },
       "position": {
-        "x": 69.80533473240601,
-        "y": 233.66401867270895
+        "x": 402.05408456424664,
+        "y": 172.49893217936565
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1363,8 +1367,8 @@
         "completed": false
       },
       "position": {
-        "x": 278.15417019179813,
-        "y": 1766.4269749460532
+        "x": 313.1596077078963,
+        "y": 1784.3784813645652
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1438,8 +1442,8 @@
         "completed": true
       },
       "position": {
-        "x": -862.6973663045602,
-        "y": 702.2239669716707
+        "x": -807.148541129657,
+        "y": 684.984676400149
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1463,8 +1467,8 @@
         "completed": false
       },
       "position": {
-        "x": 1714.5665845781778,
-        "y": 564.947492754855
+        "x": 1685.6906412968533,
+        "y": 561.5351696824267
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1474,39 +1478,13 @@
         0.5
       ],
       "measured": {
-        "width": 384,
-        "height": 204
+        "width": 501,
+        "height": 249
       },
       "selected": false,
       "dragging": false,
-      "width": 384,
-      "height": 203.74176565933317,
-      "hidden": false
-    },
-    {
-      "id": "92",
-      "data": {
-        "label": "dependencies going between levels",
-        "completed": false
-      },
-      "position": {
-        "x": 181.15590619027694,
-        "y": 64.84485631149715
-      },
-      "parentId": "90",
-      "type": "custom",
-      "sourcePosition": "bottom",
-      "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
-      "measured": {
-        "width": 212,
-        "height": 36
-      },
-      "selected": false,
-      "dragging": false,
+      "width": 501.4107405608843,
+      "height": 249.12060484601102,
       "hidden": false
     },
     {
@@ -1516,8 +1494,8 @@
         "completed": false
       },
       "position": {
-        "x": 193.5296442443355,
-        "y": 106.07877908491213
+        "x": 244.38495733293962,
+        "y": 129.1735974984989
       },
       "parentId": "90",
       "type": "custom",
@@ -1544,8 +1522,8 @@
         "completed": false
       },
       "position": {
-        "x": 193.96001178036818,
-        "y": 156.00057664840773
+        "x": 287.42794372307196,
+        "y": 172.08990107483413
       },
       "parentId": "90",
       "type": "custom",
@@ -1570,8 +1548,8 @@
         "completed": false
       },
       "position": {
-        "x": 189.250521665542,
-        "y": 182.58662197083038
+        "x": 126.97421677205534,
+        "y": 213.80218522667099
       },
       "parentId": "90",
       "type": "custom",
@@ -1583,6 +1561,32 @@
       ],
       "measured": {
         "width": 129,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "92",
+      "data": {
+        "label": "dependencies going between levels",
+        "completed": false
+      },
+      "position": {
+        "x": 212.00365555891256,
+        "y": 74.68158038065997
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 212,
         "height": 36
       },
       "selected": false,
@@ -1642,12 +1646,12 @@
     {
       "id": "104",
       "data": {
-        "label": "UX: it is hard to find the node label input field after the user completely clears it",
+        "label": "UX: it is impossible to find the node label input field after the user completely clears it - have minimum width",
         "completed": false
       },
       "position": {
-        "x": 102.8397029770012,
-        "y": 44.86957340660913
+        "x": 155.4168103678859,
+        "y": 43.70119324236724
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1657,7 +1661,7 @@
         0.5
       ],
       "measured": {
-        "width": 440,
+        "width": 592,
         "height": 36
       },
       "selected": false,
@@ -1696,8 +1700,8 @@
         "completed": false
       },
       "position": {
-        "x": -599.9317007643577,
-        "y": 1160.2580434062293
+        "x": -604.3044338497607,
+        "y": 1157.0603105106018
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1707,12 +1711,14 @@
         0.5
       ],
       "measured": {
-        "width": 328,
+        "width": 346,
         "height": 36
       },
       "selected": false,
       "dragging": false,
-      "hidden": false
+      "hidden": false,
+      "width": 346,
+      "height": null
     },
     {
       "id": "112",
@@ -1915,6 +1921,135 @@
       },
       "selected": false,
       "dragging": false
+    },
+    {
+      "id": "126",
+      "data": {
+        "label": "transform child bounds to global coords",
+        "completed": true
+      },
+      "position": {
+        "x": -373.2868556213441,
+        "y": 132.57795357299923
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 231,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "128",
+      "data": {
+        "label": "bug: child bounds are slightly smaller than what svelteflow reports",
+        "completed": false
+      },
+      "position": {
+        "x": -516.2711214522562,
+        "y": 48.03055942849338
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 371,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "134",
+      "data": {
+        "label": "bug: child rect xy is slightly smaller than what svelteflow reports",
+        "completed": false
+      },
+      "position": {
+        "x": -521.5587918780707,
+        "y": -36.06317123935682
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 358,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "140",
+      "data": {
+        "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable.\n\n\nI believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
+        "completed": false
+      },
+      "position": {
+        "x": -495.73295494917215,
+        "y": -193.1820850431552
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 326,
+        "height": 137
+      },
+      "width": 326,
+      "height": 137,
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "141",
+      "data": {
+        "label": "perf: considerably slower on firefox. it's svelteflow's rendering logic, not my code, and it's not slow on safari",
+        "completed": false
+      },
+      "position": {
+        "x": 37.68756651522064,
+        "y": -343.2525699064852
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 230,
+        "height": 69
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 230,
+      "height": 69
     }
   ],
   "edges": [
@@ -2316,6 +2451,38 @@
       "id": "xy-edge__117-3",
       "hidden": false,
       "selected": false
+    },
+    {
+      "source": "126",
+      "target": "54",
+      "id": "xy-edge__126-54",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "128",
+      "target": "54",
+      "id": "xy-edge__128-54",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "134",
+      "target": "54",
+      "id": "xy-edge__134-54",
+      "hidden": false
+    },
+    {
+      "source": "140",
+      "target": "54",
+      "id": "xy-edge__140-54",
+      "hidden": false
+    },
+    {
+      "source": "54",
+      "target": "64",
+      "id": "xy-edge__54-64",
+      "hidden": false
     }
   ]
 }

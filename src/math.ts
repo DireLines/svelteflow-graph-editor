@@ -10,10 +10,9 @@ export const subPositions = (a: XYPosition, b: XYPosition) => ({
   y: a.y - b.y,
 });
 
-export const getNodeRectFlowCoordinates = (n: Node): Rect => {
+export const getNodeRectFlowCoordinates = (n: Node, resizedNodesById: any = {}): Rect => {
   return {
-    x: n.position.x,
-    y: n.position.y,
+    ...n.position,
     width: n.width ?? n.measured?.width ?? 0,
     height: n.height ?? n.measured?.height ?? 0,
   };
