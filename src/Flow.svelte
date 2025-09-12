@@ -21,10 +21,11 @@
 
   import { globalFuncs } from "./App.svelte";
 
-  import { nodeDefaults, edgeDefaults } from "./nodes-and-edges";
+  import { nodeDefaults, edgeDefaults, type DisplayState, reorderParentsFirst, getNodesById } from "./nodes-and-edges";
   import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
   import { getNodeLabelElement } from "./nodeElements";
   import { getBackgroundColor, getTextColor } from "./colors";
+  import { containsOnlyDigits, isNil } from "./util";
   const {
     screenToFlowPosition,
     // flowToScreenPosition,
@@ -45,7 +46,7 @@
   let showWorkable = $state(true);
   let showUpcoming = $state(true);
 
-  // load existing or fall back
+  // load existing state or fall back
   let initial;
   const defaultValue = { nodes: [], edges: [] };
   try {
@@ -60,19 +61,15 @@
 
   let unsavedChanges = $state(false);
 
+  // tell the browser to prompt the user on unsaved changes
   const handleBeforeUnload = (event) => {
     if (!unsavedChanges) return;
-    // tell the browser to prompt the user
     event.preventDefault();
     event.returnValue = "";
   };
 
   //set id to max of incoming node ids + 1
   let id = 0;
-  //TODO:utils
-  const containsOnlyDigits = (value) => {
-    return /^-?\d+$/.test(value);
-  };
   for (const n of nodes) {
     if (containsOnlyDigits(n.id)) {
       const parsed = parseInt(n.id);
@@ -160,13 +157,6 @@
     ...edgeDefaults,
   });
   let colorMode: ColorMode = $state("dark");
-  const getNodesById = (nodes) => {
-    const result = {};
-    for (const node of nodes) {
-      result[node.id] = node;
-    }
-    return result;
-  };
   //localPosition in coordinates of node with id nodeId to global (flow) coordinates
   const localToFlowPosition = (localPosition, nodeId) => {
     const nodesById = getNodesById(nodes); //TODO precompute when nodes change
@@ -191,44 +181,6 @@
     }
     return flowToLocalPosition(subPositions(flowPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
   };
-  const buildTree = (nodes) => {
-    const nodeMap = new Map();
-    const tree = [];
-
-    // Initialize all nodes with a children array and store in a map
-    for (const node of nodes) {
-      nodeMap.set(node.id, { ...node, children: [] });
-    }
-
-    // Assign children to their parent
-    for (const node of nodes) {
-      const currentNode = nodeMap.get(node.id);
-      if (node.parentId == null) {
-        tree.push(currentNode); // Root node
-      } else {
-        const parentNode = nodeMap.get(node.parentId);
-        if (parentNode) {
-          parentNode.children.push(currentNode);
-        }
-      }
-    }
-
-    return tree;
-  };
-  const preorderTraverse = (node) => {
-    const thisNodeWithoutChildren = { ...node };
-    delete thisNodeWithoutChildren.children;
-    if (!node.children || node.children.length === 0) {
-      return [thisNodeWithoutChildren];
-    }
-    const childrenTraversal = node.children.map((child) => preorderTraverse(child)).flat();
-    return [thisNodeWithoutChildren, ...childrenTraversal];
-  };
-  const reorderParentsFirst = (nodes) => {
-    const tree = buildTree(nodes);
-    const root = { children: tree };
-    return preorderTraverse(root).slice(1); //exclude root node
-  };
   const findDiffInLocalPosition = (parentNode, newSize) => {
     const existingOffset = getOffsetOfOrigin(parentNode);
     const newOffset = {
@@ -237,7 +189,6 @@
     };
     return subPositions(newOffset, existingOffset);
   };
-  const isNil = (x) => x === null || x === undefined;
   //resizedNodesById caches nodes which have been resized by this resize operation and their new sizes
   //this is because that info doesn't propagate immediately in svelteflow
   const resizeNodeToEncapsulateChildren = (nodeId, nodesById, resizedNodesById = {}) => {
