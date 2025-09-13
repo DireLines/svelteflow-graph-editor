@@ -86,10 +86,18 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number): NodeData[] => {
   return results;
 };
 
-const nodeDataToDisplayNode = (nodeData: NodeData): Node => {
+//note: since parent/child relationships between nodes are encoded in 2 different ways in the nested vs flat graph,
+// this conversion loses that info. It should be re-added
+const nodeDataToNode = (nodeData: NodeData): Node => {
   const { id, position } = nodeData;
   const n: Node = { id, position, data: { ...nodeData } };
   delete n.data.children;
+  return n;
+};
+const nodeToNodeData = (node: Node): NodeData => {
+  const { id, position, data } = node;
+  const n: any = { id, position, ...data };
+  //TODO: keep only NodeData keys
   return n;
 };
 export const getDisplayState = (
@@ -107,7 +115,7 @@ export const getDisplayState = (
     }
     focusedNode = node;
     const nodesBelow = getNodesBelow(node, maxDepthBelow);
-    resultNodes.push(...nodesBelow.map(nodeDataToDisplayNode));
+    resultNodes.push(...nodesBelow.map(nodeDataToNode));
   }
   const nodesById = getNodesById(resultNodes);
   for (const edge of edges) {
