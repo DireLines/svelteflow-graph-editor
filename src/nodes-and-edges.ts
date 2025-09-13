@@ -53,6 +53,12 @@ export type NodeData = {
   backgroundColor: string;
 };
 
+//backend graph
+export type Graph = {
+  nodes: NodeData[];
+  edges: Edge[];
+};
+
 //state to display on Svelteflow for the currently focused segment of the graph
 export type DisplayState = {
   nodes: Node[];
@@ -86,19 +92,38 @@ const nodeDataToDisplayNode = (nodeData: NodeData): Node => {
   delete n.data.children;
   return n;
 };
-const getDisplayState = (graph: NodeData[], focusedNodeId: string, maxDepthBelow: number = 2): DisplayState => {
-  for (const node of graph) {
+export const getDisplayState = (
+  graph: Graph,
+  focusedNodeId: string,
+  maxDepthBelow: number = 2
+): DisplayState | null => {
+  const resultNodes: Node[] = [];
+  const resultEdges: Edge[] = [];
+  let focusedNode: NodeData | null = null;
+  const { nodes, edges } = graph;
+  for (const node of nodes) {
     if (node.id !== focusedNodeId) {
       continue;
     }
-    const nodes = getNodesBelow(node, maxDepthBelow);
+    focusedNode = node;
+    const nodesBelow = getNodesBelow(node, maxDepthBelow);
+    resultNodes.push(...nodesBelow.map(nodeDataToDisplayNode));
   }
-
+  const nodesById = getNodesById(resultNodes);
+  for (const edge of edges) {
+    if (edge.source in nodesById || edge.target in nodesById) {
+      resultEdges.push(edge);
+    }
+  }
+  if (focusedNode === null) {
+    //bogus focusedNodeId - fail
+    return null;
+  }
   return {
-    nodes: [],
-    edges: [],
-    title: "todo",
-    backgroundColor: "#ff0000",
+    nodes: resultNodes,
+    edges: resultEdges,
+    title: focusedNode.label,
+    backgroundColor: focusedNode.backgroundColor,
   };
 };
 
