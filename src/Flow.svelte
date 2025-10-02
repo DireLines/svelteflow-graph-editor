@@ -1,5 +1,14 @@
 <script lang="ts">
-  import { SvelteFlow, useSvelteFlow, Background, Controls, MiniMap, Panel, type ColorMode } from "@xyflow/svelte";
+  import {
+    SvelteFlow,
+    useSvelteFlow,
+    Background,
+    Controls,
+    MiniMap,
+    Panel,
+    type ColorMode,
+    type OnConnectEnd,
+  } from "@xyflow/svelte";
   import {
     DisplayState,
     edgeDefaults,
@@ -12,7 +21,7 @@
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
   import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
-  import { getHighestNumericId } from "./util";
+  import { getHighestNumericId, isNil } from "./util";
   const { deleteElements, screenToFlowPosition, getIntersectingNodes } = useSvelteFlow();
 
   let colorMode: ColorMode = $state("dark");
@@ -187,24 +196,27 @@
     id: `${sourceId}->${targetId}`,
     ...edgeDefaults,
   });
+  const isValidConnection = (_) => false; //if we say true, it will create an edge outside of handleConnectEnd
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
     unsavedChanges = true;
-    if (connectionState.isValid) {
-      //TODO need to hook in here so we can add edge defaults and also add to graph
-      globalFuncs.restyleGraph();
-      return;
-    }
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
     const sourceNodeId = connectionState.fromNode?.id ?? "1";
+    const targetNodeId = connectionState.toNode?.id;
     const { clientX, clientY } = "changedTouches" in event ? event.changedTouches[0] : event;
 
     const id = getId();
-    const newNode: NodeData = makeNode(id, clientX, clientY);
-    const newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
+    let newEdge;
+    if (isNil(targetNodeId)) {
+      makeNode(id, clientX, clientY);
+      newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
+    } else {
+      newEdge = makeEdge(sourceNodeId, targetNodeId);
+    }
+    graph.edges = [...graph.edges, newEdge];
+    displayState.edges = [...displayState.edges, newEdge];
     refreshDisplayState();
-    globalFuncs.restyleGraph();
   };
 </script>
 
@@ -231,6 +243,7 @@
   onnodedragstop={handleNodeDragStop}
   onpanecontextmenu={handlePaneContextMenu}
   onnodecontextmenu={handleNodeContextMenu}
+  {isValidConnection}
   minZoom={0.2}
   maxZoom={6}
 >
