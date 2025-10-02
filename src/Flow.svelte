@@ -285,22 +285,26 @@
     nodes = [...nodes, makeNode(id, clientX, clientY)];
     globalFuncs.restyleGraph();
   };
+  const isValidConnection = (_) => false; //if we say true, it will create an edge outside of handleConnectEnd
+
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
     unsavedChanges = true;
-    if (connectionState.isValid) {
-      globalFuncs.restyleGraph();
-      return;
-    }
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
     const sourceNodeId = connectionState.fromNode?.id ?? "1";
+    const targetNodeId = connectionState.toNode?.id;
     const { clientX, clientY } = "changedTouches" in event ? event.changedTouches[0] : event;
 
     const id = getId();
-    const newNode: Node = makeNode(id, clientX, clientY);
-    const newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
-    nodes = [...nodes, newNode];
+    let newEdge;
+    if (isNil(targetNodeId)) {
+      const newNode = makeNode(id, clientX, clientY);
+      nodes = [...nodes, newNode];
+      newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
+    } else {
+      newEdge = makeEdge(sourceNodeId, targetNodeId);
+    }
     edges = [...edges, newEdge];
     globalFuncs.restyleGraph();
   };
@@ -450,6 +454,7 @@
   onnodedragstop={handleNodeDragStop}
   onpanecontextmenu={handlePaneContextMenu}
   onnodecontextmenu={handleNodeContextMenu}
+  {isValidConnection}
   minZoom={0.2}
   maxZoom={6}
 >
