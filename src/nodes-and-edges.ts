@@ -52,6 +52,14 @@ export type NodeData = {
   manuallyResized: boolean; //is the current size of the node the result of a manual resizing?
   backgroundColor: string;
 };
+//state to display on Svelteflow for the currently focused segment of the graph
+export type DisplayState = {
+  nodes: Node[];
+  edges: Edge[];
+  title: string; //label for project title component at top
+  description?: string; //description for project title component at top
+  backgroundColor: string; //svelteflow background color
+};
 
 export function* preorderTraverse(nodes: readonly NodeData[]): IterableIterator<NodeData> {
   const stack: NodeData[] = [...nodes].reverse(); // process first node first
@@ -137,7 +145,6 @@ export class Graph {
     removeFirstMatch(nodesToSearch, (n) => n.id === nodeId);
     this.edges = this.edges.filter((e) => e.source !== nodeId && e.target !== nodeId);
   }
-
   addEdge(edge: Edge) {
     this.edges.push(edge);
   }
@@ -214,15 +221,6 @@ export class Graph {
   }
 }
 
-//state to display on Svelteflow for the currently focused segment of the graph
-export type DisplayState = {
-  nodes: Node[];
-  edges: Edge[];
-  title: string; //label for project title component at top
-  description?: string; //description for project title component at top
-  backgroundColor: string; //svelteflow background color
-};
-
 const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeData[] => {
   if (maxDepthBelow >= 0) {
     return [node];
@@ -256,50 +254,8 @@ const nodeToNodeData = (node: Node): NodeData => {
   return n;
 };
 
-export const getDisplayState = (
-  graph: Graph,
-  focusedNodeId: string | null,
-  maxDepthBelow: number = 2
-): DisplayState | null => {
-  const result: DisplayState = { nodes: [], edges: [], title: "Graphout", backgroundColor: "#111" };
-  const { nodes, edges } = graph;
-  if (focusedNodeId === null) {
-    //just doing from root of the graph
-    for (const node of nodes) {
-      const nodesBelow = getNodesBelow(node, maxDepthBelow);
-      result.nodes.push(...nodesBelow.map(nodeDataToNode));
-    }
-  } else {
-    let foundNode = false;
-    const preorder = preorderTraverse(nodes);
-    for (const node of preorder) {
-      if (node.id === focusedNodeId) {
-        //since node ids are maintained to be unique, correct to break after first encountered node with id
-        foundNode = true;
-        const nodesBelow = getNodesBelow(node, maxDepthBelow);
-        result.nodes.push(...nodesBelow.map(nodeDataToNode));
-        result.title = node.label;
-        result.backgroundColor = node.backgroundColor;
-        break;
-      }
-    }
-    if (!foundNode) {
-      //bogus focusedNodeId - fail
-      return null;
-    }
-  }
-
-  const nodesById = getNodesById(result.nodes);
-  for (const edge of edges) {
-    if (edge.source in nodesById || edge.target in nodesById) {
-      result.edges.push(edge);
-    }
-  }
-  return result;
-};
-
 //only needed for converting graph stored in old format to new format
-const displayStateToGraph = (displayState: DisplayState): Graph => {
+export const displayStateToGraph = (displayState: DisplayState): Graph => {
   const nodeMap = new Map();
   const result: Graph = new Graph([], []);
 

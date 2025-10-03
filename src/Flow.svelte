@@ -9,16 +9,10 @@
     type ColorMode,
     type OnConnectEnd,
     type NodeTargetEventWithPointer,
+    type Node,
+    type Edge,
   } from "@xyflow/svelte";
-  import {
-    DisplayState,
-    edgeDefaults,
-    nodeDefaults,
-    type Graph,
-    type NodeData,
-    getDisplayState,
-    getNodesById,
-  } from "./nodes-and-edges";
+  import { type DisplayState, edgeDefaults, type Graph, type NodeData, getNodesById } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
   import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
@@ -36,7 +30,9 @@
   const getId = () => `${nextNodeId++}`;
 
   //frontend graph - what is displayed by svelteflow
-  let displayState = $state.raw<DisplayState>(graph.getDisplayState(focusedNodeId));
+  let displayState = graph.getDisplayState(focusedNodeId);
+  let nodes = $state.raw<Node[]>(displayState.nodes);
+  let edges = $state.raw<Edge[]>(displayState.edges);
 
   let fileInput: HTMLInputElement; // for “Load” dialog
 
@@ -62,7 +58,9 @@
 
   const refreshDisplayState = async () => {
     await deleteElements(displayState);
-    displayState = getDisplayState(graph, focusedNodeId);
+    displayState = graph.getDisplayState(focusedNodeId);
+    nodes = displayState.nodes;
+    edges = displayState.edges;
   };
 
   const loadGraphFromFile = async (event) => {
@@ -252,6 +250,29 @@
     }
     refreshDisplayState();
   };
+  //right click on background
+  const handlePaneContextMenu = ({ event }) => {
+    unsavedChanges = true;
+    // Prevent native context menu from showing
+    event.preventDefault();
+
+    const { clientX, clientY } = event;
+    const id = getId();
+    makeNode(id, clientX, clientY);
+    refreshDisplayState();
+  };
+  //right click inside node
+  const handleNodeContextMenu = ({ event }) => {
+    unsavedChanges = true;
+    // Prevent native context menu from showing
+    event.preventDefault();
+
+    const { clientX, clientY } = event;
+    //make child node inside this node
+    const id = getId();
+    makeNode(id, clientX, clientY);
+    refreshDisplayState();
+  };
 </script>
 
 <!-- hook into the window event declaratively -->
@@ -267,8 +288,8 @@
 />
 
 <SvelteFlow
-  bind:nodes={displayState.nodes}
-  bind:edges={displayState.edges}
+  bind:nodes
+  bind:edges
   {colorMode}
   {nodeTypes}
   defaultEdgeOptions={edgeDefaults}
@@ -287,22 +308,11 @@
   <Panel style="display:flex; flex-direction: column; gap:2px;">
     <button onclick={() => saveObjToFile(graph)}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
-    <button onclick={clearGraph}> 🗑️ Clear </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
       <option value="system">system</option>
     </select>
-    <div style="color:#f8f8f8">Show</div>
-    <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showCompleted as boolean} onchange={globalFuncs.restyleGraph} />past
-    </div>
-    <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showWorkable as boolean} onchange={globalFuncs.restyleGraph} />present
-    </div>
-    <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showUpcoming as boolean} onchange={globalFuncs.restyleGraph} />future
-    </div>
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
   </Panel>
