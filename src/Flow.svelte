@@ -8,6 +8,7 @@
     Panel,
     type ColorMode,
     type OnConnectEnd,
+    type NodeTargetEventWithPointer,
   } from "@xyflow/svelte";
   import {
     DisplayState,
@@ -22,7 +23,7 @@
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
   import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
   import { getHighestNumericId, isNil } from "./util";
-  const { deleteElements, screenToFlowPosition, getIntersectingNodes } = useSvelteFlow();
+  const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode } = useSvelteFlow();
 
   let colorMode: ColorMode = $state("dark");
   const nodeTypes = { custom: CustomNode };
@@ -35,7 +36,7 @@
   const getId = () => `${nextNodeId++}`;
 
   //frontend graph - what is displayed by svelteflow
-  let displayState = $state.raw<DisplayState>(getDisplayState(graph, focusedNodeId));
+  let displayState = $state.raw<DisplayState>(graph.getDisplayState(focusedNodeId));
 
   let fileInput: HTMLInputElement; // for “Load” dialog
 
@@ -141,13 +142,12 @@
     }
     return parent;
   };
-
+  const getOffsetOfOrigin = (node) => ({
+    x: node.measured.width * node.origin[0],
+    y: node.measured.height * node.origin[1],
+  });
   //flowPosition in global (flow) coordinates to coordinates of node with id nodeId
   const flowToLocalPosition = (flowPosition, nodeId) => {
-    const getOffsetOfOrigin = (node) => ({
-      x: node.measured.width * node.origin[0],
-      y: node.measured.height * node.origin[1],
-    });
     const getPositionOfOrigin = (node) => subPositions(node.position, getOffsetOfOrigin(node));
     const nodesById = getNodesById(displayState.nodes); //TODO precompute when nodes change
     const thisNode = nodesById[nodeId];
@@ -158,6 +158,19 @@
       return subPositions(flowPosition, getPositionOfOrigin(thisNode));
     }
     return flowToLocalPosition(subPositions(flowPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
+  };
+  const getPositionOfOrigin = (node) => subPositions(node.position, getOffsetOfOrigin(node));
+  //localPosition in coordinates of node with id nodeId to global (flow) coordinates
+  const localToFlowPosition = (localPosition, nodeId) => {
+    const nodesById = getNodesById(displayState.nodes); //TODO precompute when nodes change
+    const thisNode = nodesById[nodeId];
+    if (!thisNode) {
+      return localPosition;
+    }
+    if (thisNode.parentId === null || thisNode.parentId === undefined) {
+      return addPositions(localPosition, getPositionOfOrigin(thisNode));
+    }
+    return localToFlowPosition(addPositions(localPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
   };
   const makeNode = (id, clientX, clientY) => {
     let parent = getParentNode(clientX, clientY);
@@ -181,12 +194,7 @@
       backgroundColor: "#111",
       position,
     };
-    if (parent) {
-      parent.data.nodeData.children.push(newNode);
-      const nodesById = getNodesById(displayState.nodes);
-      //TODO recursively resize parents
-      // resizeNodeToEncapsulateChildren(parent.id, nodesById);
-    }
+    graph.addNode(newNode, parent?.id);
     return newNode;
   };
 
@@ -214,8 +222,34 @@
     } else {
       newEdge = makeEdge(sourceNodeId, targetNodeId);
     }
-    graph.edges = [...graph.edges, newEdge];
+    graph.addEdge(newEdge);
     displayState.edges = [...displayState.edges, newEdge];
+    refreshDisplayState();
+  };
+
+  //stop dragging node
+  const handleNodeDragStop: NodeTargetEventWithPointer = (event, defaultParentId: string | null = focusedNodeId) => {
+    unsavedChanges = true;
+    const { clientX, clientY } = event?.event;
+    const thisNode = event.targetNode;
+    const parent = getParentNode(clientX, clientY, thisNode.id);
+    const oldParentId = thisNode.parentId;
+    const newParentId = parent?.id ?? defaultParentId;
+    if (parent.id === thisNode.id) {
+      return;
+    }
+    //reparent on backend
+    graph.reparent(oldParentId, newParentId, thisNode.id);
+    if (parent) {
+      const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
+      const newPos = flowToLocalPosition(globalCoords, parent.id);
+      graph.updateNode(thisNode.id, { position: newPos });
+      updateNode(thisNode.id, { position: newPos });
+    } else if (!isNil(thisNode.parentId)) {
+      const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
+      graph.updateNode(thisNode.id, { position: globalCoords });
+      updateNode(thisNode.id, { position: globalCoords });
+    }
     refreshDisplayState();
   };
 </script>

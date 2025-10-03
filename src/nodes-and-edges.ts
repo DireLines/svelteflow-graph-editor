@@ -53,11 +53,166 @@ export type NodeData = {
   backgroundColor: string;
 };
 
+export function* preorderTraverse(nodes: readonly NodeData[]): IterableIterator<NodeData> {
+  const stack: NodeData[] = [...nodes].reverse(); // process first node first
+  while (stack.length) {
+    const node = stack.pop()!;
+    yield node;
+    if (node.children?.length) {
+      // push children in reverse order so the first child is processed next
+      for (let i = node.children.length - 1; i >= 0; i--) {
+        stack.push(node.children[i]);
+      }
+    }
+  }
+}
+
+function removeFirstMatch(arr: any[], match: (x: any) => boolean) {
+  for (let i = 0; i < arr.length; i++) {
+    if (match(arr[i])) {
+      arr.splice(i, 1);
+    }
+  }
+  return arr;
+}
 //backend graph
-export type Graph = {
+export class Graph {
   nodes: NodeData[];
   edges: Edge[];
-};
+  constructor(nodes: NodeData[], edges: Edge[]) {
+    this.nodes = nodes;
+    this.edges = edges;
+  }
+  addNode(node: NodeData, parentId: string | null) {
+    if (parentId === null) {
+      this.nodes.push(node);
+      return;
+    }
+    const parent = this.getNode(parentId);
+    if (parent === null) {
+      console.error("tried to create a node with bogus parent id", parentId);
+      return;
+    }
+    parent?.children.push(node);
+  }
+  getNode(nodeId: string): NodeData | null {
+    for (const node of preorderTraverse(this.nodes)) {
+      if (node.id === nodeId) {
+        return node;
+      }
+    }
+    return null;
+  }
+  getParent(nodeId: string): NodeData | null {
+    for (const node of preorderTraverse(this.nodes)) {
+      for (const child of node.children) {
+        if (child.id === nodeId) {
+          return node;
+        }
+      }
+    }
+    return null;
+  }
+  updateNode(nodeId: string, changes: Partial<NodeData>) {
+    const node = this.getNode(nodeId);
+    if (node === null) {
+      console.error("tried to modify a node with bogus id", nodeId);
+      return;
+    }
+    for (const k in changes) {
+      node[k] = changes[k];
+    }
+  }
+  deleteNode(nodeId: string) {
+    const node = this.getNode(nodeId);
+    if (node === null) {
+      console.error("tried to delete a node with bogus id", nodeId);
+      return;
+    }
+    const parent = this.getParent(nodeId);
+    let nodesToSearch = this.nodes;
+    if (parent !== null) {
+      nodesToSearch = parent.children;
+    }
+    removeFirstMatch(nodesToSearch, (n) => n.id === nodeId);
+    this.edges = this.edges.filter((e) => e.source !== nodeId && e.target !== nodeId);
+  }
+
+  addEdge(edge: Edge) {
+    this.edges.push(edge);
+  }
+  deleteEdge(edgeId: string) {
+    removeFirstMatch(this.edges, (e) => e.id === edgeId);
+  }
+  reparent(oldParentId: string | null, newParentId: string | null, childId: string) {
+    if (oldParentId !== null) {
+      const oldParent = this.getNode(oldParentId);
+      if (oldParent !== null) {
+        oldParent.children = oldParent.children.filter((n) => n.id !== childId);
+      }
+    }
+    const child = this.getNode(childId);
+    if (child === null) {
+      console.error("tried to reparent", childId, "but no node with that id exists");
+      return;
+    }
+    if (newParentId !== null) {
+      const newParent = this.getNode(newParentId);
+      if (newParent === null) {
+        console.error(
+          "tried to make",
+          newParentId,
+          "the parent of",
+          childId,
+          "but node",
+          newParentId,
+          "does not exist"
+        );
+      } else {
+        newParent.children.push(child);
+      }
+    }
+  }
+  //importGraph
+  //deleteGraph
+  getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = 2): DisplayState | null {
+    const result: DisplayState = { nodes: [], edges: [], title: "Graphout", backgroundColor: "#111" };
+    const { nodes, edges } = this;
+    if (focusedNodeId === null) {
+      //just doing from root of the graph
+      for (const node of nodes) {
+        const nodesBelow = getNodesBelow(node, maxDepthBelow);
+        result.nodes.push(...nodesBelow.map(nodeDataToNode));
+      }
+    } else {
+      let foundNode = false;
+      const preorder = preorderTraverse(nodes);
+      for (const node of preorder) {
+        if (node.id === focusedNodeId) {
+          //since node ids are maintained to be unique, correct to break after first encountered node with id
+          foundNode = true;
+          const nodesBelow = getNodesBelow(node, maxDepthBelow);
+          result.nodes.push(...nodesBelow.map(nodeDataToNode));
+          result.title = node.label;
+          result.backgroundColor = node.backgroundColor;
+          break;
+        }
+      }
+      if (!foundNode) {
+        //bogus focusedNodeId - fail
+        return null;
+      }
+    }
+
+    const nodesById = getNodesById(result.nodes);
+    for (const edge of edges) {
+      if (edge.source in nodesById || edge.target in nodesById) {
+        result.edges.push(edge);
+      }
+    }
+    return result;
+  }
+}
 
 //state to display on Svelteflow for the currently focused segment of the graph
 export type DisplayState = {
@@ -100,18 +255,7 @@ const nodeToNodeData = (node: Node): NodeData => {
   //TODO: keep only NodeData keys
   return n;
 };
-//TODO: make iterator so you don't need to generate the entire buffer
-const preorderTraverse = (nodes: NodeData[]): NodeData[] => {
-  const result = [];
-  for (const node of nodes) {
-    if (!node.children || node.children.length === 0) {
-      return [node];
-    }
-    const childrenTraversal = node.children.map((child) => preorderTraverse([child])).flat();
-    result.push(node, ...childrenTraversal);
-  }
-  return result;
-};
+
 export const getDisplayState = (
   graph: Graph,
   focusedNodeId: string | null,
@@ -157,7 +301,7 @@ export const getDisplayState = (
 //only needed for converting graph stored in old format to new format
 const displayStateToGraph = (displayState: DisplayState): Graph => {
   const nodeMap = new Map();
-  const result: Graph = { nodes: [], edges: [] };
+  const result: Graph = new Graph([], []);
 
   // Initialize all nodes with a children array and store in a map
   for (const node of displayState.nodes) {
