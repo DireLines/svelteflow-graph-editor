@@ -14,6 +14,7 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
     if (parsed.nodes.length > 0 && parsed.nodes[0]?.children === null) {
       //old format
       initial = displayStateToGraph(parsed);
+      saveGraphToLocalStorage(initial);
     }
   } catch {
     initial = new Graph([], []);

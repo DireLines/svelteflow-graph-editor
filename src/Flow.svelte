@@ -31,8 +31,9 @@
 
   //frontend graph - what is displayed by svelteflow
   let displayState = graph.getDisplayState(focusedNodeId);
-  let nodes = $state.raw<Node[]>(displayState.nodes);
-  let edges = $state.raw<Edge[]>(displayState.edges);
+  console.log("displayState", displayState);
+  let nodes = $state.raw<Node[]>([...displayState.nodes]);
+  let edges = $state.raw<Edge[]>([...displayState.edges]);
 
   let fileInput: HTMLInputElement; // for “Load” dialog
 

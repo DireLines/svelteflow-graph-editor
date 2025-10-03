@@ -243,7 +243,7 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
 // this conversion loses that info. It should be re-added
 const nodeDataToNode = (nodeData: NodeData): Node => {
   const { id, position } = nodeData;
-  const n: Node = { id, position, data: { ...nodeData, nodeData } };
+  const n: Node = { id, position, data: { ...nodeData }, ...nodeDefaults };
   delete n.data.children;
   return n;
 };
