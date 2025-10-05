@@ -12,6 +12,8 @@
     type Node,
     type Edge,
   } from "@xyflow/svelte";
+  import "@xyflow/svelte/dist/style.css";
+
   import { type DisplayState, edgeDefaults, type Graph, type NodeData, getNodesById } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
