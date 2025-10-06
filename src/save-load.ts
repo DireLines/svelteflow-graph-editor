@@ -1,4 +1,5 @@
 import { displayStateToGraph, Graph } from "./nodes-and-edges";
+import { isNil } from "./util";
 
 const STORAGE_KEY = "graph";
 export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORAGE_KEY) => {
@@ -12,7 +13,7 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
     const json = localStorage.getItem(storageKey);
     const parsed = json ? JSON.parse(json) : empty;
     initial = new Graph(parsed.nodes, parsed.edges);
-    if (parsed.nodes.length > 0 && parsed.nodes[0]?.children === null) {
+    if (parsed.nodes.length > 0 && isNil(parsed.nodes[0]?.children)) {
       //old format
       initial = displayStateToGraph(parsed);
       saveGraphToLocalStorage(initial);

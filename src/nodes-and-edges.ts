@@ -181,7 +181,7 @@ export class Graph {
       }
     }
   }
-  getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = 2): DisplayState | null {
+  getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = Infinity): DisplayState | null {
     const result: DisplayState = { nodes: [], edges: [], title: "Graphout", backgroundColor: "#111" };
     const { nodes, edges } = this;
     if (focusedNodeId === null) {
@@ -241,20 +241,31 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
 //note: since parent/child relationships between nodes are encoded in 2 different ways in the nested vs flat graph,
 // this conversion loses that info. It should be re-added
 const nodeDataToNode = (nodeData: NodeData): Node => {
-  const { id, position } = nodeData;
-  const n: Node = { id, position, data: { ...nodeData }, ...nodeDefaults };
+  const { id, position, size } = nodeData;
+  const { x, y } = size;
+  const n: Node = { id, position, width: x, height: y, data: { ...nodeData }, ...nodeDefaults };
   delete n.data.children;
   return n;
 };
 const nodeToNodeData = (node: Node): NodeData => {
-  const { id, position, data } = node;
-  const n: any = { id, position, ...data };
+  const { id, position, measured, height, width, data } = node;
+  const n: any = {
+    id,
+    position,
+    children: [],
+    size: { x: width ?? measured?.width, y: height ?? measured?.height },
+    ...data,
+  };
+  console.log("original", node);
+  console.log("nodeData", n);
+  console.log("re-translated", nodeDataToNode(n));
   //TODO: keep only NodeData keys
   return n;
 };
 
 //only needed for converting graph stored in old format to new format
 export const displayStateToGraph = (displayState: DisplayState): Graph => {
+  console.log("displayStateToGraph");
   const nodeMap = new Map();
   const result: Graph = new Graph([], []);
 

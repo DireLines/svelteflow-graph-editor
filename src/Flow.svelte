@@ -14,10 +14,10 @@
   } from "@xyflow/svelte";
   import "@xyflow/svelte/dist/style.css";
 
-  import { type DisplayState, edgeDefaults, Graph, type NodeData, getNodesById } from "./nodes-and-edges";
+  import { edgeDefaults, Graph, type NodeData, getNodesById, displayStateToGraph } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
-  import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
+  import { addPositions, subPositions } from "./math";
   import { getHighestNumericId, isNil } from "./util";
   import { globals } from "./App.svelte";
   const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode } = useSvelteFlow();
@@ -78,7 +78,11 @@
 
     try {
       const text = await file.text();
-      const data = JSON.parse(text);
+      let data = JSON.parse(text);
+      if (data.nodes.length > 0 && isNil(data.nodes[0]?.children)) {
+        //old format
+        data = displayStateToGraph(data);
+      }
       graph.nodes = data.nodes;
       graph.edges = data.edges;
       nextNodeId = getHighestNumericId(graph.nodes) + 1;
