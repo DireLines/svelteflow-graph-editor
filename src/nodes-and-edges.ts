@@ -32,6 +32,7 @@ export type NodeData = {
   //graph stuff
   id: string;
   children: NodeData[]; //child nodes
+  parentId?: string; //parent node (redundant - not stored, only used temporarily when converting to displayState)
 
   //content
   label: string; // title for the node
@@ -103,6 +104,18 @@ export class Graph {
       return;
     }
     parent?.children.push(node);
+  }
+  refreshParentIds() {
+    for (const node of this.nodes) {
+      node.parentId = undefined;
+      this.refreshParentIdsUnderNode(node);
+    }
+  }
+  refreshParentIdsUnderNode(currNode: NodeData) {
+    for (const child of currNode.children) {
+      child.parentId = currNode.id;
+      this.refreshParentIdsUnderNode(child);
+    }
   }
   getNode(nodeId: string): NodeData | null {
     for (const node of preorderTraverse(this.nodes)) {
@@ -183,6 +196,7 @@ export class Graph {
   }
   getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = Infinity): DisplayState | null {
     const result: DisplayState = { nodes: [], edges: [], title: "Graphout", backgroundColor: "#111" };
+    this.refreshParentIds();
     const { nodes, edges } = this;
     if (focusedNodeId === null) {
       //just doing from root of the graph
@@ -221,8 +235,8 @@ export class Graph {
 }
 
 const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeData[] => {
-  if (maxDepthBelow >= 0) {
-    return [node];
+  if (maxDepthBelow <= 0) {
+    return [];
   }
   if (node.children.length === 0) {
     return [node];
@@ -241,9 +255,9 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
 //note: since parent/child relationships between nodes are encoded in 2 different ways in the nested vs flat graph,
 // this conversion loses that info. It should be re-added
 const nodeDataToNode = (nodeData: NodeData): Node => {
-  const { id, position, size } = nodeData;
+  const { id, position, size, parentId } = nodeData;
   const { x, y } = size;
-  const n: Node = { id, position, width: x, height: y, data: { ...nodeData }, ...nodeDefaults };
+  const n: Node = { id, position, parentId, width: x, height: y, data: { ...nodeData }, ...nodeDefaults };
   delete n.data.children;
   return n;
 };
