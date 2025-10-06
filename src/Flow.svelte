@@ -14,11 +14,12 @@
   } from "@xyflow/svelte";
   import "@xyflow/svelte/dist/style.css";
 
-  import { type DisplayState, edgeDefaults, type Graph, type NodeData, getNodesById } from "./nodes-and-edges";
+  import { type DisplayState, edgeDefaults, Graph, type NodeData, getNodesById } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
   import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
   import { getHighestNumericId, isNil } from "./util";
+  import { globals } from "./App.svelte";
   const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode } = useSvelteFlow();
 
   let colorMode: ColorMode = $state("dark");
@@ -33,9 +34,10 @@
 
   //frontend graph - what is displayed by svelteflow
   let displayState = graph.getDisplayState(focusedNodeId);
+  console.log("graph", graph);
   console.log("displayState", displayState);
-  let nodes = $state.raw<Node[]>([...displayState.nodes]);
-  let edges = $state.raw<Edge[]>([...displayState.edges]);
+  let nodes = $state.raw<Node[]>(displayState.nodes);
+  let edges = $state.raw<Edge[]>(displayState.edges);
 
   let fileInput: HTMLInputElement; // for “Load” dialog
 
@@ -59,7 +61,11 @@
     event.returnValue = "";
   };
 
-  const refreshDisplayState = async () => {
+  //save graph to local storage and refresh display
+  const refresh = async () => {
+    console.log("refresh");
+    saveGraphToLocalStorage(graph);
+    unsavedChanges = false;
     await deleteElements(displayState);
     displayState = graph.getDisplayState(focusedNodeId);
     nodes = displayState.nodes;
@@ -78,7 +84,7 @@
       nextNodeId = getHighestNumericId(graph.nodes) + 1;
       focusedNodeId = null;
       unsavedChanges = false;
-      await refreshDisplayState();
+      await refresh();
     } catch (err) {
       console.error("Failed to load/parse JSON", err);
     } finally {
@@ -208,6 +214,7 @@
   const isValidConnection = (_) => false; //if we say true, it will create an edge outside of handleConnectEnd
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
+    console.log("handleConnectEnd");
     unsavedChanges = true;
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
@@ -225,18 +232,19 @@
     }
     graph.addEdge(newEdge);
     displayState.edges = [...displayState.edges, newEdge];
-    refreshDisplayState();
+    refresh();
   };
 
   //stop dragging node
   const handleNodeDragStop: NodeTargetEventWithPointer = (event, defaultParentId: string | null = focusedNodeId) => {
+    console.log("handleNodeDragStop");
     unsavedChanges = true;
     const { clientX, clientY } = event?.event;
     const thisNode = event.targetNode;
     const parent = getParentNode(clientX, clientY, thisNode.id);
     const oldParentId = thisNode.parentId;
     const newParentId = parent?.id ?? defaultParentId;
-    if (parent.id === thisNode.id) {
+    if (parent?.id === thisNode.id) {
       return;
     }
     //reparent on backend
@@ -246,15 +254,16 @@
       const newPos = flowToLocalPosition(globalCoords, parent.id);
       graph.updateNode(thisNode.id, { position: newPos });
       updateNode(thisNode.id, { position: newPos });
-    } else if (!isNil(thisNode.parentId)) {
+    } else {
       const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
       graph.updateNode(thisNode.id, { position: globalCoords });
       updateNode(thisNode.id, { position: globalCoords });
     }
-    refreshDisplayState();
+    refresh();
   };
   //right click on background
   const handlePaneContextMenu = ({ event }) => {
+    console.log("handlePaneContextMenu");
     unsavedChanges = true;
     // Prevent native context menu from showing
     event.preventDefault();
@@ -262,10 +271,11 @@
     const { clientX, clientY } = event;
     const id = getId();
     makeNode(id, clientX, clientY);
-    refreshDisplayState();
+    refresh();
   };
   //right click inside node
   const handleNodeContextMenu = ({ event }) => {
+    console.log("handleNodeContextMenu");
     unsavedChanges = true;
     // Prevent native context menu from showing
     event.preventDefault();
@@ -274,8 +284,14 @@
     //make child node inside this node
     const id = getId();
     makeNode(id, clientX, clientY);
-    refreshDisplayState();
+    refresh();
   };
+  const clearGraph = () => {
+    graph = new Graph([], []);
+    refresh();
+  };
+  globals.refresh = refresh;
+  globals.graph = graph;
 </script>
 
 <!-- hook into the window event declaratively -->
@@ -311,6 +327,7 @@
   <Panel style="display:flex; flex-direction: column; gap:2px;">
     <button onclick={() => saveObjToFile(graph)}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
+    <button onclick={clearGraph}> Clear </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>

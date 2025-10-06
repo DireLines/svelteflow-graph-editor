@@ -1,4 +1,5 @@
 import { MarkerType, type Node, type Edge, Position } from "@xyflow/svelte";
+import { isNil } from "./util";
 
 export const nodeDefaults = {
   type: "custom",
@@ -92,7 +93,7 @@ export class Graph {
     this.edges = edges;
   }
   addNode(node: NodeData, parentId: string | null) {
-    if (parentId === null) {
+    if (isNil(parentId)) {
       this.nodes.push(node);
       return;
     }

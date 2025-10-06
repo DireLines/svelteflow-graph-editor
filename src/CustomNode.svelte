@@ -9,7 +9,7 @@
     NodeResizeControl,
   } from "@xyflow/svelte";
   import { onMount, onDestroy } from "svelte";
-  import { globalFuncs } from "./App.svelte";
+  import { globals } from "./App.svelte";
   import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
   let { isConnectable, id, data }: NodeProps = $props();
   const { updateNodeData } = useSvelteFlow();
@@ -41,13 +41,17 @@
   const getOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
 
   // Whenever the user types, update `text` and let parent know
-  const handleLabelInput = () => {
+  const handleEndLabelInput = () => {
     data.label = editable.innerText;
+    globals.graph.updateNode(id, { label: data.label });
+    updateNodeData(id, { label: data.label });
+    globals.refresh();
   };
 
   const handleCheckboxChange = (e) => {
+    globals.graph.updateNode(id, { completed });
     updateNodeData(id, { completed });
-    globalFuncs.restyleGraph();
+    globals.refresh();
   };
 
   // Optional: keep caret at end when programmatically updating
@@ -85,7 +89,7 @@
       contenteditable="true"
       spellcheck="false"
       bind:this={editable}
-      oninput={handleLabelInput}
+      onblur={handleEndLabelInput}
       onmousedowncapture={stopPropagation}
       onmouseupcapture={stopPropagation}
       onclickcapture={stopPropagation}
