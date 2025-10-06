@@ -2,7 +2,7 @@ import { displayStateToGraph, Graph } from "./nodes-and-edges";
 
 const STORAGE_KEY = "graph";
 export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORAGE_KEY) => {
-  console.log("save to local storage");
+  console.log("saveGraphToLocalStorage");
   localStorage.setItem(storageKey, JSON.stringify(graph, null, 2));
 };
 export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Graph => {

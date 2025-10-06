@@ -181,8 +181,6 @@ export class Graph {
       }
     }
   }
-  //importGraph
-  //deleteGraph
   getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = 2): DisplayState | null {
     const result: DisplayState = { nodes: [], edges: [], title: "Graphout", backgroundColor: "#111" };
     const { nodes, edges } = this;
