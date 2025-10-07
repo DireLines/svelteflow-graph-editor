@@ -65,6 +65,7 @@
   const refresh = async () => {
     console.log("refresh");
     saveGraphToLocalStorage(graph);
+    console.log(graph);
     unsavedChanges = false;
     await deleteElements(displayState);
     displayState = graph.getDisplayState(focusedNodeId);
@@ -292,6 +293,7 @@
   };
   const clearGraph = () => {
     graph = new Graph([], []);
+    nextNodeId = 1;
     refresh();
   };
   globals.refresh = refresh;
