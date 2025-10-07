@@ -244,7 +244,7 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
   if (maxDepthBelow === 1) {
     return [node, ...node.children];
   }
-  const results = [node, ...node.children];
+  const results = [node];
   for (const child of node.children) {
     const deepChildren = getNodesBelow(child, maxDepthBelow - 1);
     results.push(...deepChildren);
@@ -270,9 +270,6 @@ const nodeToNodeData = (node: Node): NodeData => {
     size: { x: width ?? measured?.width, y: height ?? measured?.height },
     ...data,
   };
-  console.log("original", node);
-  console.log("nodeData", n);
-  console.log("re-translated", nodeDataToNode(n));
   //TODO: keep only NodeData keys
   return n;
 };
