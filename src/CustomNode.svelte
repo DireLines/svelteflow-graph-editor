@@ -41,11 +41,15 @@
   const getOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
 
   // Whenever the user types, update `text` and let parent know
-  const handleEndLabelInput = () => {
+  const handleLabelBlur = () => {
     data.label = editable.innerText;
     globals.graph.updateNode(id, { label: data.label });
     updateNodeData(id, { label: data.label });
     globals.refresh();
+  };
+  // Whenever the user types, resize the box
+  const handleLabelInput = () => {
+    data.label = editable.innerText;
   };
 
   const handleCheckboxChange = (e) => {
@@ -89,7 +93,8 @@
       contenteditable="true"
       spellcheck="false"
       bind:this={editable}
-      onblur={handleEndLabelInput}
+      oninput={handleLabelInput}
+      onblur={handleLabelBlur}
       onmousedowncapture={stopPropagation}
       onmouseupcapture={stopPropagation}
       onclickcapture={stopPropagation}

@@ -294,6 +294,7 @@
   const clearGraph = () => {
     graph = new Graph([], []);
     nextNodeId = 1;
+    globals.graph = graph;
     refresh();
   };
   globals.refresh = refresh;

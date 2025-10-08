@@ -148,7 +148,7 @@
         0.5
       ],
       "measured": {
-        "width": 309,
+        "width": 308,
         "height": 36
       },
       "selected": false,
@@ -200,7 +200,7 @@
         0.5
       ],
       "measured": {
-        "width": 325,
+        "width": 324,
         "height": 36
       },
       "selected": false,
@@ -426,7 +426,7 @@
         0.5
       ],
       "measured": {
-        "width": 281,
+        "width": 280,
         "height": 36
       },
       "selected": false,
@@ -451,7 +451,7 @@
         0.5
       ],
       "measured": {
-        "width": 556,
+        "width": 555,
         "height": 36
       },
       "selected": false,
@@ -476,7 +476,7 @@
         0.5
       ],
       "measured": {
-        "width": 354,
+        "width": 353,
         "height": 36
       },
       "selected": false,
@@ -490,8 +490,8 @@
         "completed": false
       },
       "position": {
-        "x": 348.74421821771796,
-        "y": 544.6026344519405
+        "x": 357.58454601489655,
+        "y": 558.9681671223557
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -507,7 +507,7 @@
       "selected": false,
       "dragging": false,
       "width": 441.3636445704574,
-      "height": 138.6870913069905,
+      "height": 138.6870913069904,
       "hidden": false
     },
     {
@@ -517,8 +517,8 @@
         "completed": false
       },
       "position": {
-        "x": 303.4528817472635,
-        "y": 108.13754064558799
+        "x": 303.99834860294953,
+        "y": 107.70674839163647
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -543,8 +543,8 @@
         "completed": false
       },
       "position": {
-        "x": 357.6992053834466,
-        "y": 55.85154496794951
+        "x": 358.2446722391326,
+        "y": 55.420752713997985
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -569,8 +569,8 @@
         "completed": false
       },
       "position": {
-        "x": 146.3355608129893,
-        "y": 63.505015106294024
+        "x": 146.88102766867533,
+        "y": 63.0742228523425
       },
       "parentId": "33",
       "type": "custom",
@@ -595,8 +595,8 @@
         "completed": false
       },
       "position": {
-        "x": 65.79478677348027,
-        "y": 101.79769283723374
+        "x": 66.34025362916628,
+        "y": 101.36690058328222
       },
       "parentId": "33",
       "type": "custom",
@@ -621,8 +621,8 @@
         "completed": false
       },
       "position": {
-        "x": 168.67710623157743,
-        "y": 108.53863627493996
+        "x": 169.22257308726344,
+        "y": 108.10784402098844
       },
       "parentId": "33",
       "type": "custom",
@@ -760,7 +760,7 @@
         0.5
       ],
       "measured": {
-        "width": 145,
+        "width": 144,
         "height": 36
       },
       "selected": false,
@@ -785,7 +785,7 @@
         0.5
       ],
       "measured": {
-        "width": 243,
+        "width": 242,
         "height": 36
       },
       "selected": false,
@@ -810,7 +810,7 @@
         0.5
       ],
       "measured": {
-        "width": 233,
+        "width": 232,
         "height": 36
       },
       "selected": false,
@@ -969,7 +969,7 @@
         0.5
       ],
       "measured": {
-        "width": 151,
+        "width": 150,
         "height": 36
       },
       "selected": false,
@@ -1046,7 +1046,7 @@
         0.5
       ],
       "measured": {
-        "width": 400,
+        "width": 399,
         "height": 36
       },
       "selected": false,
@@ -1071,7 +1071,7 @@
         0.5
       ],
       "measured": {
-        "width": 219,
+        "width": 218,
         "height": 36
       },
       "selected": false,
@@ -1096,7 +1096,7 @@
         0.5
       ],
       "measured": {
-        "width": 171,
+        "width": 170,
         "height": 36
       },
       "selected": false,
@@ -1201,7 +1201,7 @@
         0.5
       ],
       "measured": {
-        "width": 340,
+        "width": 339,
         "height": 36
       },
       "selected": false,
@@ -1226,7 +1226,7 @@
         0.5
       ],
       "measured": {
-        "width": 410,
+        "width": 409,
         "height": 36
       },
       "selected": false,
@@ -1303,32 +1303,7 @@
         0.5
       ],
       "measured": {
-        "width": 261,
-        "height": 36
-      },
-      "selected": false,
-      "dragging": false,
-      "hidden": false
-    },
-    {
-      "id": "81",
-      "data": {
-        "label": "styling: make node label font size proportional to node size",
-        "completed": false
-      },
-      "position": {
-        "x": 68.34455549062758,
-        "y": -22.216137635907884
-      },
-      "type": "custom",
-      "sourcePosition": "bottom",
-      "targetPosition": "left",
-      "origin": [
-        0.5,
-        0.5
-      ],
-      "measured": {
-        "width": 334,
+        "width": 260,
         "height": 36
       },
       "selected": false,
@@ -1378,7 +1353,7 @@
         0.5
       ],
       "measured": {
-        "width": 442,
+        "width": 441,
         "height": 36
       },
       "selected": false,
@@ -1597,7 +1572,7 @@
       "id": "97",
       "data": {
         "label": "get nodes at or up to n levels below arbitrary node",
-        "completed": false
+        "completed": true
       },
       "position": {
         "x": -601.7742308485018,
@@ -1697,11 +1672,11 @@
       "id": "108",
       "data": {
         "label": "convert between nested format and flat list with parent ids",
-        "completed": false
+        "completed": true
       },
       "position": {
-        "x": -604.3044338497607,
-        "y": 1157.0603105106018
+        "x": -594.7657345699959,
+        "y": 1227.21685034757
       },
       "type": "custom",
       "sourcePosition": "bottom",
@@ -1816,7 +1791,7 @@
       ],
       "hidden": false,
       "measured": {
-        "width": 293,
+        "width": 292,
         "height": 36
       },
       "selected": false,
@@ -1850,7 +1825,7 @@
     {
       "id": "118",
       "data": {
-        "label": "styling: make node hover menus constant in screen space",
+        "label": "styling: make node hover menus constant size in screen space",
         "completed": false
       },
       "position": {
@@ -1866,7 +1841,7 @@
       ],
       "hidden": false,
       "measured": {
-        "width": 331,
+        "width": 355,
         "height": 36
       },
       "selected": false,
@@ -1891,7 +1866,7 @@
       ],
       "hidden": false,
       "measured": {
-        "width": 380,
+        "width": 379,
         "height": 36
       },
       "selected": false,
@@ -1916,7 +1891,7 @@
       ],
       "hidden": false,
       "measured": {
-        "width": 281,
+        "width": 280,
         "height": 36
       },
       "selected": false,
@@ -1966,7 +1941,7 @@
       ],
       "hidden": false,
       "measured": {
-        "width": 371,
+        "width": 370,
         "height": 36
       },
       "selected": false,
@@ -2050,6 +2025,81 @@
       "dragging": false,
       "width": 230,
       "height": 69
+    },
+    {
+      "id": "143",
+      "data": {
+        "label": "graphToDisplayState including correct parentId",
+        "completed": true
+      },
+      "position": {
+        "x": -592.7782051831324,
+        "y": 1151.221773627662
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 270,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "144",
+      "data": {
+        "label": "specifically after importing from file: changes to text do not work",
+        "completed": true
+      },
+      "position": {
+        "x": -690.8746256483084,
+        "y": 1285.5391061535154
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 359,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "145",
+      "data": {
+        "label": "editing text results in node resizing in old version but not new",
+        "completed": false
+      },
+      "position": {
+        "x": -953.8299091601898,
+        "y": 1013.5961006122982
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 345,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
     }
   ],
   "edges": [
@@ -2482,6 +2532,24 @@
       "source": "54",
       "target": "64",
       "id": "xy-edge__54-64",
+      "hidden": false
+    },
+    {
+      "source": "143",
+      "target": "3",
+      "id": "xy-edge__143-3",
+      "hidden": false
+    },
+    {
+      "source": "144",
+      "target": "117",
+      "id": "xy-edge__144-117",
+      "hidden": false
+    },
+    {
+      "source": "145",
+      "target": "99",
+      "id": "xy-edge__145-99",
       "hidden": false
     }
   ]
