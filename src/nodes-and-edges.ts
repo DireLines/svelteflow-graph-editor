@@ -257,6 +257,7 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
 const nodeDataToNode = (nodeData: NodeData): Node => {
   const { id, position, size, parentId } = nodeData;
   const { x, y } = size;
+
   const n: Node = {
     id,
     position,
@@ -265,6 +266,11 @@ const nodeDataToNode = (nodeData: NodeData): Node => {
     data: { ...nodeData },
     ...nodeDefaults,
   };
+  if (nodeData.children.length > 0) {
+    //shrug
+    n.height = y;
+    n.width = x;
+  }
   delete n.data.children;
   return n;
 };
