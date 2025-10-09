@@ -116,6 +116,7 @@
     URL.revokeObjectURL(url);
     unsavedChanges = false;
   };
+  //TODO: default to focusedNodeId rather than undefined
   const getParentNode = (clientX, clientY, ignoreNodeId = null) => {
     // project the screen coordinates to pane coordinates
     const position = screenToFlowPosition({
