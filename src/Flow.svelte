@@ -65,10 +65,11 @@
   const refresh = async () => {
     console.log("refresh");
     saveGraphToLocalStorage(graph);
-    console.log(graph);
     unsavedChanges = false;
     await deleteElements(displayState);
     displayState = graph.getDisplayState(focusedNodeId);
+    console.log(graph);
+    console.log("displayState", displayState);
     nodes = displayState.nodes;
     edges = displayState.edges;
   };

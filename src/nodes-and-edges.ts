@@ -178,7 +178,7 @@ export class Graph {
         oldParent.children = oldParent.children.filter((n) => n.id !== childId);
       }
     } else {
-      //at top level
+      //moving out of top level
       removeFirstMatch(this.nodes, (n) => n.id === childId);
     }
 
@@ -198,6 +198,7 @@ export class Graph {
         newParent.children.push(childCopy);
       }
     } else {
+      //moving into top level
       this.nodes.push(childCopy);
     }
   }
