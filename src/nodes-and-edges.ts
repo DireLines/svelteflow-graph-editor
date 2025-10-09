@@ -257,7 +257,14 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
 const nodeDataToNode = (nodeData: NodeData): Node => {
   const { id, position, size, parentId } = nodeData;
   const { x, y } = size;
-  const n: Node = { id, position, parentId, width: x, height: y, data: { ...nodeData }, ...nodeDefaults };
+  const n: Node = {
+    id,
+    position,
+    parentId,
+    measured: { width: x, height: y },
+    data: { ...nodeData },
+    ...nodeDefaults,
+  };
   delete n.data.children;
   return n;
 };
