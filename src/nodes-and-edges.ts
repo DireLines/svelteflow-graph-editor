@@ -262,12 +262,10 @@ const nodeDataToNode = (nodeData: NodeData): Node => {
     id,
     position,
     parentId,
-    measured: { width: x, height: y },
     data: { ...nodeData },
     ...nodeDefaults,
   };
-  if (nodeData.children.length > 0) {
-    //shrug
+  if (nodeData.manuallyResized || nodeData.children.length > 0) {
     n.height = y;
     n.width = x;
   }
