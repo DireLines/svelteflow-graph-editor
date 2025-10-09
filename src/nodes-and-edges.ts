@@ -166,17 +166,22 @@ export class Graph {
     removeFirstMatch(this.edges, (e) => e.id === edgeId);
   }
   reparent(oldParentId: string | null, newParentId: string | null, childId: string) {
-    if (oldParentId !== null) {
-      const oldParent = this.getNode(oldParentId);
-      if (oldParent !== null) {
-        oldParent.children = oldParent.children.filter((n) => n.id !== childId);
-      }
-    }
     const child = this.getNode(childId);
     if (child === null) {
       console.error("tried to reparent", childId, "but no node with that id exists");
       return;
     }
+    const childCopy = { ...child };
+    if (!isNil(oldParentId)) {
+      const oldParent = this.getNode(oldParentId);
+      if (oldParent !== null) {
+        oldParent.children = oldParent.children.filter((n) => n.id !== childId);
+      }
+    } else {
+      //at top level
+      removeFirstMatch(this.nodes, (n) => n.id === childId);
+    }
+
     if (newParentId !== null) {
       const newParent = this.getNode(newParentId);
       if (newParent === null) {
@@ -190,8 +195,10 @@ export class Graph {
           "does not exist"
         );
       } else {
-        newParent.children.push(child);
+        newParent.children.push(childCopy);
       }
+    } else {
+      this.nodes.push(childCopy);
     }
   }
   getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = Infinity): DisplayState | null {
@@ -262,6 +269,7 @@ const nodeDataToNode = (nodeData: NodeData): Node => {
     id,
     position,
     parentId,
+    measured: { height: y, width: x },
     data: { ...nodeData },
     ...nodeDefaults,
   };

@@ -154,10 +154,13 @@
     }
     return parent;
   };
-  const getOffsetOfOrigin = (node) => ({
-    x: node.measured.width * node.origin[0],
-    y: node.measured.height * node.origin[1],
-  });
+  const getOffsetOfOrigin = (node) => {
+    console.log("getOffsetOfOrigin", node);
+    return {
+      x: node.measured.width * node.origin[0],
+      y: node.measured.height * node.origin[1],
+    };
+  };
   //flowPosition in global (flow) coordinates to coordinates of node with id nodeId
   const flowToLocalPosition = (flowPosition, nodeId) => {
     const getPositionOfOrigin = (node) => subPositions(node.position, getOffsetOfOrigin(node));
