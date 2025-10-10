@@ -98,7 +98,7 @@ export class Graph {
       this.nodes.push(node);
       return;
     }
-    const parent = this.getNode(parentId);
+    const parent = this.getNode(parentId as string);
     if (parent === null) {
       console.error("tried to create a node with bogus parent id", parentId);
       return;
@@ -173,7 +173,7 @@ export class Graph {
     }
     const childCopy = { ...child };
     if (!isNil(oldParentId)) {
-      const oldParent = this.getNode(oldParentId);
+      const oldParent = this.getNode(oldParentId as string);
       if (oldParent !== null) {
         oldParent.children = oldParent.children.filter((n) => n.id !== childId);
       }

@@ -66,12 +66,23 @@
     console.log("refresh");
     saveGraphToLocalStorage(graph);
     unsavedChanges = false;
+    const selectedNodes = {};
+    for (const node of nodes) {
+      if (node.selected) {
+        selectedNodes[node.id] = true;
+      }
+    }
     await deleteElements(displayState);
     displayState = graph.getDisplayState(focusedNodeId);
     console.log(graph);
     console.log("displayState", displayState);
     nodes = displayState.nodes;
     edges = displayState.edges;
+    for (const node of nodes) {
+      if (node.id in selectedNodes) {
+        updateNode(node.id, { selected: true });
+      }
+    }
   };
 
   const loadGraphFromFile = async (event) => {
@@ -302,6 +313,14 @@
     globals.graph = graph;
     refresh();
   };
+
+  const handleDelete = async ({ nodes: deletedNodes }) => {
+    for (const node of deletedNodes) {
+      graph.deleteNode(node.id);
+    }
+    refresh();
+    return true;
+  };
   globals.refresh = refresh;
   globals.graph = graph;
 </script>
@@ -329,6 +348,7 @@
   onnodedragstop={handleNodeDragStop}
   onpanecontextmenu={handlePaneContextMenu}
   onnodecontextmenu={handleNodeContextMenu}
+  ondelete={handleDelete}
   {isValidConnection}
   minZoom={0.2}
   maxZoom={6}
