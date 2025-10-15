@@ -18,7 +18,6 @@
   text-align: center;
   padding: 10px;
   font-size: 12px;
-  font-family: monospace;
   flex-direction: column;
   border: var(--xy-node-border-default);
   color: var(--xy-node-color, var(--xy-node-color-default));

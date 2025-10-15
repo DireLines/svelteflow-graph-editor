@@ -17,10 +17,12 @@
   import { edgeDefaults, Graph, type NodeData, getNodesById, displayStateToGraph } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
-  import { addPositions, subPositions } from "./math";
+  import { addPositions, subPositions, getBoundingRect, getNodeRectFlowCoordinates } from "./math";
+  import { getNodeLabelElement } from "./nodeElements";
   import { getHighestNumericId, isNil } from "./util";
   import { globals } from "./App.svelte";
-  const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode } = useSvelteFlow();
+  const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode, getZoom, getNodesBounds } =
+    useSvelteFlow();
 
   let colorMode: ColorMode = $state("dark");
   const nodeTypes = { custom: CustomNode };
@@ -78,10 +80,8 @@
     console.log("displayState", displayState);
     nodes = displayState.nodes;
     edges = displayState.edges;
-    for (const node of nodes) {
-      if (node.id in selectedNodes) {
-        updateNode(node.id, { selected: true });
-      }
+    for (const selectedNodeId in selectedNodes) {
+      updateNode(selectedNodeId, { selected: true });
     }
   };
 
@@ -223,6 +223,9 @@
       position,
     };
     graph.addNode(newNode, parent?.id);
+    if (parent) {
+      resizeNodeToEncapsulateChildren(parent.id, getNodesById(nodes));
+    }
     return newNode;
   };
 
@@ -280,6 +283,13 @@
       graph.updateNode(thisNode.id, { position: globalCoords });
       updateNode(thisNode.id, { position: globalCoords });
     }
+    const nodesById = getNodesById(nodes);
+    if (!isNil(oldParentId)) {
+      resizeNodeToEncapsulateChildren(oldParentId, nodesById);
+    }
+    if (!isNil(newParentId)) {
+      resizeNodeToEncapsulateChildren(newParentId, nodesById);
+    }
     refresh();
   };
   //right click on background
@@ -321,8 +331,82 @@
     refresh();
     return true;
   };
+  const findDiffInLocalPosition = (parentNode, newSize) => {
+    const existingOffset = getOffsetOfOrigin(parentNode);
+    const newOffset = {
+      x: newSize.width * parentNode.origin[0],
+      y: newSize.height * parentNode.origin[1],
+    };
+    return subPositions(newOffset, existingOffset);
+  };
+  const getNodeLabelSize = (nodeId: string) => {
+    const el = getNodeLabelElement(nodeId);
+    if (!el) return undefined;
+    const rect = el.getBoundingClientRect();
+    const zoom = getZoom();
+    return {
+      width: Math.round(rect.width / zoom),
+      height: Math.round(rect.height / zoom),
+    };
+  };
+  //resizedNodesById caches nodes which have been resized by this resize operation and their new sizes
+  //this is because that info doesn't propagate immediately in svelteflow
+  const resizeNodeToEncapsulateChildren = (nodeId, nodesById, resizedNodesById = {}) => {
+    console.log("resizing", nodeId);
+    const thisNode = nodesById[nodeId];
+    const children = [];
+    for (const otherId in nodesById) {
+      const node = nodesById[otherId];
+      if (node?.parentId === nodeId) {
+        children.push(node);
+      }
+    }
+    const padding = 40; // padding on all sides
+    const contentSize = getNodeLabelSize(nodeId);
+    if (children.length > 0) {
+      contentSize.height += 10; //vertical pad before child nodes
+    }
+    const childBounds = getBoundingRect(children.map((n) => getNodeRectFlowCoordinates(n, resizedNodesById)));
+    const contentPos = localToFlowPosition(childBounds, nodeId);
+    const contentBounds = {
+      x: contentPos.x,
+      y: contentPos.y - contentSize.height,
+      width: Math.max(contentSize.width, childBounds.width),
+      height: contentSize.height + childBounds.height,
+    };
+    const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
+    console.log("contentBounds", contentBounds);
+    console.log("childBounds", childBounds);
+    console.log("bounds", bounds);
+    //want that
+    // - children stay where they are globally
+    // - size of parent node changes to encapsulate children and parent contents with some padding on all sides
+    // - center of parent node moves to center of (children and parent contents)
+    const boundsLocal = flowToLocalPosition(bounds, nodeId); //get xy in local coords
+    const newSize = { width: contentBounds.width + padding, height: contentBounds.height + padding };
+    // const newParentCenterPos = {x:}
+    console.log(newSize);
+    //figure out diff in local position for children
+    const positionDiff = findDiffInLocalPosition(thisNode, newSize);
+    //reposition children for new offset
+    for (const node of children) {
+      const newPos = addPositions(node.position, positionDiff);
+      updateNode(node.id, { position: newPos });
+      graph.updateNode(node.id, { position: newPos });
+    }
+    updateNode(thisNode.id, { width: newSize.width, height: newSize.height });
+    graph.updateNode(thisNode.id, { size: { x: newSize.width, y: newSize.height } });
+    //resize parent recursively
+    if (!isNil(thisNode.parentId)) {
+      resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);
+    }
+  };
   globals.refresh = refresh;
   globals.graph = graph;
+  //in case link gets broken
+  $effect(() => {
+    globals.graph = graph;
+  });
 </script>
 
 <!-- hook into the window event declaratively -->
