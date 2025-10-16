@@ -272,17 +272,13 @@
       return;
     }
     //reparent on backend
-    graph.reparent(oldParentId, newParentId, thisNode.id);
+    let newPos = localToFlowPosition(thisNode.position, thisNode.parentId);
     if (parent) {
-      const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
-      const newPos = flowToLocalPosition(globalCoords, parent.id);
-      graph.updateNode(thisNode.id, { position: newPos });
-      updateNode(thisNode.id, { position: newPos });
-    } else {
-      const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
-      graph.updateNode(thisNode.id, { position: globalCoords });
-      updateNode(thisNode.id, { position: globalCoords });
+      newPos = flowToLocalPosition(newPos, parent.id);
     }
+    updateNode(thisNode.id, { position: newPos, parentId: newParentId });
+    graph.reparent(oldParentId, newParentId, thisNode.id);
+    graph.updateNode(thisNode.id, { position: newPos });
     const nodesById = getNodesById(nodes);
     if (!isNil(oldParentId)) {
       resizeNodeToEncapsulateChildren(oldParentId, nodesById);
@@ -342,8 +338,11 @@
   const getNodeLabelSize = (nodeId: string) => {
     const el = getNodeLabelElement(nodeId);
     if (!el) return undefined;
+    console.log("el exists");
     const rect = el.getBoundingClientRect();
+    console.log("rect", rect);
     const zoom = getZoom();
+    console.log("zoom", zoom);
     return {
       width: Math.round(rect.width / zoom),
       height: Math.round(rect.height / zoom),
@@ -364,8 +363,10 @@
     const padding = 40; // padding on all sides
     const contentSize = getNodeLabelSize(nodeId);
     if (children.length > 0) {
+      console.log("i have children");
       contentSize.height += 10; //vertical pad before child nodes
     }
+    console.log(contentSize);
     const childBounds = getBoundingRect(children.map((n) => getNodeRectFlowCoordinates(n, resizedNodesById)));
     const contentPos = localToFlowPosition(childBounds, nodeId);
     const contentBounds = {
