@@ -315,7 +315,14 @@
     makeNode(id, clientX, clientY);
     refresh();
   };
+
   const clearGraph = () => {
+    if (graph.nodes.length > 0 || graph.edges.length > 0) {
+      const discard = window.confirm("Clear entire graph?");
+      if (!discard) {
+        return;
+      }
+    }
     graph = new Graph([], []);
     nextNodeId = 1;
     globals.graph = graph;
