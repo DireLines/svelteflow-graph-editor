@@ -208,6 +208,7 @@ export class Graph {
     const { nodes, edges } = this;
     if (focusedNodeId === null) {
       //just doing from root of the graph
+      result.nodes.push(...nodes.map(nodeDataToNode));
       for (const node of nodes) {
         const nodesBelow = getNodesBelow(node, maxDepthBelow);
         result.nodes.push(...nodesBelow.map(nodeDataToNode));
@@ -220,6 +221,7 @@ export class Graph {
           //since node ids are maintained to be unique, correct to break after first encountered node with id
           foundNode = true;
           const nodesBelow = getNodesBelow(node, maxDepthBelow);
+          console.log("nodesBelow", nodesBelow);
           result.nodes.push(...nodesBelow.map(nodeDataToNode));
           result.title = node.label;
           result.backgroundColor = node.backgroundColor;
@@ -246,13 +248,8 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
   if (maxDepthBelow <= 0) {
     return [];
   }
-  if (node.children.length === 0) {
-    return [node];
-  }
-  if (maxDepthBelow === 1) {
-    return [node, ...node.children];
-  }
-  const results = [node];
+  const results = [];
+  results.push(...node.children);
   for (const child of node.children) {
     const deepChildren = getNodesBelow(child, maxDepthBelow - 1);
     results.push(...deepChildren);
