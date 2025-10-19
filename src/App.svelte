@@ -3,7 +3,7 @@
   //intended to be set from the graph initialization code
   //TODO: it's somewhat wrong to have these globally scoped instead of scoped to the Flow component -
   //that assumes there is only one Flow component. But not sure how to scope to Flow
-  export const globals = $state({ refresh: null, graph: null });
+  export const globals = $state({ refresh: null, graph: null, setFocusedNode: null });
 </script>
 
 <script lang="ts">

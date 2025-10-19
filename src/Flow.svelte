@@ -66,6 +66,8 @@
   //save graph to local storage and refresh display
   const refresh = async () => {
     console.log("refresh");
+    //TODO update project name component with focused node
+    //TODO why is top-level node still being displayed?
     saveGraphToLocalStorage(graph);
     unsavedChanges = false;
     const selectedNodes = {};
@@ -402,8 +404,13 @@
       resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);
     }
   };
+  const setFocusedNode = (nodeId: string) => {
+    focusedNodeId = nodeId;
+    refresh();
+  };
   globals.refresh = refresh;
   globals.graph = graph;
+  globals.setFocusedNode = setFocusedNode;
   //in case link gets broken
   $effect(() => {
     globals.graph = graph;
