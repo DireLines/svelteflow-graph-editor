@@ -241,6 +241,7 @@
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
     console.log("handleConnectEnd");
+    //TODO if dragging from target to source handle, need to reverse direction of edge
     unsavedChanges = true;
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
@@ -329,9 +330,12 @@
     refresh();
   };
 
-  const handleDelete = async ({ nodes: deletedNodes }) => {
+  const handleDelete = async ({ nodes: deletedNodes, edges: deletedEdges }) => {
     for (const node of deletedNodes) {
       graph.deleteNode(node.id);
+    }
+    for (const edge of deletedEdges) {
+      graph.deleteEdge(edge.id);
     }
     refresh();
     return true;

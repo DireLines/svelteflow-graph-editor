@@ -222,7 +222,15 @@ export class Graph {
           foundNode = true;
           const nodesBelow = getNodesBelow(node, maxDepthBelow);
           console.log("nodesBelow", nodesBelow);
-          result.nodes.push(...nodesBelow.map(nodeDataToNode));
+          result.nodes.push(
+            ...nodesBelow.map(nodeDataToNode).map((n) => {
+              //if direct child of focused node, display as if not parented
+              if (n.parentId === focusedNodeId) {
+                return { ...n, parentId: undefined };
+              }
+              return n;
+            })
+          );
           result.title = node.label;
           result.backgroundColor = node.backgroundColor;
           break;

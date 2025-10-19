@@ -57,50 +57,6 @@
       "completed": false
     },
     {
-      "id": "6",
-      "position": {
-        "x": 1002.6430719267698,
-        "y": 932.5198018693519
-      },
-      "children": [
-        {
-          "id": "23",
-          "position": {
-            "x": 179.54783030674662,
-            "y": 54.301995920915715
-          },
-          "children": [],
-          "size": {
-            "x": 308,
-            "y": 36
-          },
-          "label": "make focused node name styled like the project name",
-          "completed": false,
-          "parentId": "6"
-        }
-      ],
-      "size": {
-        "x": 359,
-        "y": 86
-      },
-      "label": "function to \"focus node\"",
-      "completed": false
-    },
-    {
-      "id": "7",
-      "position": {
-        "x": 1602.4844834632806,
-        "y": 950.3297596123576
-      },
-      "children": [],
-      "size": {
-        "x": 171,
-        "y": 54
-      },
-      "label": "buttons to enter node / go up a level / go to top level",
-      "completed": false
-    },
-    {
       "id": "8",
       "position": {
         "x": 908.2734834963742,
@@ -183,20 +139,6 @@
       },
       "label": "checkbox to mark completed/incomplete",
       "completed": true
-    },
-    {
-      "id": "20",
-      "position": {
-        "x": 959.8407679882481,
-        "y": 1011.6086989249508
-      },
-      "children": [],
-      "size": {
-        "x": 292,
-        "y": 36
-      },
-      "label": "add parent of entire graph and localize coordinates",
-      "completed": false
     },
     {
       "id": "22",
@@ -483,96 +425,6 @@
       },
       "label": "bug: need to click outside of node for completion status to be saved",
       "completed": true
-    },
-    {
-      "id": "47",
-      "position": {
-        "x": 1067.1888209210922,
-        "y": 536.2075111027589
-      },
-      "children": [
-        {
-          "id": "42",
-          "position": {
-            "x": 195.815841986811,
-            "y": 59.7027772658341
-          },
-          "children": [],
-          "size": {
-            "x": 331,
-            "y": 37
-          },
-          "label": "filter nodes to in progress / workable / set of assignees",
-          "completed": false,
-          "parentId": "47"
-        },
-        {
-          "id": "48",
-          "position": {
-            "x": 272.04974096801817,
-            "y": 113.69965123082963
-          },
-          "children": [],
-          "size": {
-            "x": 124,
-            "y": 43
-          },
-          "label": "show / hide completed tasks",
-          "completed": true,
-          "parentId": "47"
-        },
-        {
-          "id": "53",
-          "position": {
-            "x": 100.49016730493514,
-            "y": 112.68934573316946
-          },
-          "children": [],
-          "size": {
-            "x": 150,
-            "y": 36
-          },
-          "label": "filter nodes by keywords",
-          "completed": false,
-          "parentId": "47"
-        },
-        {
-          "id": "78",
-          "position": {
-            "x": 374.3120992620827,
-            "y": 156.01815036288406
-          },
-          "children": [],
-          "size": {
-            "x": 104,
-            "y": 36
-          },
-          "label": "organize nodes",
-          "completed": false,
-          "parentId": "47"
-        },
-        {
-          "id": "106",
-          "position": {
-            "x": 160.82144701688844,
-            "y": 156.62540370077159
-          },
-          "children": [],
-          "size": {
-            "x": 239,
-            "y": 36
-          },
-          "label": "cache side panel settings in localStorage",
-          "completed": false,
-          "parentId": "47"
-        }
-      ],
-      "size": {
-        "x": 451.3219319571476,
-        "y": 183.42262643493746
-      },
-      "label": "side panel controls",
-      "completed": false
     },
     {
       "id": "51",
@@ -1166,6 +1018,171 @@
       },
       "label": "propagate edits into serialized graph",
       "completed": true
+    },
+    {
+      "id": "20",
+      "position": {
+        "x": 1272.0541639325688,
+        "y": 1093.3788740532254
+      },
+      "children": [],
+      "size": {
+        "x": 292,
+        "y": 36
+      },
+      "label": "add parent of entire graph and localize coordinates",
+      "completed": false
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 923.474631845033,
+        "y": 948.3534898856992
+      },
+      "children": [
+        {
+          "id": "23",
+          "position": {
+            "x": 206.9735669768433,
+            "y": 111.72049539546488
+          },
+          "children": [],
+          "size": {
+            "x": 308,
+            "y": 36
+          },
+          "label": "make focused node name styled like the project name",
+          "completed": false,
+          "parentId": "6"
+        },
+        {
+          "id": "146",
+          "children": [],
+          "label": "remove parentId from display state if parentId === focusedNodeId",
+          "completed": true,
+          "size": {
+            "x": 50,
+            "y": 50
+          },
+          "manuallyResized": false,
+          "backgroundColor": "#111",
+          "position": {
+            "x": 214.63294693687982,
+            "y": 58.41406082823458
+          },
+          "parentId": "6"
+        }
+      ],
+      "size": {
+        "x": 419.6593799600365,
+        "y": 153.3064345672303
+      },
+      "label": "function to \"focus node\"",
+      "completed": false
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 1842.3783621314114,
+        "y": 988.1553504396977
+      },
+      "children": [],
+      "size": {
+        "x": 171,
+        "y": 54
+      },
+      "label": "buttons to enter node / go up a level / go to top level",
+      "completed": false
+    },
+    {
+      "id": "47",
+      "position": {
+        "x": 1067.1888209210922,
+        "y": 536.2075111027589
+      },
+      "children": [
+        {
+          "id": "42",
+          "position": {
+            "x": 195.815841986811,
+            "y": 59.7027772658341
+          },
+          "children": [],
+          "size": {
+            "x": 331,
+            "y": 37
+          },
+          "label": "filter nodes to in progress / workable / set of assignees",
+          "completed": false,
+          "parentId": "47"
+        },
+        {
+          "id": "48",
+          "position": {
+            "x": 272.04974096801817,
+            "y": 113.69965123082963
+          },
+          "children": [],
+          "size": {
+            "x": 124,
+            "y": 43
+          },
+          "label": "show / hide completed tasks",
+          "completed": true,
+          "parentId": "47"
+        },
+        {
+          "id": "53",
+          "position": {
+            "x": 100.49016730493514,
+            "y": 112.68934573316946
+          },
+          "children": [],
+          "size": {
+            "x": 150,
+            "y": 36
+          },
+          "label": "filter nodes by keywords",
+          "completed": false,
+          "parentId": "47"
+        },
+        {
+          "id": "78",
+          "position": {
+            "x": 374.3120992620827,
+            "y": 156.01815036288406
+          },
+          "children": [],
+          "size": {
+            "x": 104,
+            "y": 36
+          },
+          "label": "organize nodes",
+          "completed": false,
+          "parentId": "47"
+        },
+        {
+          "id": "106",
+          "position": {
+            "x": 160.82144701688844,
+            "y": 156.62540370077159
+          },
+          "children": [],
+          "size": {
+            "x": 239,
+            "y": 36
+          },
+          "label": "cache side panel settings in localStorage",
+          "completed": false,
+          "parentId": "47"
+        }
+      ],
+      "size": {
+        "x": 451.3219319571476,
+        "y": 183.42262643493746
+      },
+      "label": "side panel controls",
+      "completed": false
     }
   ],
   "edges": [
