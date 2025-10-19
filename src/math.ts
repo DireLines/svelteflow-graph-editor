@@ -20,6 +20,14 @@ export const getNodeRectFlowCoordinates = (n: Node, resizedNodesById: any = {}):
 export const getBoundingRect = (rects: Rect[]): Rect => {
   const min: XYPosition = { x: Infinity, y: Infinity };
   const max: XYPosition = { x: -Infinity, y: -Infinity };
+  if (rects.length === 0) {
+    return {
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+    };
+  }
   for (const rect of rects) {
     min.x = Math.min(min.x, rect.x);
     min.y = Math.min(min.y, rect.y);
