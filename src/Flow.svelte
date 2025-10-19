@@ -241,7 +241,6 @@
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
     console.log("handleConnectEnd");
-    //TODO if dragging from target to source handle, need to reverse direction of edge
     unsavedChanges = true;
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
@@ -250,13 +249,19 @@
     const { clientX, clientY } = "changedTouches" in event ? event.changedTouches[0] : event;
 
     const id = getId();
-    let newEdge;
+    let startId = sourceNodeId;
+    let endId = targetNodeId;
     if (isNil(targetNodeId)) {
       makeNode(id, clientX, clientY);
-      newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
-    } else {
-      newEdge = makeEdge(sourceNodeId, targetNodeId);
+      endId = id;
     }
+    if (!draggingFromSource) {
+      //swap
+      const temp = startId;
+      startId = endId;
+      endId = temp;
+    }
+    const newEdge = makeEdge(startId, endId);
     graph.addEdge(newEdge);
     displayState.edges = [...displayState.edges, newEdge];
     refresh();
