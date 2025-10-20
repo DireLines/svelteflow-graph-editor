@@ -206,8 +206,8 @@ export class Graph {
     const result: DisplayState = {
       nodes: [],
       edges: [],
-      title: "My Graphout",
-      description: "right-click to make a new node",
+      title: "My Graph",
+      description: "right-click to make a new node. left click to drag or edit nodes",
       backgroundColor: "#111",
     };
     this.refreshParentIds();

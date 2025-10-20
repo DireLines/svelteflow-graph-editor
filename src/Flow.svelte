@@ -514,7 +514,7 @@
     line-height: 1;
     padding: 0.25rem 0.75rem;
     font-weight: 800;
-    font-size: clamp(28px, 6vw, 96px);
+    font-size: clamp(20px, 4vw, 80px);
     letter-spacing: 0.02em;
     color: rgba(255, 255, 255, 0.95);
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
