@@ -21,7 +21,7 @@
   import { getNodeLabelElement } from "./nodeElements";
   import { getHighestNumericId, isNil } from "./util";
   import { globals } from "./App.svelte";
-  const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode, getZoom, getNodesBounds } =
+  const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode, getZoom, getNodesBounds, fitView } =
     useSvelteFlow();
 
   let colorMode: ColorMode = $state("dark");
@@ -30,7 +30,8 @@
   //backend graph - source of truth
   let graph = $state.raw<Graph>(loadGraphFromLocalStorage());
   let focusedNodeId = $state.raw<string | null>(null);
-  let title = $state.raw<string>("Graphout");
+  let title = $state.raw<string>("My Graphout");
+  let subtitle = $state.raw<string>("right-click to create a new node");
   //number used and incremented when new node generated
   let nextNodeId: number = getHighestNumericId(graph.nodes) + 1;
   const getId = () => `${nextNodeId++}`;
@@ -422,12 +423,15 @@
     }
   };
   const setFocusedNode = (nodeId: string) => {
+    //TODO: handle setting to null to go back to root
     focusedNodeId = nodeId;
     const node = graph.getNode(nodeId);
     if (node) {
       title = node.label;
     }
-    refresh();
+    refresh().then(() => {
+      fitView();
+    });
   };
   globals.refresh = refresh;
   globals.graph = graph;
@@ -466,6 +470,9 @@
   minZoom={0.2}
   maxZoom={6}
 >
+  <Panel position="top-center" class="titlebar" aria-hidden="true">
+    <h1 class="title">{title}</h1>
+  </Panel>
   <Background />
   <Controls />
   <MiniMap />
@@ -480,10 +487,6 @@
     </select>
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
-  </Panel>
-  <!-- Title in the UI stack -->
-  <Panel position="top-center" class="titlebar" aria-hidden="true">
-    <h1 class="title">{title}</h1>
   </Panel>
 </SvelteFlow>
 
