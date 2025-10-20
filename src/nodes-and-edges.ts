@@ -253,7 +253,7 @@ export class Graph {
     const nodesById = getNodesById(result.nodes);
     for (const edge of edges) {
       if (edge.source in nodesById || edge.target in nodesById) {
-        result.edges.push(edge);
+        result.edges.push(addDefaultsToEdge(edge));
       }
     }
     return result;
@@ -331,7 +331,7 @@ export const displayStateToGraph = (displayState: DisplayState): Graph => {
     }
   }
 
-  result.edges = [...displayState.edges];
+  result.edges = [...displayState.edges.map(serializeEdge)];
   return result;
 };
 
@@ -341,4 +341,13 @@ export const getNodesById = (nodes: Node[]) => {
     result[node.id] = node;
   }
   return result;
+};
+
+export const addDefaultsToEdge = (edge: Edge) => {
+  return { ...edge, ...edgeDefaults };
+};
+
+export const serializeEdge = (edge: Edge) => {
+  const { source, target, id } = edge;
+  return { source, target, id };
 };

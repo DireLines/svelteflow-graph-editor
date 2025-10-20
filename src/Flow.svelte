@@ -14,7 +14,14 @@
   } from "@xyflow/svelte";
   import "@xyflow/svelte/dist/style.css";
 
-  import { edgeDefaults, Graph, type NodeData, getNodesById, displayStateToGraph } from "./nodes-and-edges";
+  import {
+    edgeDefaults,
+    Graph,
+    type NodeData,
+    getNodesById,
+    displayStateToGraph,
+    addDefaultsToEdge,
+  } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
   import { addPositions, subPositions, getBoundingRect, getNodeRectFlowCoordinates } from "./math";
@@ -241,7 +248,6 @@
     source: sourceId,
     target: targetId,
     id: `${sourceId}->${targetId}`,
-    ...edgeDefaults,
   });
   const isValidConnection = (_) => false; //if we say true, it will create an edge outside of handleConnectEnd
   //stop dragging edge
@@ -269,7 +275,7 @@
     }
     const newEdge = makeEdge(startId, endId);
     graph.addEdge(newEdge);
-    displayState.edges = [...displayState.edges, newEdge];
+    displayState.edges = [...displayState.edges, addDefaultsToEdge(newEdge)];
     refresh();
   };
 
