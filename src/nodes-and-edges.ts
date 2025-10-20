@@ -203,8 +203,14 @@ export class Graph {
     }
   }
   getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = Infinity): DisplayState | null {
-    const result: DisplayState = { nodes: [], edges: [], title: "Graphout", backgroundColor: "#111" };
-    this.refreshParentIds();
+    const result: DisplayState = {
+      nodes: [],
+      edges: [],
+      title: "My Graphout",
+      description: "right-click to make a new node",
+      backgroundColor: "#111",
+    };
+
     const { nodes, edges } = this;
     if (focusedNodeId === null) {
       //just doing from root of the graph
@@ -232,6 +238,7 @@ export class Graph {
             })
           );
           result.title = node.label;
+          result.description = node.description;
           result.backgroundColor = node.backgroundColor;
           break;
         }

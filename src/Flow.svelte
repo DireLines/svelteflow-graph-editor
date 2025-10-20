@@ -30,8 +30,6 @@
   //backend graph - source of truth
   let graph = $state.raw<Graph>(loadGraphFromLocalStorage());
   let focusedNodeId = $state.raw<string | null>(null);
-  let title = $state.raw<string>("My Graphout");
-  let subtitle = $state.raw<string>("right-click to create a new node");
   //number used and incremented when new node generated
   let nextNodeId: number = getHighestNumericId(graph.nodes) + 1;
   const getId = () => `${nextNodeId++}`;
@@ -42,6 +40,8 @@
   console.log("displayState", displayState);
   let nodes = $state.raw<Node[]>(displayState.nodes);
   let edges = $state.raw<Edge[]>(displayState.edges);
+  let title = $state.raw<string>(displayState.title);
+  let subtitle = $state.raw<string>(displayState.description);
 
   let fileInput: HTMLInputElement; // for “Load” dialog
 
@@ -84,6 +84,8 @@
     console.log("displayState", displayState);
     nodes = displayState.nodes;
     edges = displayState.edges;
+    title = displayState.title;
+    subtitle = displayState.description;
     for (const selectedNodeId in selectedNodes) {
       updateNode(selectedNodeId, { selected: true });
     }
@@ -105,7 +107,7 @@
       nextNodeId = getHighestNumericId(graph.nodes) + 1;
       focusedNodeId = null;
       unsavedChanges = false;
-      await refresh();
+      await refresh().then(() => fitView());
     } catch (err) {
       console.error("Failed to load/parse JSON", err);
     } finally {
@@ -425,10 +427,6 @@
   const setFocusedNode = (nodeId: string) => {
     //TODO: handle setting to null to go back to root
     focusedNodeId = nodeId;
-    const node = graph.getNode(nodeId);
-    if (node) {
-      title = node.label;
-    }
     refresh().then(() => {
       fitView();
     });
