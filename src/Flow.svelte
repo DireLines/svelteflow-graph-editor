@@ -30,6 +30,7 @@
   //backend graph - source of truth
   let graph = $state.raw<Graph>(loadGraphFromLocalStorage());
   let focusedNodeId = $state.raw<string | null>(null);
+  let title = $state.raw<string>("Graphout");
   //number used and incremented when new node generated
   let nextNodeId: number = getHighestNumericId(graph.nodes) + 1;
   const getId = () => `${nextNodeId++}`;
@@ -422,6 +423,10 @@
   };
   const setFocusedNode = (nodeId: string) => {
     focusedNodeId = nodeId;
+    const node = graph.getNode(nodeId);
+    if (node) {
+      title = node.label;
+    }
     refresh();
   };
   globals.refresh = refresh;
@@ -476,4 +481,41 @@
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
   </Panel>
+  <!-- Title in the UI stack -->
+  <Panel position="top-center" class="titlebar" aria-hidden="true">
+    <h1 class="title">{title}</h1>
+  </Panel>
 </SvelteFlow>
+
+<style>
+  .flow-root {
+    width: 100%;
+    height: 100vh; /* or your own container size */
+  }
+
+  /* Make the whole panel non-interactive so you can drag/pan beneath it */
+  .titlebar {
+    pointer-events: none;
+    padding-top: 0.5rem; /* a little breathing room from the top edge */
+  }
+
+  .title {
+    pointer-events: auto; /* flip this to 'auto' only if you add buttons/links inside */
+    margin: 0;
+    line-height: 1;
+    padding: 0.25rem 0.75rem;
+    font-weight: 800;
+    font-size: clamp(28px, 6vw, 96px);
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px); /* tasteful readability chip; remove if you prefer */
+    border-radius: 10%;
+  }
+
+  @media print {
+    .titlebar {
+      display: none;
+    }
+  }
+</style>
