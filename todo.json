@@ -15,20 +15,6 @@
       "completed": false
     },
     {
-      "id": "2",
-      "position": {
-        "x": 795.8034046999488,
-        "y": 860.7014698608366
-      },
-      "children": [],
-      "size": {
-        "x": 323,
-        "y": 36
-      },
-      "label": "logic to parse the graph (topo sort and dependency stuff)",
-      "completed": false
-    },
-    {
       "id": "3",
       "position": {
         "x": 191.97188727577176,
@@ -85,20 +71,6 @@
       "completed": false
     },
     {
-      "id": "11",
-      "position": {
-        "x": 1243.52013293666,
-        "y": 855.0015007960445
-      },
-      "children": [],
-      "size": {
-        "x": 248,
-        "y": 36
-      },
-      "label": "highlight node if all dependencies resolved",
-      "completed": false
-    },
-    {
       "id": "13",
       "position": {
         "x": 425.0885033002703,
@@ -111,34 +83,6 @@
       },
       "label": "function to get completion status (num subtasks completed / num subtasks)",
       "completed": false
-    },
-    {
-      "id": "17",
-      "position": {
-        "x": -568.8003265918264,
-        "y": 521.1864568085886
-      },
-      "children": [],
-      "size": {
-        "x": 216,
-        "y": 36
-      },
-      "label": "resize handle in bottom right of node",
-      "completed": true
-    },
-    {
-      "id": "18",
-      "position": {
-        "x": -567.6599323971298,
-        "y": 848.9040354562459
-      },
-      "children": [],
-      "size": {
-        "x": 236,
-        "y": 36
-      },
-      "label": "checkbox to mark completed/incomplete",
-      "completed": true
     },
     {
       "id": "22",
@@ -399,34 +343,6 @@
       "completed": false
     },
     {
-      "id": "43",
-      "position": {
-        "x": 166.50334215556103,
-        "y": 876.6651789615206
-      },
-      "children": [],
-      "size": {
-        "x": 147,
-        "y": 36
-      },
-      "label": "save completion to json",
-      "completed": true
-    },
-    {
-      "id": "46",
-      "position": {
-        "x": -189.36660761766558,
-        "y": 750.7304181933101
-      },
-      "children": [],
-      "size": {
-        "x": 380,
-        "y": 36
-      },
-      "label": "bug: need to click outside of node for completion status to be saved",
-      "completed": true
-    },
-    {
       "id": "51",
       "position": {
         "x": 107.2689813930578,
@@ -469,48 +385,6 @@
       "completed": false
     },
     {
-      "id": "63",
-      "position": {
-        "x": 75.60019497962314,
-        "y": 316.34546765773536
-      },
-      "children": [],
-      "size": {
-        "x": 342,
-        "y": 42
-      },
-      "label": "bug: text keeps entering backwards into field lmao",
-      "completed": true
-    },
-    {
-      "id": "64",
-      "position": {
-        "x": 402.05408456424664,
-        "y": 172.49893217936565
-      },
-      "children": [],
-      "size": {
-        "x": 339,
-        "y": 64
-      },
-      "label": "bug: if node has been manually resized, only auto-resize if new size >= this size in both dimensions",
-      "completed": false
-    },
-    {
-      "id": "65",
-      "position": {
-        "x": -122.88376272564344,
-        "y": 538.5394083141755
-      },
-      "children": [],
-      "size": {
-        "x": 209,
-        "y": 48
-      },
-      "label": "show resizer only on hover",
-      "completed": true
-    },
-    {
       "id": "66",
       "position": {
         "x": 99.25207280092862,
@@ -523,34 +397,6 @@
       },
       "label": "bug: text should not overflow out of node - scroll bar instead",
       "completed": false
-    },
-    {
-      "id": "67",
-      "position": {
-        "x": 116.07509210534246,
-        "y": 435.56778107094954
-      },
-      "children": [],
-      "size": {
-        "x": 409,
-        "y": 36
-      },
-      "label": "bug: when adding a newline, it seems to fuck up the contents of the node",
-      "completed": true
-    },
-    {
-      "id": "72",
-      "position": {
-        "x": -240.96350623693718,
-        "y": 659.23594212846
-      },
-      "children": [],
-      "size": {
-        "x": 214,
-        "y": 90
-      },
-      "label": "styling: reorganize checkbox, edit, focus controls to on-hover menu above node",
-      "completed": true
     },
     {
       "id": "76",
@@ -637,20 +483,6 @@
       "completed": false
     },
     {
-      "id": "89",
-      "position": {
-        "x": -807.148541129657,
-        "y": 684.984676400149
-      },
-      "children": [],
-      "size": {
-        "x": 247,
-        "y": 36
-      },
-      "label": "react at graph level to events at node level",
-      "completed": true
-    },
-    {
       "id": "90",
       "position": {
         "x": 1685.6906412968533,
@@ -726,34 +558,6 @@
       "completed": false
     },
     {
-      "id": "97",
-      "position": {
-        "x": -601.7742308485018,
-        "y": 1085.8843967319847
-      },
-      "children": [],
-      "size": {
-        "x": 288,
-        "y": 36
-      },
-      "label": "get nodes at or up to n levels below arbitrary node",
-      "completed": true
-    },
-    {
-      "id": "99",
-      "position": {
-        "x": -574.4298564957389,
-        "y": 1004.6714569367857
-      },
-      "children": [],
-      "size": {
-        "x": 176,
-        "y": 36
-      },
-      "label": "replace graph state smoothly",
-      "completed": true
-    },
-    {
       "id": "104",
       "position": {
         "x": 155.4168103678859,
@@ -768,34 +572,6 @@
       "completed": false
     },
     {
-      "id": "105",
-      "position": {
-        "x": 79.97882767045895,
-        "y": -80.40278255864214
-      },
-      "children": [],
-      "size": {
-        "x": 274,
-        "y": 36
-      },
-      "label": "styling: checkbox in side panel with visible label",
-      "completed": true
-    },
-    {
-      "id": "108",
-      "position": {
-        "x": -594.7657345699959,
-        "y": 1227.21685034757
-      },
-      "children": [],
-      "size": {
-        "x": 346,
-        "y": 36
-      },
-      "label": "convert between nested format and flat list with parent ids",
-      "completed": true
-    },
-    {
       "id": "112",
       "position": {
         "x": 667.1695066755325,
@@ -807,34 +583,6 @@
         "y": 36
       },
       "label": "real-time collab mode - investigate Automerge",
-      "completed": false
-    },
-    {
-      "id": "113",
-      "position": {
-        "x": -447.8413443352091,
-        "y": 282.758625815086
-      },
-      "children": [],
-      "size": {
-        "x": 209,
-        "y": 68
-      },
-      "label": "get size of node content in flow coordinates at graph level",
-      "completed": true
-    },
-    {
-      "id": "114",
-      "position": {
-        "x": -472.1345036420329,
-        "y": 938.9973550354384
-      },
-      "children": [],
-      "size": {
-        "x": 262,
-        "y": 36
-      },
-      "label": "styling: add to css style instead of overwriting",
       "completed": false
     },
     {
@@ -894,20 +642,6 @@
       "completed": false
     },
     {
-      "id": "126",
-      "position": {
-        "x": -373.2868556213441,
-        "y": 132.57795357299923
-      },
-      "children": [],
-      "size": {
-        "x": 231,
-        "y": 36
-      },
-      "label": "transform child bounds to global coords",
-      "completed": true
-    },
-    {
       "id": "128",
       "position": {
         "x": -516.2711214522562,
@@ -936,20 +670,6 @@
       "completed": false
     },
     {
-      "id": "140",
-      "position": {
-        "x": -495.73295494917215,
-        "y": -193.1820850431552
-      },
-      "children": [],
-      "size": {
-        "x": 326,
-        "y": 137
-      },
-      "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable.\n\n\nI believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
-      "completed": false
-    },
-    {
       "id": "141",
       "position": {
         "x": 37.68756651522064,
@@ -962,62 +682,6 @@
       },
       "label": "perf: considerably slower on firefox. it's svelteflow's rendering logic, not my code, and it's not slow on safari",
       "completed": false
-    },
-    {
-      "id": "143",
-      "position": {
-        "x": -592.7782051831324,
-        "y": 1151.221773627662
-      },
-      "children": [],
-      "size": {
-        "x": 270,
-        "y": 36
-      },
-      "label": "graphToDisplayState including correct parentId",
-      "completed": true
-    },
-    {
-      "id": "144",
-      "position": {
-        "x": -690.8746256483084,
-        "y": 1285.5391061535154
-      },
-      "children": [],
-      "size": {
-        "x": 359,
-        "y": 36
-      },
-      "label": "specifically after importing from file: changes to text do not work",
-      "completed": true
-    },
-    {
-      "id": "145",
-      "position": {
-        "x": -953.8299091601898,
-        "y": 1013.5961006122982
-      },
-      "children": [],
-      "size": {
-        "x": 345,
-        "y": 36
-      },
-      "label": "editing text results in node resizing in old version but not new",
-      "completed": true
-    },
-    {
-      "id": "117",
-      "position": {
-        "x": -225.0103501941448,
-        "y": 1146.258257051057
-      },
-      "children": [],
-      "size": {
-        "x": 215,
-        "y": 36
-      },
-      "label": "propagate edits into serialized graph",
-      "completed": true
     },
     {
       "id": "20",
@@ -1183,6 +847,62 @@
       },
       "label": "side panel controls",
       "completed": false
+    },
+    {
+      "id": "140",
+      "position": {
+        "x": -1103.503019448613,
+        "y": 191.53431942113718
+      },
+      "children": [],
+      "size": {
+        "x": 326,
+        "y": 137
+      },
+      "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable.\n\n\nI believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
+      "completed": false
+    },
+    {
+      "id": "114",
+      "position": {
+        "x": -349.20572253422483,
+        "y": 1019.4450335314943
+      },
+      "children": [],
+      "size": {
+        "x": 262,
+        "y": 36
+      },
+      "label": "styling: add to css style instead of overwriting",
+      "completed": false
+    },
+    {
+      "id": "97",
+      "position": {
+        "x": -934.4810616041163,
+        "y": 823.2270546165564
+      },
+      "children": [],
+      "size": {
+        "x": 288,
+        "y": 36
+      },
+      "label": "get nodes at or up to n levels below arbitrary node",
+      "completed": true
+    },
+    {
+      "id": "64",
+      "position": {
+        "x": 737.9892387171069,
+        "y": 149.0615958431196
+      },
+      "children": [],
+      "size": {
+        "x": 339,
+        "y": 64
+      },
+      "label": "bug: if node has been manually resized, only auto-resize if new size >= this size in both dimensions",
+      "completed": false
     }
   ],
   "edges": [
@@ -1201,30 +921,9 @@
       "hidden": false
     },
     {
-      "source": "2",
-      "target": "11",
-      "id": "2->11",
-      "style": "stroke-width: 2px;",
-      "markerEnd": {
-        "type": "arrowclosed",
-        "width": 15,
-        "height": 15
-      },
-      "zIndex": 10000,
-      "selected": false,
-      "hidden": false
-    },
-    {
       "source": "13",
       "target": "1",
       "id": "xy-edge__13-1",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "18",
-      "target": "10",
-      "id": "xy-edge__18-10",
       "selected": false,
       "hidden": false
     },
@@ -1341,27 +1040,6 @@
       "hidden": false
     },
     {
-      "source": "18",
-      "target": "43",
-      "id": "xy-edge__18-43",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "18",
-      "target": "46",
-      "id": "xy-edge__18-46",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "46",
-      "target": "43",
-      "id": "xy-edge__46-43",
-      "selected": false,
-      "hidden": false
-    },
-    {
       "source": "52",
       "target": "10",
       "id": "xy-edge__52-10",
@@ -1369,37 +1047,9 @@
       "hidden": false
     },
     {
-      "source": "18",
-      "target": "52",
-      "id": "xy-edge__18-52",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "17",
-      "target": "65",
-      "id": "17->65",
-      "style": "stroke-width: 2px;",
-      "markerEnd": {
-        "type": "arrowclosed",
-        "width": 15,
-        "height": 15
-      },
-      "zIndex": 10000,
-      "selected": false,
-      "hidden": false
-    },
-    {
       "source": "41",
       "target": "35",
       "id": "xy-edge__41-35",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "18",
-      "target": "80",
-      "id": "xy-edge__18-80",
       "selected": false,
       "hidden": false
     },
@@ -1446,27 +1096,6 @@
       "hidden": false
     },
     {
-      "source": "89",
-      "target": "80",
-      "id": "xy-edge__89-80",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "89",
-      "target": "52",
-      "id": "xy-edge__89-52",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "89",
-      "target": "13",
-      "id": "xy-edge__89-13",
-      "selected": false,
-      "hidden": false
-    },
-    {
       "source": "47",
       "target": "90",
       "id": "xy-edge__47-90",
@@ -1502,20 +1131,6 @@
       "hidden": false
     },
     {
-      "source": "99",
-      "target": "3",
-      "id": "xy-edge__99-3",
-      "selected": false,
-      "hidden": false
-    },
-    {
-      "source": "72",
-      "target": "25",
-      "id": "xy-edge__72-25",
-      "selected": false,
-      "hidden": false
-    },
-    {
       "source": "97",
       "target": "52",
       "id": "xy-edge__97-52",
@@ -1537,27 +1152,6 @@
       "selected": false
     },
     {
-      "source": "108",
-      "target": "3",
-      "id": "xy-edge__108-3",
-      "hidden": false,
-      "selected": false
-    },
-    {
-      "source": "113",
-      "target": "54",
-      "id": "xy-edge__113-54",
-      "hidden": false,
-      "selected": false
-    },
-    {
-      "source": "89",
-      "target": "113",
-      "id": "xy-edge__89-113",
-      "hidden": false,
-      "selected": false
-    },
-    {
       "source": "114",
       "target": "80",
       "id": "xy-edge__114-80",
@@ -1568,27 +1162,6 @@
       "source": "114",
       "target": "116",
       "id": "xy-edge__114-116",
-      "hidden": false,
-      "selected": false
-    },
-    {
-      "source": "108",
-      "target": "117",
-      "id": "xy-edge__108-117",
-      "hidden": false,
-      "selected": false
-    },
-    {
-      "source": "117",
-      "target": "3",
-      "id": "xy-edge__117-3",
-      "hidden": false,
-      "selected": false
-    },
-    {
-      "source": "126",
-      "target": "54",
-      "id": "xy-edge__126-54",
       "hidden": false,
       "selected": false
     },
@@ -1615,24 +1188,6 @@
       "source": "54",
       "target": "64",
       "id": "xy-edge__54-64",
-      "hidden": false
-    },
-    {
-      "source": "143",
-      "target": "3",
-      "id": "xy-edge__143-3",
-      "hidden": false
-    },
-    {
-      "source": "144",
-      "target": "117",
-      "id": "xy-edge__144-117",
-      "hidden": false
-    },
-    {
-      "source": "145",
-      "target": "99",
-      "id": "xy-edge__145-99",
       "hidden": false
     }
   ]

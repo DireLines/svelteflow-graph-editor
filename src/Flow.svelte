@@ -38,6 +38,8 @@
   let displayState = graph.getDisplayState(focusedNodeId);
   console.log("graph", graph);
   console.log("displayState", displayState);
+
+  //NOTE: do not directly modify this state. it gets refreshed in the refresh() function based on the value of graph
   let nodes = $state.raw<Node[]>(displayState.nodes);
   let edges = $state.raw<Edge[]>(displayState.edges);
   let title = $state.raw<string>(displayState.title);
