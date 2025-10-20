@@ -144,7 +144,7 @@
       height: epsilon,
     };
     const nodesHitByCursor = getIntersectingNodes(posRect);
-    let parent = undefined;
+    let parent = focusedNodeId;
     //lowest node has no children among these nodes
     //TODO: O(n^2) cringe
     for (const node of nodesHitByCursor) {
