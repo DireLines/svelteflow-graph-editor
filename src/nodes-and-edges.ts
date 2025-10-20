@@ -210,6 +210,7 @@ export class Graph {
       description: "right-click to make a new node",
       backgroundColor: "#111",
     };
+    this.refreshParentIds();
 
     const { nodes, edges } = this;
     if (focusedNodeId === null) {
