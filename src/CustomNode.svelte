@@ -38,11 +38,7 @@
   //     }
   //   }
   // });
-  const getOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
-  const getBorderColor = () => {
-    const workable = globals.graph.isWorkable(id);
-    return workable ? 'border-color: "#00FF00"' : "";
-  };
+  const getOpacity = () => (globals.graph.isCompletedOrParentCompleted(id) ? "opacity: 30%" : "opacity: 100%");
   // Whenever the user types, update `text` and let parent know
   const handleLabelBlur = () => {
     data.label = editable.innerText;
