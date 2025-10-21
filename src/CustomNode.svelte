@@ -83,12 +83,12 @@
   <!-- TODO: click to edit node -->
   <!-- <button onclick={() => console.log("edit")}>✏️</button> -->
   <!-- TODO: click to focus -->
-  <!-- <button
+  <button
     onclick={() => {
       console.log("focus");
       globals.setFocusedNode(id);
     }}>⬇</button
-  > -->
+  >
 </div>
 <div style={getOpacity()}>
   <Handle type="target" position={Position.Left} {isConnectable} />
