@@ -57,20 +57,6 @@
       "completed": false
     },
     {
-      "id": "10",
-      "position": {
-        "x": 710.9461674644419,
-        "y": 812.1724424424233
-      },
-      "children": [],
-      "size": {
-        "x": 193,
-        "y": 46
-      },
-      "label": "grey out node if completed",
-      "completed": false
-    },
-    {
       "id": "13",
       "position": {
         "x": 425.0885033002703,
@@ -82,20 +68,6 @@
         "y": 36
       },
       "label": "function to get completion status (num subtasks completed / num subtasks)",
-      "completed": false
-    },
-    {
-      "id": "22",
-      "position": {
-        "x": 476.8572926347011,
-        "y": 962.573708775139
-      },
-      "children": [],
-      "size": {
-        "x": 154,
-        "y": 36
-      },
-      "label": "project name component",
       "completed": false
     },
     {
@@ -263,21 +235,7 @@
         "x": 399,
         "y": 36
       },
-      "label": "bug: instead of entering newline, pressing enter should stop editing title",
-      "completed": false
-    },
-    {
-      "id": "52",
-      "position": {
-        "x": 322.0399878404503,
-        "y": 788.2424984612151
-      },
-      "children": [],
-      "size": {
-        "x": 218,
-        "y": 36
-      },
-      "label": "grey out children of completed nodes",
+      "label": "bug: instead of inputting newline, pressing enter should stop editing / blur label",
       "completed": false
     },
     {
@@ -320,20 +278,6 @@
         "y": 36
       },
       "label": "select multiple nodes (click & drag rect or shift-click)",
-      "completed": false
-    },
-    {
-      "id": "80",
-      "position": {
-        "x": 117.97776587298165,
-        "y": 966.513386249604
-      },
-      "children": [],
-      "size": {
-        "x": 260,
-        "y": 36
-      },
-      "label": "grey out incoming edges to completed nodes",
       "completed": false
     },
     {
@@ -759,34 +703,6 @@
       "completed": false
     },
     {
-      "id": "97",
-      "position": {
-        "x": -1004.9096260044862,
-        "y": 848.8374416712363
-      },
-      "children": [],
-      "size": {
-        "x": 288,
-        "y": 36
-      },
-      "label": "get nodes at or up to n levels below arbitrary node",
-      "completed": true
-    },
-    {
-      "id": "114",
-      "position": {
-        "x": -956.4503042259305,
-        "y": 1058.545567062965
-      },
-      "children": [],
-      "size": {
-        "x": 262,
-        "y": 36
-      },
-      "label": "styling: add to css style instead of overwriting",
-      "completed": true
-    },
-    {
       "id": "116",
       "position": {
         "x": -264.89185614076615,
@@ -840,8 +756,8 @@
         {
           "id": "42",
           "position": {
-            "x": 195.815841986811,
-            "y": 59.7027772658341
+            "x": 193.47867932774892,
+            "y": 68.66409048330284
           },
           "children": [],
           "size": {
@@ -853,25 +769,10 @@
           "parentId": "47"
         },
         {
-          "id": "48",
-          "position": {
-            "x": 272.04974096801817,
-            "y": 113.69965123082963
-          },
-          "children": [],
-          "size": {
-            "x": 124,
-            "y": 43
-          },
-          "label": "show / hide completed tasks",
-          "completed": true,
-          "parentId": "47"
-        },
-        {
           "id": "53",
           "position": {
-            "x": 100.49016730493514,
-            "y": 112.68934573316946
+            "x": 98.15300464587307,
+            "y": 121.6506589506382
           },
           "children": [],
           "size": {
@@ -885,8 +786,8 @@
         {
           "id": "78",
           "position": {
-            "x": 374.3120992620827,
-            "y": 156.01815036288406
+            "x": 371.97493660302064,
+            "y": 164.97946358035279
           },
           "children": [],
           "size": {
@@ -900,8 +801,8 @@
         {
           "id": "106",
           "position": {
-            "x": 160.82144701688844,
-            "y": 156.62540370077159
+            "x": 158.48428435782637,
+            "y": 165.5867169182403
           },
           "children": [],
           "size": {
@@ -911,14 +812,132 @@
           "label": "cache side panel settings in localStorage",
           "completed": false,
           "parentId": "47"
+        },
+        {
+          "id": "48",
+          "position": {
+            "x": 317.1021103929453,
+            "y": 117.85333075861833
+          },
+          "children": [],
+          "size": {
+            "x": 124,
+            "y": 43
+          },
+          "label": "show / hide completed tasks",
+          "completed": true,
+          "parentId": "47"
         }
       ],
       "size": {
-        "x": 451.3219319571476,
-        "y": 183.42262643493746
+        "x": 446.32567468187585,
+        "y": 200.92262643493748
       },
       "label": "side panel controls",
       "completed": false
+    },
+    {
+      "id": "97",
+      "position": {
+        "x": -855.0103309083819,
+        "y": 1246.3644938623756
+      },
+      "children": [],
+      "size": {
+        "x": 288,
+        "y": 36
+      },
+      "label": "get nodes at or up to n levels below arbitrary node",
+      "completed": true
+    },
+    {
+      "id": "114",
+      "position": {
+        "x": -784.506995145105,
+        "y": 985.0655204472274
+      },
+      "children": [],
+      "size": {
+        "x": 262,
+        "y": 36
+      },
+      "label": "styling: add to css style instead of overwriting",
+      "completed": true
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 6.526430582812139,
+        "y": 850.3705267327827
+      },
+      "children": [
+        {
+          "id": "52",
+          "position": {
+            "x": 163.01378863322955,
+            "y": 66.4070412362786
+          },
+          "children": [],
+          "size": {
+            "x": 218,
+            "y": 36
+          },
+          "label": "grey out children of completed nodes",
+          "completed": true,
+          "parentId": "10"
+        },
+        {
+          "id": "80",
+          "position": {
+            "x": 149.55378786126627,
+            "y": 114.64749595101318
+          },
+          "children": [],
+          "size": {
+            "x": 260,
+            "y": 36
+          },
+          "label": "grey out incoming edges to completed nodes",
+          "completed": false,
+          "parentId": "10"
+        }
+      ],
+      "size": {
+        "x": 305,
+        "y": 152.2404547147346
+      },
+      "label": "grey out node if completed",
+      "completed": false
+    },
+    {
+      "id": "22",
+      "position": {
+        "x": 378.58523237162524,
+        "y": 899.0357387774607
+      },
+      "children": [],
+      "size": {
+        "x": 154,
+        "y": 36
+      },
+      "label": "project name component",
+      "completed": false
+    },
+    {
+      "id": "148",
+      "children": [],
+      "label": "styling: instead of fitView fitting the entire display, fit to the screen rectangle below the title bar",
+      "completed": false,
+      "size": {
+        "x": 50,
+        "y": 50
+      },
+      "manuallyResized": false,
+      "backgroundColor": "#111",
+      "position": {
+        "x": 31.19771689739872,
+        "y": -39.88436969465022
+      }
     }
   ],
   "edges": [
@@ -1003,19 +1022,9 @@
       "id": "xy-edge__15-42"
     },
     {
-      "source": "52",
-      "target": "10",
-      "id": "xy-edge__52-10"
-    },
-    {
       "source": "41",
       "target": "35",
       "id": "xy-edge__41-35"
-    },
-    {
-      "source": "80",
-      "target": "10",
-      "id": "xy-edge__80-10"
     },
     {
       "source": "84",
@@ -1051,11 +1060,6 @@
       "source": "97",
       "target": "3",
       "id": "97->3"
-    },
-    {
-      "source": "97",
-      "target": "52",
-      "id": "xy-edge__97-52"
     },
     {
       "source": "97",
