@@ -106,6 +106,7 @@ export class Graph {
     parent?.children.push(node);
   }
   refreshParentIds() {
+    //TODO(perf): keep flag for whether parent ids could have changed since last refresh, skip if not
     for (const node of this.nodes) {
       node.parentId = undefined;
       this.refreshParentIdsUnderNode(node);
@@ -202,6 +203,59 @@ export class Graph {
       this.nodes.push(childCopy);
     }
   }
+  getIncomingNodes(nodeId: string): string[] {
+    const result = [];
+    for (const edge of this.edges) {
+      if (edge.target === nodeId) {
+        result.push(edge.source);
+      }
+    }
+    return result;
+  }
+  getOutgoingNodes(nodeId: string): string[] {
+    const result = [];
+    for (const edge of this.edges) {
+      if (edge.source === nodeId) {
+        result.push(edge.target);
+      }
+    }
+    return result;
+  }
+  isWorkable(nodeId: string): boolean {
+    this.refreshParentIds();
+    const node = this.getNode(nodeId);
+    if (node && node.completed) {
+      return false;
+    }
+    const incoming = this.getIncomingNodes(nodeId);
+    for (const incomingId of incoming) {
+      const node = this.getNode(incomingId);
+      if (node && !node.completed) {
+        //TODO should this be isCompletedOrParentCompleted?
+        return false;
+      }
+    }
+    if (!node?.parentId) {
+      return true;
+    }
+    return this.isWorkable(node?.parentId);
+  }
+  isCompletedOrParentCompleted(nodeId: string): boolean {
+    this.refreshParentIds();
+    const node = this.getNode(nodeId);
+    if (!node) {
+      return false;
+    }
+    if (node.completed) {
+      return true;
+    }
+    if (isNil(node.parentId === null)) {
+      //not completed, and at root level
+      return false;
+    }
+    //depends on parent
+    return this.isCompletedOrParentCompleted(node.parentId);
+  }
   getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = Infinity): DisplayState | null {
     const result: DisplayState = {
       nodes: [],
@@ -254,6 +308,11 @@ export class Graph {
     for (const edge of edges) {
       if (edge.source in nodesById || edge.target in nodesById) {
         result.edges.push(addDefaultsToEdge(edge));
+      }
+    }
+    for (const node of result.nodes) {
+      if (this.isWorkable(node.id)) {
+        node.style = "border-color: #f7b423ff;border-width:3px;";
       }
     }
     return result;
