@@ -25,19 +25,6 @@
   let editable: HTMLElement;
   let completed = $state(data.completed);
 
-  // let workable = $state(true);
-
-  // let connections = useNodeConnections({
-  //   handleType: "target",
-  // });
-  // const nodesData = $derived(useNodesData(connections.current.map((connection) => connection.source)));
-  // useNodesData.subscribe((current) => {
-  //   for (const node of current) {
-  //     if (!node.data.completed) {
-  //       workable = false;
-  //     }
-  //   }
-  // });
   const getOpacity = () => (globals.graph.isCompletedOrParentCompleted(id) ? "opacity: 30%" : "opacity: 100%");
   // Whenever the user types, update `text` and let parent know
   const handleLabelBlur = () => {
