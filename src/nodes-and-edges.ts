@@ -32,7 +32,6 @@ export type NodeData = {
   //graph stuff
   id: string;
   children: NodeData[]; //child nodes
-  parentId?: string; //parent node (redundant - not stored, only used temporarily when converting to displayState)
 
   //content
   label: string; // title for the node
@@ -53,6 +52,10 @@ export type NodeData = {
   size: Dims; //current width/height in flow coordinates
   manuallyResized: boolean; //is the current size of the node the result of a manual resizing?
   backgroundColor: string;
+
+  //redundant info - not stored, only used at runtime
+  parentId?: string; //parent node
+  completionStatus?: number;
 };
 //state to display on Svelteflow for the currently focused segment of the graph
 export type DisplayState = {
@@ -117,6 +120,30 @@ export class Graph {
       child.parentId = currNode.id;
       this.refreshParentIdsUnderNode(child);
     }
+  }
+  refreshCompletionStatus() {
+    //TODO(perf): keep flag for whether completion status could have changed since last refresh, skip if not
+    for (const node of this.nodes) {
+      this.refreshCompletionStatusUnderNode(node);
+    }
+  }
+  refreshCompletionStatusUnderNode(currNode: NodeData): number {
+    if (currNode.children.length === 0) {
+      const status = currNode.completed ? 1 : 0;
+      currNode.completionStatus = status;
+      return status;
+    }
+    let sumCompletionStatus = 0;
+    for (const child of currNode.children) {
+      sumCompletionStatus += this.refreshCompletionStatusUnderNode(child);
+    }
+    const status = sumCompletionStatus / currNode.children.length;
+    currNode.completionStatus = status;
+    return status;
+  }
+  getCompletionStatus(nodeId: string): number {
+    this.refreshCompletionStatus();
+    return this.getNode(nodeId)?.completionStatus ?? 0;
   }
   getNode(nodeId: string): NodeData | null {
     for (const node of preorderTraverse(this.nodes)) {

@@ -68,7 +68,7 @@
         "y": 36
       },
       "label": "function to get completion status (num subtasks completed / num subtasks)",
-      "completed": false
+      "completed": true
     },
     {
       "id": "25",
@@ -236,20 +236,6 @@
         "y": 36
       },
       "label": "bug: instead of inputting newline, pressing enter should stop editing / blur label",
-      "completed": false
-    },
-    {
-      "id": "54",
-      "position": {
-        "x": 57.81129952858508,
-        "y": 158.24682114837984
-      },
-      "children": [],
-      "size": {
-        "x": 170,
-        "y": 36
-      },
-      "label": "bug: fix parent resizing logic",
       "completed": false
     },
     {
@@ -482,34 +468,6 @@
       "completed": false
     },
     {
-      "id": "128",
-      "position": {
-        "x": -516.2711214522562,
-        "y": 48.03055942849338
-      },
-      "children": [],
-      "size": {
-        "x": 370,
-        "y": 36
-      },
-      "label": "bug: child bounds are slightly smaller than what svelteflow reports",
-      "completed": false
-    },
-    {
-      "id": "134",
-      "position": {
-        "x": -521.5587918780707,
-        "y": -36.06317123935682
-      },
-      "children": [],
-      "size": {
-        "x": 358,
-        "y": 36
-      },
-      "label": "bug: child rect xy is slightly smaller than what svelteflow reports",
-      "completed": false
-    },
-    {
       "id": "141",
       "position": {
         "x": 37.68756651522064,
@@ -596,20 +554,6 @@
         "y": 54
       },
       "label": "buttons to enter node / go up a level / go to top level",
-      "completed": false
-    },
-    {
-      "id": "64",
-      "position": {
-        "x": 737.9892387171069,
-        "y": 149.0615958431196
-      },
-      "children": [],
-      "size": {
-        "x": 339,
-        "y": 64
-      },
-      "label": "bug: if node has been manually resized, only auto-resize if new size >= this size in both dimensions",
       "completed": false
     },
     {
@@ -731,20 +675,6 @@
         "x": 203.68497392840388,
         "y": 1107.9511300218821
       }
-    },
-    {
-      "id": "140",
-      "position": {
-        "x": -1078.7869022518403,
-        "y": 203.89237801952345
-      },
-      "children": [],
-      "size": {
-        "x": 326,
-        "y": 137
-      },
-      "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable.\n\n\nI believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
-      "completed": false
     },
     {
       "id": "47",
@@ -929,8 +859,8 @@
       "label": "styling: instead of fitView fitting the entire display, fit to the screen rectangle below the title bar",
       "completed": false,
       "size": {
-        "x": 50,
-        "y": 50
+        "x": 535,
+        "y": 54
       },
       "manuallyResized": false,
       "backgroundColor": "#111",
@@ -938,6 +868,84 @@
         "x": 31.19771689739872,
         "y": -39.88436969465022
       }
+    },
+    {
+      "id": "54",
+      "position": {
+        "x": -720.170414541903,
+        "y": 272.57210569037693
+      },
+      "children": [
+        {
+          "id": "140",
+          "position": {
+            "x": 178.51894822676815,
+            "y": 140.93034721590288
+          },
+          "children": [],
+          "size": {
+            "x": 297,
+            "y": 118
+          },
+          "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable. I believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
+          "completed": false,
+          "parentId": "54",
+          "manuallyResized": true
+        },
+        {
+          "id": "64",
+          "position": {
+            "x": 256.5607740158255,
+            "y": 279.1167608102785
+          },
+          "children": [],
+          "size": {
+            "x": 260,
+            "y": 78
+          },
+          "label": "bug: if node has been manually resized, only auto-resize if new size >= this size in both dimensions",
+          "completed": true,
+          "parentId": "54",
+          "manuallyResized": true
+        },
+        {
+          "id": "128",
+          "position": {
+            "x": 604.8973691303479,
+            "y": 260.30136522141845
+          },
+          "children": [],
+          "size": {
+            "x": 370,
+            "y": 36
+          },
+          "label": "bug: child bounds are slightly smaller than what svelteflow reports",
+          "completed": false,
+          "parentId": "54"
+        },
+        {
+          "id": "134",
+          "position": {
+            "x": 580.9138939529994,
+            "y": 170.2110381797446
+          },
+          "children": [],
+          "size": {
+            "x": 358,
+            "y": 36
+          },
+          "label": "bug: child rect xy is slightly smaller than what svelteflow reports",
+          "completed": false,
+          "parentId": "54"
+        }
+      ],
+      "size": {
+        "x": 826,
+        "y": 388
+      },
+      "label": "bug: fix parent resizing logic",
+      "completed": false,
+      "manuallyResized": true
     }
   ],
   "edges": [
@@ -1080,26 +1088,6 @@
       "source": "114",
       "target": "116",
       "id": "xy-edge__114-116"
-    },
-    {
-      "source": "128",
-      "target": "54",
-      "id": "xy-edge__128-54"
-    },
-    {
-      "source": "134",
-      "target": "54",
-      "id": "xy-edge__134-54"
-    },
-    {
-      "source": "140",
-      "target": "54",
-      "id": "xy-edge__140-54"
-    },
-    {
-      "source": "54",
-      "target": "64",
-      "id": "xy-edge__54-64"
     },
     {
       "source": "116",

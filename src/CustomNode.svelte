@@ -44,6 +44,10 @@
     globals.refresh();
   };
 
+  const handleResize = (_, newDims) => {
+    globals.graph.updateNode(id, { manuallyResized: true, size: { x: newDims.width, y: newDims.height } });
+  };
+
   // Optional: keep caret at end when programmatically updating
   onMount(() => {
     editable.addEventListener("focus", () => {
@@ -96,7 +100,13 @@
       {data.label}
     </div>
   </div>
-  <NodeResizeControl class="node-hover" minWidth={100} minHeight={5} style="background: transparent; border: none;">
+  <NodeResizeControl
+    onResizeEnd={handleResize}
+    class="node-hover"
+    minWidth={100}
+    minHeight={5}
+    style="background: transparent; border: none;"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="10"

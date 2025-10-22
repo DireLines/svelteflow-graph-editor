@@ -419,6 +419,15 @@
     console.log(newSize);
     //figure out diff in local position for children
     const positionDiff = findDiffInLocalPosition(thisNode, newSize);
+    const backendNode = graph.getNode(nodeId);
+    if (
+      backendNode &&
+      backendNode?.manuallyResized &&
+      (newSize.height < backendNode.size.y || newSize.width < backendNode.size.x)
+    ) {
+      //don't resize
+      return;
+    }
     //reposition children for new offset
     for (const node of children) {
       const newPos = addPositions(node.position, positionDiff);
@@ -426,7 +435,7 @@
       graph.updateNode(node.id, { position: newPos });
     }
     updateNode(thisNode.id, { width: newSize.width, height: newSize.height });
-    graph.updateNode(thisNode.id, { size: { x: newSize.width, y: newSize.height } });
+    graph.updateNode(thisNode.id, { manuallyResized: false, size: { x: newSize.width, y: newSize.height } });
     //resize parent recursively
     if (!isNil(thisNode.parentId)) {
       resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);
