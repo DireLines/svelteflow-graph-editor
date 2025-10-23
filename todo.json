@@ -8,8 +8,8 @@
       },
       "children": [],
       "size": {
-        "x": 232,
-        "y": 36
+        "width": 232,
+        "height": 36
       },
       "label": "component to display completion status",
       "completed": false
@@ -22,8 +22,8 @@
       },
       "children": [],
       "size": {
-        "x": 377,
-        "y": 54
+        "width": 377,
+        "height": 54
       },
       "label": "indirection between actual graph and displayed graph",
       "completed": true
@@ -36,8 +36,8 @@
       },
       "children": [],
       "size": {
-        "x": 220,
-        "y": 36
+        "width": 220,
+        "height": 36
       },
       "label": "dropdown component in-line with text",
       "completed": false
@@ -50,8 +50,8 @@
       },
       "children": [],
       "size": {
-        "x": 324,
-        "y": 36
+        "width": 324,
+        "height": 36
       },
       "label": "do not show nodes at levels more than 2 beneath current",
       "completed": false
@@ -64,8 +64,8 @@
       },
       "children": [],
       "size": {
-        "x": 422,
-        "y": 36
+        "width": 422,
+        "height": 36
       },
       "label": "function to get completion status (num subtasks completed / num subtasks)",
       "completed": true
@@ -78,8 +78,8 @@
       },
       "children": [],
       "size": {
-        "x": 121,
-        "y": 36
+        "width": 121,
+        "height": 36
       },
       "label": "button to edit node",
       "completed": false
@@ -92,8 +92,8 @@
       },
       "children": [],
       "size": {
-        "x": 280,
-        "y": 36
+        "width": 280,
+        "height": 36
       },
       "label": "import / export / clear entire node vs entire graph",
       "completed": false
@@ -106,8 +106,8 @@
       },
       "children": [],
       "size": {
-        "x": 555,
-        "y": 36
+        "width": 555,
+        "height": 36
       },
       "label": "dropdowns on export button: export [entire graph/this node] as [cached name].[json/jsonb/my format]",
       "completed": false
@@ -120,8 +120,8 @@
       },
       "children": [],
       "size": {
-        "x": 353,
-        "y": 36
+        "width": 353,
+        "height": 36
       },
       "label": "dropdown on import button: import into [entire graph/this node]",
       "completed": false
@@ -134,8 +134,8 @@
       },
       "children": [],
       "size": {
-        "x": 305,
-        "y": 36
+        "width": 305,
+        "height": 36
       },
       "label": "create a nested bulleted list text format for the graphs",
       "completed": true
@@ -148,8 +148,8 @@
       },
       "children": [],
       "size": {
-        "x": 142,
-        "y": 36
+        "width": 142,
+        "height": 36
       },
       "label": "import from this format",
       "completed": false
@@ -162,8 +162,8 @@
       },
       "children": [],
       "size": {
-        "x": 128,
-        "y": 36
+        "width": 128,
+        "height": 36
       },
       "label": "export to this format",
       "completed": false
@@ -176,8 +176,8 @@
       },
       "children": [],
       "size": {
-        "x": 227,
-        "y": 57
+        "width": 227,
+        "height": 57
       },
       "label": "append to state history buffer when state changed",
       "completed": false
@@ -190,8 +190,8 @@
       },
       "children": [],
       "size": {
-        "x": 144,
-        "y": 36
+        "width": 144,
+        "height": 36
       },
       "label": "undo / redo commands",
       "completed": false
@@ -204,8 +204,8 @@
       },
       "children": [],
       "size": {
-        "x": 242,
-        "y": 36
+        "width": 242,
+        "height": 36
       },
       "label": "determine when to record state changes?",
       "completed": false
@@ -218,8 +218,8 @@
       },
       "children": [],
       "size": {
-        "x": 232,
-        "y": 36
+        "width": 232,
+        "height": 36
       },
       "label": "automatic node layout (first try dagre.js)",
       "completed": false
@@ -232,8 +232,8 @@
       },
       "children": [],
       "size": {
-        "x": 399,
-        "y": 36
+        "width": 399,
+        "height": 36
       },
       "label": "bug: instead of inputting newline, pressing enter should stop editing / blur label",
       "completed": false
@@ -246,8 +246,8 @@
       },
       "children": [],
       "size": {
-        "x": 339,
-        "y": 36
+        "width": 339,
+        "height": 36
       },
       "label": "bug: text should not overflow out of node - scroll bar instead",
       "completed": false
@@ -260,8 +260,8 @@
       },
       "children": [],
       "size": {
-        "x": 297,
-        "y": 36
+        "width": 297,
+        "height": 36
       },
       "label": "select multiple nodes (click & drag rect or shift-click)",
       "completed": false
@@ -274,8 +274,8 @@
       },
       "children": [],
       "size": {
-        "x": 243,
-        "y": 36
+        "width": 243,
+        "height": 36
       },
       "label": "button to duplicate node (incl child nodes)",
       "completed": false
@@ -288,8 +288,8 @@
       },
       "children": [],
       "size": {
-        "x": 441,
-        "y": 36
+        "width": 441,
+        "height": 36
       },
       "label": "duplicate arbitrary set of nodes under a node - new ids, same data/connections",
       "completed": false
@@ -302,8 +302,8 @@
       },
       "children": [],
       "size": {
-        "x": 152,
-        "y": 36
+        "width": 152,
+        "height": 36
       },
       "label": "import graph into a node",
       "completed": false
@@ -316,8 +316,8 @@
       },
       "children": [],
       "size": {
-        "x": 338,
-        "y": 36
+        "width": 338,
+        "height": 36
       },
       "label": "make a copy of this node every x hours (for recurring tasks)",
       "completed": false
@@ -337,8 +337,8 @@
           },
           "children": [],
           "size": {
-            "x": 334,
-            "y": 39
+            "width": 334,
+            "height": 39
           },
           "label": "task marked in progress / complete with incomplete dependencies",
           "completed": false,
@@ -352,8 +352,8 @@
           },
           "children": [],
           "size": {
-            "x": 276,
-            "y": 36
+            "width": 276,
+            "height": 36
           },
           "label": "task marked complete with incomplete subtasks",
           "completed": false,
@@ -367,8 +367,8 @@
           },
           "children": [],
           "size": {
-            "x": 129,
-            "y": 36
+            "width": 129,
+            "height": 36
           },
           "label": "cyclic dependencies",
           "completed": false,
@@ -382,8 +382,8 @@
           },
           "children": [],
           "size": {
-            "x": 212,
-            "y": 36
+            "width": 212,
+            "height": 36
           },
           "label": "dependencies going between levels",
           "completed": false,
@@ -391,8 +391,8 @@
         }
       ],
       "size": {
-        "x": 501.4107405608843,
-        "y": 249.12060484601102
+        "width": 501.4107405608843,
+        "height": 249.12060484601102
       },
       "label": "semantics: checkboxes for letting the program warn / error on certain conditions",
       "completed": false
@@ -405,8 +405,8 @@
       },
       "children": [],
       "size": {
-        "x": 592,
-        "y": 36
+        "width": 592,
+        "height": 36
       },
       "label": "UX: it is impossible to find the node label input field after the user completely clears it - have minimum width",
       "completed": false
@@ -419,8 +419,8 @@
       },
       "children": [],
       "size": {
-        "x": 266,
-        "y": 36
+        "width": 266,
+        "height": 36
       },
       "label": "real-time collab mode - investigate Automerge",
       "completed": false
@@ -433,8 +433,8 @@
       },
       "children": [],
       "size": {
-        "x": 355,
-        "y": 36
+        "width": 355,
+        "height": 36
       },
       "label": "styling: make node hover menus constant size in screen space",
       "completed": false
@@ -447,8 +447,8 @@
       },
       "children": [],
       "size": {
-        "x": 379,
-        "y": 36
+        "width": 379,
+        "height": 36
       },
       "label": "bug: some edges react strangely to past/present/future checkboxes",
       "completed": false
@@ -461,8 +461,8 @@
       },
       "children": [],
       "size": {
-        "x": 280,
-        "y": 36
+        "width": 280,
+        "height": 36
       },
       "label": "styling: all colors should adapt to light/dark mode",
       "completed": false
@@ -475,8 +475,8 @@
       },
       "children": [],
       "size": {
-        "x": 230,
-        "y": 69
+        "width": 230,
+        "height": 69
       },
       "label": "perf: considerably slower on firefox. it's svelteflow's rendering logic, not my code, and it's not slow on safari",
       "completed": false
@@ -489,8 +489,8 @@
       },
       "children": [],
       "size": {
-        "x": 292,
-        "y": 36
+        "width": 292,
+        "height": 36
       },
       "label": "add parent of entire graph and localize coordinates",
       "completed": false
@@ -510,8 +510,8 @@
           },
           "children": [],
           "size": {
-            "x": 308,
-            "y": 36
+            "width": 308,
+            "height": 36
           },
           "label": "make focused node name styled like the project name",
           "completed": false,
@@ -523,8 +523,8 @@
           "label": "remove parentId from display state if parentId === focusedNodeId",
           "completed": true,
           "size": {
-            "x": 50,
-            "y": 50
+            "width": 50,
+            "height": 50
           },
           "manuallyResized": false,
           "backgroundColor": "#111",
@@ -536,8 +536,8 @@
         }
       ],
       "size": {
-        "x": 419.6593799600365,
-        "y": 153.3064345672303
+        "width": 419.6593799600365,
+        "height": 153.3064345672303
       },
       "label": "function to \"focus node\"",
       "completed": false
@@ -550,8 +550,8 @@
       },
       "children": [],
       "size": {
-        "x": 171,
-        "y": 54
+        "width": 171,
+        "height": 54
       },
       "label": "buttons to enter node / go up a level / go to top level",
       "completed": false
@@ -571,8 +571,8 @@
           },
           "children": [],
           "size": {
-            "x": 127,
-            "y": 36
+            "width": 127,
+            "height": 36
           },
           "label": "mark as in progress",
           "completed": false,
@@ -586,8 +586,8 @@
           },
           "children": [],
           "size": {
-            "x": 95,
-            "y": 36
+            "width": 95,
+            "height": 36
           },
           "label": "set assignees",
           "completed": false,
@@ -601,8 +601,8 @@
           },
           "children": [],
           "size": {
-            "x": 265,
-            "y": 36
+            "width": 265,
+            "height": 36
           },
           "label": "title (keep synced with node label component)",
           "completed": false,
@@ -616,8 +616,8 @@
           },
           "children": [],
           "size": {
-            "x": 80,
-            "y": 36
+            "width": 80,
+            "height": 36
           },
           "label": "description",
           "completed": false,
@@ -631,8 +631,8 @@
           },
           "children": [],
           "size": {
-            "x": 99,
-            "y": 36
+            "width": 99,
+            "height": 36
           },
           "label": "time estimates",
           "completed": false,
@@ -640,8 +640,8 @@
         }
       ],
       "size": {
-        "x": 441.3636445704574,
-        "y": 138.6870913069904
+        "width": 441.3636445704574,
+        "height": 138.6870913069904
       },
       "label": "node editor modal component",
       "completed": false
@@ -654,8 +654,8 @@
       },
       "children": [],
       "size": {
-        "x": 292,
-        "y": 36
+        "width": 292,
+        "height": 36
       },
       "label": "highlight workable nodes with different border color",
       "completed": true
@@ -666,8 +666,8 @@
       "label": "hover border color should still override workable border color",
       "completed": false,
       "size": {
-        "x": 50,
-        "y": 50
+        "width": 50,
+        "height": 50
       },
       "manuallyResized": false,
       "backgroundColor": "#111",
@@ -691,8 +691,8 @@
           },
           "children": [],
           "size": {
-            "x": 331,
-            "y": 37
+            "width": 331,
+            "height": 37
           },
           "label": "filter nodes to in progress / workable / set of assignees",
           "completed": false,
@@ -706,8 +706,8 @@
           },
           "children": [],
           "size": {
-            "x": 150,
-            "y": 36
+            "width": 150,
+            "height": 36
           },
           "label": "filter nodes by keywords",
           "completed": false,
@@ -721,8 +721,8 @@
           },
           "children": [],
           "size": {
-            "x": 104,
-            "y": 36
+            "width": 104,
+            "height": 36
           },
           "label": "organize nodes",
           "completed": false,
@@ -736,8 +736,8 @@
           },
           "children": [],
           "size": {
-            "x": 239,
-            "y": 36
+            "width": 239,
+            "height": 36
           },
           "label": "cache side panel settings in localStorage",
           "completed": false,
@@ -751,8 +751,8 @@
           },
           "children": [],
           "size": {
-            "x": 124,
-            "y": 43
+            "width": 124,
+            "height": 43
           },
           "label": "show / hide completed tasks",
           "completed": true,
@@ -760,8 +760,8 @@
         }
       ],
       "size": {
-        "x": 446.32567468187585,
-        "y": 200.92262643493748
+        "width": 446.32567468187585,
+        "height": 200.92262643493748
       },
       "label": "side panel controls",
       "completed": false
@@ -774,8 +774,8 @@
       },
       "children": [],
       "size": {
-        "x": 288,
-        "y": 36
+        "width": 288,
+        "height": 36
       },
       "label": "get nodes at or up to n levels below arbitrary node",
       "completed": true
@@ -788,8 +788,8 @@
       },
       "children": [],
       "size": {
-        "x": 262,
-        "y": 36
+        "width": 262,
+        "height": 36
       },
       "label": "styling: add to css style instead of overwriting",
       "completed": true
@@ -809,8 +809,8 @@
           },
           "children": [],
           "size": {
-            "x": 218,
-            "y": 36
+            "width": 218,
+            "height": 36
           },
           "label": "grey out children of completed nodes",
           "completed": true,
@@ -824,8 +824,8 @@
           },
           "children": [],
           "size": {
-            "x": 260,
-            "y": 36
+            "width": 260,
+            "height": 36
           },
           "label": "grey out incoming edges to completed nodes",
           "completed": false,
@@ -833,8 +833,8 @@
         }
       ],
       "size": {
-        "x": 305,
-        "y": 152.2404547147346
+        "width": 305,
+        "height": 152.2404547147346
       },
       "label": "grey out node if completed",
       "completed": false
@@ -847,8 +847,8 @@
       },
       "children": [],
       "size": {
-        "x": 154,
-        "y": 36
+        "width": 154,
+        "height": 36
       },
       "label": "project name component",
       "completed": false
@@ -859,8 +859,8 @@
       "label": "styling: instead of fitView fitting the entire display, fit to the screen rectangle below the title bar",
       "completed": false,
       "size": {
-        "x": 535,
-        "y": 54
+        "width": 535,
+        "height": 54
       },
       "manuallyResized": false,
       "backgroundColor": "#111",
@@ -884,8 +884,8 @@
           },
           "children": [],
           "size": {
-            "x": 370,
-            "y": 36
+            "width": 370,
+            "height": 36
           },
           "label": "bug: child bounds are slightly smaller than what svelteflow reports",
           "completed": false,
@@ -899,8 +899,8 @@
           },
           "children": [],
           "size": {
-            "x": 358,
-            "y": 36
+            "width": 358,
+            "height": 36
           },
           "label": "bug: child rect xy is slightly smaller than what svelteflow reports",
           "completed": false,
@@ -912,8 +912,8 @@
           "label": "manual resize: store lastManualResize, and in resizeNodeToEncapsulate make each dimension of newSize max(newSize, lastManualResize)",
           "completed": false,
           "size": {
-            "x": 50,
-            "y": 50
+            "width": 50,
+            "height": 50
           },
           "manuallyResized": false,
           "backgroundColor": "#111",
@@ -929,8 +929,8 @@
           "label": "correct resize logic: make parent centered on world coords center of child content bounding box",
           "completed": false,
           "size": {
-            "x": 426,
-            "y": 49
+            "width": 426,
+            "height": 49
           },
           "manuallyResized": true,
           "backgroundColor": "#111",
@@ -952,8 +952,8 @@
           },
           "children": [],
           "size": {
-            "x": 344,
-            "y": 105
+            "width": 344,
+            "height": 105
           },
           "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable. I believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
           "completed": false,
@@ -970,8 +970,8 @@
           "label": "make recursing resize to parents work properly: need to keep track of new sizes of resized nodes and pass up to parents",
           "completed": false,
           "size": {
-            "x": 376,
-            "y": 60
+            "width": 376,
+            "height": 60
           },
           "manuallyResized": true,
           "backgroundColor": "#111",
@@ -987,8 +987,8 @@
         }
       ],
       "size": {
-        "x": 948,
-        "y": 454
+        "width": 948,
+        "height": 454
       },
       "label": "bug: fix parent resizing logic",
       "completed": false,
@@ -1005,8 +1005,8 @@
       "completed": false,
       "lastManualResize": null,
       "size": {
-        "x": 50,
-        "y": 50
+        "width": 50,
+        "height": 50
       },
       "backgroundColor": "#111",
       "position": {
