@@ -45,7 +45,8 @@
   };
 
   const handleResize = (_, newDims) => {
-    globals.graph.updateNode(id, { manuallyResized: true, size: { x: newDims.width, y: newDims.height } });
+    const dims = { width: newDims.width, height: newDims.height };
+    globals.graph.updateNode(id, { lastManualResize: dims, size: dims });
   };
 
   // Optional: keep caret at end when programmatically updating

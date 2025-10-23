@@ -232,8 +232,8 @@
       children: [],
       label: `Task ${id}`,
       completed: false,
-      size: { x: 50, y: 50 },
-      manuallyResized: false,
+      lastManualResize: null,
+      size: { width: 50, height: 50 },
       backgroundColor: "#111",
       position,
     };
@@ -393,7 +393,6 @@
     const padding = 40; // padding on all sides
     const contentSize = getNodeLabelSize(nodeId);
     if (children.length > 0) {
-      console.log("i have children");
       contentSize.height += 10; //vertical pad before child nodes
     }
     console.log(contentSize);
@@ -406,9 +405,9 @@
       height: contentSize.height + childBounds.height,
     };
     const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
-    console.log("contentBounds", contentBounds);
-    console.log("childBounds", childBounds);
-    console.log("bounds", bounds);
+    console.log("childBounds (estimated, should equal bounds)", childBounds);
+    console.log("bounds (from svelteflow)", bounds);
+    console.log("total contentBounds (estimated)", contentBounds);
     //want that
     // - children stay where they are globally
     // - size of parent node changes to encapsulate children and parent contents with some padding on all sides
@@ -416,17 +415,18 @@
     const boundsLocal = flowToLocalPosition(bounds, nodeId); //get xy in local coords
     const newSize = { width: contentBounds.width + padding, height: contentBounds.height + padding };
     // const newParentCenterPos = {x:}
-    console.log(newSize);
+    console.log("new size", newSize);
     //figure out diff in local position for children
     const positionDiff = findDiffInLocalPosition(thisNode, newSize);
     const backendNode = graph.getNode(nodeId);
-    if (
-      backendNode &&
-      backendNode?.manuallyResized &&
-      (newSize.height < backendNode.size.y || newSize.width < backendNode.size.x)
-    ) {
-      //don't resize
-      return;
+    if (backendNode) {
+      const lastManualResize = backendNode.lastManualResize;
+      if (lastManualResize) {
+        //don't resize smaller than manual resize
+        newSize.width = Math.max(newSize.width, lastManualResize.x);
+        newSize.height = Math.max(newSize.height, lastManualResize.y);
+        return;
+      }
     }
     //reposition children for new offset
     for (const node of children) {
@@ -434,8 +434,9 @@
       updateNode(node.id, { position: newPos });
       graph.updateNode(node.id, { position: newPos });
     }
-    updateNode(thisNode.id, { width: newSize.width, height: newSize.height });
-    graph.updateNode(thisNode.id, { manuallyResized: false, size: { x: newSize.width, y: newSize.height } });
+    const dims = { width: newSize.width, height: newSize.height };
+    updateNode(thisNode.id, dims);
+    graph.updateNode(thisNode.id, { size: dims });
     //resize parent recursively
     if (!isNil(thisNode.parentId)) {
       resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);

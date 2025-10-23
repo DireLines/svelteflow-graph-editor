@@ -23,8 +23,8 @@ export type Point = {
   y: number;
 };
 export type Dims = {
-  x: number; //width
-  y: number; //height
+  width: number;
+  height: number;
 };
 
 //data that needs to be serialized for the node
@@ -50,7 +50,7 @@ export type NodeData = {
   //layout / styling
   position: Point; //current xy in flow coordinates
   size: Dims; //current width/height in flow coordinates
-  manuallyResized: boolean; //is the current size of the node the result of a manual resizing?
+  lastManualResize?: Dims; //what was the size at the end of last manual resizing?
   backgroundColor: string;
 
   //redundant info - not stored, only used at runtime
@@ -256,9 +256,7 @@ export class Graph {
     }
     const incoming = this.getIncomingNodes(nodeId);
     for (const incomingId of incoming) {
-      const node = this.getNode(incomingId);
-      if (node && !node.completed) {
-        //TODO should this be isCompletedOrParentCompleted?
+      if (!this.isCompletedOrParentCompleted(incomingId)) {
         return false;
       }
     }
@@ -363,19 +361,19 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
 // this conversion loses that info. It should be re-added
 const nodeDataToNode = (nodeData: NodeData): Node => {
   const { id, position, size, parentId } = nodeData;
-  const { x, y } = size;
+  const { width, height } = size;
 
   const n: Node = {
     id,
     position,
     parentId,
-    measured: { height: y, width: x },
+    measured: { width, height },
     data: { ...nodeData },
     ...nodeDefaults,
   };
-  if (nodeData.manuallyResized || nodeData.children.length > 0) {
-    n.height = y;
-    n.width = x;
+  if (!isNil(nodeData.lastManualResize) || nodeData.children.length > 0) {
+    n.width = width;
+    n.height = height;
   }
   delete n.data.children;
   return n;
