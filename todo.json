@@ -870,10 +870,26 @@
       }
     },
     {
+      "id": "157",
+      "children": [],
+      "label": "bug: when display state is refreshed from backend, hover/hover menu state is not persisted",
+      "completed": false,
+      "lastManualResize": null,
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "backgroundColor": "#111",
+      "position": {
+        "x": -284.50564071249914,
+        "y": 999.5311758546258
+      }
+    },
+    {
       "id": "54",
       "position": {
-        "x": -1020.1824418124306,
-        "y": 210.31722029322327
+        "x": -991.3683160864346,
+        "y": 194.4197716168116
       },
       "children": [
         {
@@ -956,7 +972,7 @@
             "height": 105
           },
           "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable. I believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
-          "completed": false,
+          "completed": true,
           "parentId": "54",
           "manuallyResized": true,
           "lastManualResize": {
@@ -968,7 +984,7 @@
           "id": "156",
           "children": [],
           "label": "make recursing resize to parents work properly: need to keep track of new sizes of resized nodes and pass up to parents",
-          "completed": false,
+          "completed": true,
           "size": {
             "width": 376,
             "height": 60
@@ -996,22 +1012,6 @@
       "lastManualResize": {
         "x": 948,
         "y": 454
-      }
-    },
-    {
-      "id": "157",
-      "children": [],
-      "label": "bug: when display state is refreshed from backend, hover/hover menu state is not persisted",
-      "completed": false,
-      "lastManualResize": null,
-      "size": {
-        "width": 50,
-        "height": 50
-      },
-      "backgroundColor": "#111",
-      "position": {
-        "x": -284.50564071249914,
-        "y": 999.5311758546258
       }
     }
   ],

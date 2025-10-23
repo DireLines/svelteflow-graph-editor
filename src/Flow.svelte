@@ -183,7 +183,6 @@
     return parent;
   };
   const getOffsetOfOrigin = (node) => {
-    console.log("getOffsetOfOrigin", node);
     return {
       x: node.measured.width * node.origin[0],
       y: node.measured.height * node.origin[1],
@@ -368,11 +367,8 @@
   const getNodeLabelSize = (nodeId: string) => {
     const el = getNodeLabelElement(nodeId);
     if (!el) return undefined;
-    console.log("el exists");
     const rect = el.getBoundingClientRect();
-    console.log("rect", rect);
     const zoom = getZoom();
-    console.log("zoom", zoom);
     return {
       width: Math.round(rect.width / zoom),
       height: Math.round(rect.height / zoom),
@@ -437,6 +433,7 @@
     const dims = { width: newSize.width, height: newSize.height };
     updateNode(thisNode.id, dims);
     graph.updateNode(thisNode.id, { size: dims });
+    resizedNodesById[thisNode.id] = { ...thisNode.position, ...newSize };
     //resize parent recursively
     if (!isNil(thisNode.parentId)) {
       resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);

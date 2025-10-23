@@ -11,6 +11,9 @@ export const subPositions = (a: XYPosition, b: XYPosition) => ({
 });
 
 export const getNodeRectFlowCoordinates = (n: Node, resizedNodesById: any = {}): Rect => {
+  if (n.id in resizedNodesById) {
+    return resizedNodesById[n.id];
+  }
   return {
     ...n.position,
     width: n.width ?? n.measured?.width ?? 0,
