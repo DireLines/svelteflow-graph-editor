@@ -336,6 +336,9 @@ export class Graph {
       }
     }
     for (const node of result.nodes) {
+      if (this.isCompletedOrParentCompleted(node.id)) {
+        node.style = "border-color: #49954aff";
+      }
       if (this.isWorkable(node.id)) {
         node.style = "border-color: #f7b423ff;border-width:3px;";
       }

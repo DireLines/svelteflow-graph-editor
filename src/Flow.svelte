@@ -127,7 +127,7 @@
 
   //TODO: when calling, use project name for filename
   const saveObjToFile = (stateObj: any, filename: string = "graph-project.json") => {
-    const json = JSON.stringify(stateObj, null, 2);
+    const json = JSON.stringify(stateObj);
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const tempLink = document.createElement("a");

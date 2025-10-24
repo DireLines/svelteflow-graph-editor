@@ -69,12 +69,18 @@
 </script>
 
 <div class="control-panel">
-  <input type="checkbox" bind:checked={completed as boolean} onchange={handleCheckboxChange} />
+  <input
+    type="checkbox"
+    title="mark completed/incomplete"
+    bind:checked={completed as boolean}
+    onchange={handleCheckboxChange}
+  />
   <!-- add more buttons here -->
   <!-- TODO: click to edit node -->
   <!-- <button onclick={() => console.log("edit")}>✏️</button> -->
   <!-- TODO: click to focus -->
   <button
+    title="focus node"
     onclick={() => {
       console.log("focus");
       globals.setFocusedNode(id);
@@ -104,6 +110,7 @@
   <NodeResizeControl
     onResizeEnd={handleResize}
     class="node-hover"
+    title="resize"
     minWidth={100}
     minHeight={5}
     style="background: transparent; border: none;"
