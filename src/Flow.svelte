@@ -405,9 +405,13 @@
     const widthRatio = labelSize.width / childBounds.width;
     const vertPad = 10;
     const heightOfOneLine = 14;
+    let resultLabelHeight = heightOfOneLine;
+    if (childBounds.width > 0) {
+      resultLabelHeight = Math.max(heightOfOneLine, labelSize.height * widthRatio);
+    }
     const newLabelSize = {
       width: childBounds.width,
-      height: Math.min(heightOfOneLine, labelSize.height * widthRatio),
+      height: resultLabelHeight,
     };
 
     //determine new xy and size of parent minus padding (flow coordinates)
