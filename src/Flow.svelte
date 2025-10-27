@@ -418,12 +418,20 @@
     };
 
     //determine new xy and size of parent minus padding (flow coordinates)
-    const contentBounds = {
+    let contentBounds = {
       x: childBounds.x,
       y: childBounds.y - newLabelSize.height - vertPad,
       width: childBounds.width,
       height: childBounds.height + newLabelSize.height + vertPad,
     };
+    if (children.length === 0) {
+      contentBounds = {
+        x: thisNode.position.x + thisNode.measured.width / 2,
+        y: thisNode.position.y + thisNode.measured.height / 2,
+        width: newLabelSize.width,
+        height: childBounds.height + newLabelSize.height + vertPad,
+      };
+    }
 
     const svelteflowBounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
     console.log("bounds (reported from svelteflow)", svelteflowBounds);
