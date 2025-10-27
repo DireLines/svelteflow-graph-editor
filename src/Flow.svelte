@@ -289,6 +289,7 @@
     }
     updateNode(thisNode.id, { position: newPos, parentId: newParentId });
     graph.reparent(oldParentId, newParentId, thisNode.id);
+    graph.refreshParentIds();
     graph.updateNode(thisNode.id, { position: newPos });
     const resizedNodesById = {};
     resizedNodesById[thisNode.id] = {
@@ -300,7 +301,7 @@
     if (!isNil(oldParentId)) {
       resizeNodeToEncapsulateChildren(oldParentId, nodesById, resizedNodesById);
     }
-    if (!isNil(newParentId)) {
+    if (!isNil(newParentId) && newParentId !== oldParentId) {
       resizeNodeToEncapsulateChildren(newParentId, nodesById, resizedNodesById);
     }
     refresh();
@@ -372,7 +373,7 @@
   //resizedNodesById caches nodes which have been resized by this resize operation and their new sizes
   //this is because that info doesn't propagate immediately in svelteflow
   const resizeNodeToEncapsulateChildren = (nodeId, nodesById, resizedNodesById = {}) => {
-    console.log("resizing", nodeId);
+    console.log("resizing", nodeId, { ...resizedNodesById });
     //gather data needed
     //1. current size of parent's label
     const labelSize = getNodeLabelSize(nodeId);
@@ -390,7 +391,9 @@
     const childRectsFlowCoordinates = children
       .map((n) => getNodeRectLocalCoordinates(n, resizedNodesById))
       .map((r) => ({ ...r, ...localToFlowPosition(r, nodeId) }));
-
+    if (nodeId === "1") {
+      console.log("childRectsFlowCoordinates", childRectsFlowCoordinates);
+    }
     //4. padding
     const padding = 20; // padding on all sides (radius, not diameter)
     //TODO: padding should be proportional to node size
@@ -430,9 +433,9 @@
     console.log("new size", newSize);
     console.log("labelSize", labelSize);
     console.log("newLabelSize", newLabelSize);
+    const backendNode = graph.getNode(nodeId);
     {
       //don't resize smaller than manual resize
-      const backendNode = graph.getNode(nodeId);
       if (backendNode) {
         const lastManualResize = backendNode.lastManualResize;
         if (lastManualResize) {
@@ -460,8 +463,8 @@
     }
 
     //resize parent recursively
-    if (!isNil(thisNode.parentId)) {
-      resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);
+    if (!isNil(backendNode.parentId)) {
+      resizeNodeToEncapsulateChildren(backendNode.parentId, nodesById, resizedNodesById);
     }
   };
   const setFocusedNode = (nodeId: string) => {
