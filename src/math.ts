@@ -10,7 +10,8 @@ export const subPositions = (a: XYPosition, b: XYPosition) => ({
   y: a.y - b.y,
 });
 
-export const getNodeRectFlowCoordinates = (n: Node, resizedNodesById: any = {}): Rect => {
+//not getting in flow coordinates, getting local to parent
+export const getNodeRectLocalCoordinates = (n: Node, resizedNodesById: any = {}): Rect => {
   if (n.id in resizedNodesById) {
     return resizedNodesById[n.id];
   }
