@@ -361,7 +361,7 @@ const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeDa
 
 //note: since parent/child relationships between nodes are encoded in 2 different ways in the nested vs flat graph,
 // this conversion loses that info. It should be re-added
-const nodeDataToNode = (nodeData: NodeData): Node => {
+export const nodeDataToNode = (nodeData: NodeData): Node => {
   const { id, position, size, parentId } = nodeData;
   const { width, height } = size;
 

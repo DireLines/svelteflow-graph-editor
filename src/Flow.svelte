@@ -21,6 +21,7 @@
     getNodesById,
     displayStateToGraph,
     addDefaultsToEdge,
+    nodeDataToNode,
   } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
@@ -217,6 +218,7 @@
       //adjust position to be relative to parent
       position = flowToLocalPosition(position, parent.id);
     }
+    const size = { width: 72, height: 36 };
     //make node as child of parent
     const newNode: NodeData = {
       id,
@@ -224,13 +226,19 @@
       label: `Task ${id}`,
       completed: false,
       lastManualResize: null,
-      size: { width: 72, height: 36 },
+      size,
       backgroundColor: "#111",
       position,
     };
     graph.addNode(newNode, parent?.id);
+    const resizedNodesById = {};
+    resizedNodesById[id] = { ...position, ...size };
     if (parent) {
-      resizeNodeToEncapsulateChildren(parent.id, getNodesById(nodes));
+      resizeNodeToEncapsulateChildren(
+        parent.id,
+        { ...getNodesById(nodes), [id]: { ...nodeDataToNode(newNode), parentId: parent.id } },
+        resizedNodesById
+      );
     }
     return newNode;
   };
@@ -291,18 +299,12 @@
     graph.reparent(oldParentId, newParentId, thisNode.id);
     graph.refreshParentIds();
     graph.updateNode(thisNode.id, { position: newPos });
-    const resizedNodesById = {};
-    resizedNodesById[thisNode.id] = {
-      ...newPos,
-      width: thisNode.measured?.width ?? thisNode.width,
-      height: thisNode.measured?.height ?? thisNode.height,
-    };
     const nodesById = getNodesById(nodes);
     if (!isNil(oldParentId)) {
-      resizeNodeToEncapsulateChildren(oldParentId, nodesById, resizedNodesById);
+      resizeNodeToEncapsulateChildren(oldParentId, nodesById);
     }
     if (!isNil(newParentId) && newParentId !== oldParentId) {
-      resizeNodeToEncapsulateChildren(newParentId, nodesById, resizedNodesById);
+      resizeNodeToEncapsulateChildren(newParentId, nodesById);
     }
     refresh();
   };
@@ -391,9 +393,6 @@
     const childRectsFlowCoordinates = children
       .map((n) => getNodeRectLocalCoordinates(n, resizedNodesById))
       .map((r) => ({ ...r, ...localToFlowPosition(r, nodeId) }));
-    if (nodeId === "1") {
-      console.log("childRectsFlowCoordinates", childRectsFlowCoordinates);
-    }
     //4. padding
     const padding = 20; // padding on all sides (radius, not diameter)
     //TODO: padding should be proportional to node size
