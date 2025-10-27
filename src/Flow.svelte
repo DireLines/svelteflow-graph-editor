@@ -182,34 +182,18 @@
     }
     return parent;
   };
-  const getOffsetOfOrigin = (node, resizedNodesById = {}) => {
-    if (node.id in resizedNodesById) {
-      const rect = resizedNodesById[node.id];
-      return {
-        x: rect.width * node.origin[0],
-        y: rect.height * node.origin[1],
-      };
-    }
-    console.log(node);
-    return {
-      x: (node.measured?.width ?? node.width) * node.origin[0],
-      y: (node.measured?.height ?? node.height) * node.origin[1],
-    };
-  };
   //flowPosition in global (flow) coordinates to coordinates of node with id nodeId
   const flowToLocalPosition = (flowPosition, nodeId) => {
-    const getPositionOfOrigin = (node) => subPositions(node.position, getOffsetOfOrigin(node));
     const nodesById = getNodesById(displayState.nodes); //TODO precompute when nodes change
     const thisNode = nodesById[nodeId];
     if (!thisNode) {
       return flowPosition;
     }
     if (thisNode.parentId === null || thisNode.parentId === undefined) {
-      return subPositions(flowPosition, getPositionOfOrigin(thisNode));
+      return subPositions(flowPosition, thisNode.position);
     }
-    return flowToLocalPosition(subPositions(flowPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
+    return flowToLocalPosition(subPositions(flowPosition, thisNode.position), thisNode.parentId);
   };
-  const getPositionOfOrigin = (node) => subPositions(node.position, getOffsetOfOrigin(node));
   //localPosition in coordinates of node with id nodeId to global (flow) coordinates
   const localToFlowPosition = (localPosition, nodeId) => {
     const nodesById = getNodesById(displayState.nodes); //TODO precompute when nodes change
@@ -218,9 +202,9 @@
       return localPosition;
     }
     if (thisNode.parentId === null || thisNode.parentId === undefined) {
-      return addPositions(localPosition, getPositionOfOrigin(thisNode));
+      return addPositions(localPosition, thisNode.position);
     }
-    return localToFlowPosition(addPositions(localPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
+    return localToFlowPosition(addPositions(localPosition, thisNode.position), thisNode.parentId);
   };
   const makeNode = (id, clientX, clientY) => {
     let parent = getParentNode(clientX, clientY);
@@ -370,14 +354,6 @@
     refresh();
     return true;
   };
-  const findDiffInLocalPosition = (parentNode, newSize) => {
-    const existingOffset = getOffsetOfOrigin(parentNode);
-    const newOffset = {
-      x: newSize.width * parentNode.origin[0],
-      y: newSize.height * parentNode.origin[1],
-    };
-    return subPositions(newOffset, existingOffset);
-  };
   const getNodeLabelSize = (nodeId: string) => {
     const el = getNodeLabelElement(nodeId);
     if (!el) return undefined;
@@ -402,7 +378,6 @@
     const labelSize = getNodeLabelSize(nodeId);
     //2. current offset of parent
     const thisNode = nodesById[nodeId];
-    const offset = getOffsetOfOrigin(thisNode, resizedNodesById);
     //3. list of child nodes
     const children = [];
     for (const otherId in nodesById) {
@@ -417,7 +392,7 @@
       .map((r) => ({ ...r, ...localToFlowPosition(r, nodeId) }));
 
     //4. padding
-    const padding = 0; // padding on all sides (radius, not diameter)
+    const padding = 20; // padding on all sides (radius, not diameter)
     //TODO: padding should be proportional to node size
 
     //determine new size of this node
@@ -428,6 +403,7 @@
     //label contains same text, so takes up roughly the same area
     //TODO if label font size is proportional to node size, also need to account for that
     const widthRatio = labelSize.width / childBounds.width;
+    const vertPad = 10;
     const heightOfOneLine = 14;
     const newLabelSize = {
       width: childBounds.width,
@@ -437,9 +413,9 @@
     //determine new xy and size of parent minus padding (flow coordinates)
     const contentBounds = {
       x: childBounds.x,
-      y: childBounds.y - newLabelSize.height - 10,
+      y: childBounds.y - newLabelSize.height - vertPad,
       width: childBounds.width,
-      height: childBounds.height + newLabelSize.height + 20,
+      height: childBounds.height + newLabelSize.height + vertPad,
     };
 
     const svelteflowBounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
@@ -466,24 +442,15 @@
     //need to set this node's position in coords relative to its parent
     const newParentPosLocal = flowToLocalPosition(newParentPos, thisNode?.parentId);
     console.log("parent's position has changed from", thisNode.position, "to", newParentPosLocal);
-    const parentPosDiff = subPositions(thisNode.position, newParentPosLocal);
+    const parentPosDiff = subPositions(newParentPosLocal, thisNode.position);
     console.log("parent has moved by ", parentPosDiff);
     //figure out diff in local position for children
-    const newOffset = {
-      x: newSize.width * thisNode.origin[0],
-      y: newSize.height * thisNode.origin[1],
-    };
-    // newParentPosLocal = addPositions(newParentPos, newOffset);
     updateNode(thisNode.id, { ...newSize, position: newParentPosLocal });
     graph.updateNode(thisNode.id, { size: newSize, position: newParentPosLocal });
     resizedNodesById[thisNode.id] = { ...newParentPosLocal, ...newSize };
     //reposition children for new offset
-    const offsetDiff = subPositions(newOffset, offset); //diff to apply to children because parent has changed size
-    console.log("parent's offset has changed from", offset, "to", newOffset);
-    const childDiff = addPositions(offsetDiff, parentPosDiff);
-    console.log("shifting children by", childDiff);
     for (const node of children) {
-      const newPos = addPositions(node.position, childDiff);
+      const newPos = subPositions(node.position, parentPosDiff);
       updateNode(node.id, { position: newPos });
       graph.updateNode(node.id, { position: newPos });
     }

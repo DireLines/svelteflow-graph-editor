@@ -5,7 +5,6 @@ export const nodeDefaults = {
   type: "custom",
   sourcePosition: Position.Right,
   targetPosition: Position.Left,
-  origin: [0.5, 0.5],
 };
 
 export const edgeDefaults = {
