@@ -190,6 +190,7 @@
     if (!thisNode) {
       return flowPosition;
     }
+    console.log(flowPosition, nodeId, thisNode.position);
     if (thisNode.parentId === null || thisNode.parentId === undefined) {
       return subPositions(flowPosition, thisNode.position);
     }
@@ -424,11 +425,12 @@
       height: childBounds.height + newLabelSize.height + vertPad,
     };
     if (children.length === 0) {
+      const flowPos = localToFlowPosition(thisNode.position, thisNode?.parentId);
       contentBounds = {
-        x: thisNode.position.x + thisNode.measured.width / 2,
-        y: thisNode.position.y + thisNode.measured.height / 2,
+        x: flowPos.x + thisNode.width / 2,
+        y: flowPos.y + thisNode.height / 2,
         width: newLabelSize.width,
-        height: childBounds.height + newLabelSize.height + vertPad,
+        height: newLabelSize.height + vertPad,
       };
     }
 
@@ -455,7 +457,15 @@
     const newParentPos = subPositions({ x: contentBounds.x, y: contentBounds.y }, { x: padding, y: padding });
     //need to set this node's position in coords relative to its parent
     const newParentPosLocal = flowToLocalPosition(newParentPos, thisNode?.parentId);
-    console.log("parent's position has changed from", thisNode.position, "to", newParentPosLocal);
+    console.log(
+      "parent's position has changed from",
+      thisNode.position,
+      "to",
+      newParentPosLocal,
+      "(",
+      newParentPos,
+      ")"
+    );
     const parentPosDiff = subPositions(newParentPosLocal, thisNode.position);
     console.log("parent has moved by ", parentPosDiff);
     //figure out diff in local position for children
