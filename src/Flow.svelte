@@ -427,8 +427,8 @@
     if (children.length === 0) {
       const flowPos = localToFlowPosition(thisNode.position, thisNode?.parentId);
       contentBounds = {
-        x: flowPos.x + thisNode.width / 2,
-        y: flowPos.y + thisNode.height / 2,
+        x: flowPos.x + thisNode.measured.width / 2,
+        y: flowPos.y + thisNode.measured.height / 2,
         width: newLabelSize.width,
         height: newLabelSize.height + vertPad,
       };
@@ -474,7 +474,11 @@
     resizedNodesById[thisNode.id] = { ...newParentPosLocal, ...newSize };
     //reposition children for new offset
     for (const node of children) {
-      const newPos = subPositions(node.position, parentPosDiff);
+      let positionToKeep = node.position;
+      if (node.id in resizedNodesById) {
+        positionToKeep = { ...resizedNodesById[node.id] };
+      }
+      const newPos = subPositions(positionToKeep, parentPosDiff);
       updateNode(node.id, { position: newPos });
       graph.updateNode(node.id, { position: newPos });
     }
