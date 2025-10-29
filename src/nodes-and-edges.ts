@@ -350,7 +350,7 @@ export class Graph {
         node.style = "border-color: #49954aff";
       }
       if (this.isWorkable(node.id)) {
-        node.style = "border-color: #f7b423ff;";
+        node.style = "border-color: #f7c923ff;";
       }
     }
     return result;

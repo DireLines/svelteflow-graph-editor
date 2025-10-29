@@ -219,12 +219,14 @@
       //adjust position to be relative to parent
       position = flowToLocalPosition(position, parent.id);
     }
-    const size = { width: 72, height: 36 };
+    const estimateLabelWidth = (label) => 50 + 7 * (label.length - 5);
+    const label = `Task ${id}`;
+    const size = { width: estimateLabelWidth(label), height: 36 };
     //make node as child of parent
     const newNode: NodeData = {
       id,
       children: [],
-      label: `Task ${id}`,
+      label,
       completed: false,
       lastManualResize: null,
       size,
@@ -542,7 +544,7 @@
   maxZoom={6}
 >
   <Panel position="top-center" class="titlebar" aria-hidden="true">
-    <h1 class="title">{title}</h1>
+    <h1 class="title" contenteditable="true" spellcheck="false">{title}</h1>
   </Panel>
   <Background />
   <Controls />
