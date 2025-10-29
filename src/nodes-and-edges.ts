@@ -254,6 +254,7 @@ export class Graph {
       if (maybeParentId === parentId) {
         return true;
       }
+      maybeParentId = this.getNode(maybeParentId)?.parentId;
     }
     return false;
   }
