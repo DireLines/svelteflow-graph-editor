@@ -247,6 +247,16 @@ export class Graph {
     }
     return result;
   }
+  isAncestor(parentId: string, childId: string): boolean {
+    this.refreshParentIds();
+    let maybeParentId = this.getNode(childId)?.parentId;
+    while (!isNil(maybeParentId)) {
+      if (maybeParentId === parentId) {
+        return true;
+      }
+    }
+    return false;
+  }
   isWorkable(nodeId: string): boolean {
     this.refreshParentIds();
     const node = this.getNode(nodeId);
@@ -339,7 +349,7 @@ export class Graph {
         node.style = "border-color: #49954aff";
       }
       if (this.isWorkable(node.id)) {
-        node.style = "border-color: #f7b423ff;border-width:3px;";
+        node.style = "border-color: #f7b423ff;";
       }
     }
     return result;

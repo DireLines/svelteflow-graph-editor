@@ -281,7 +281,7 @@
 
   //stop dragging node
   const handleNodeDragStop: NodeTargetEventWithPointer = (event, defaultParentId: string | null = focusedNodeId) => {
-    console.log("handleNodeDragStop");
+    console.log("handleNodeDragStop", event.nodes[0].id);
     unsavedChanges = true;
     const { clientX, clientY } = event?.event;
     const thisNode = event.targetNode;
@@ -289,6 +289,13 @@
     const oldParentId = thisNode.parentId;
     const newParentId = parent?.id ?? defaultParentId;
     if (parent?.id === thisNode.id) {
+      return;
+    }
+    //due to some frontend sloppiness, the node we ended with the cursor on can be a child of the dragged node
+    //you can trigger this most easily by dragging a parent node, grabbing a position right next to the border of its child
+    //we don't want to create a cycle in the parent-child hierarchy
+    //so check that parent is not a child or deep child of thisNode before continuing
+    if (graph.isAncestor(thisNode.id, parent?.id)) {
       return;
     }
     //reparent on backend
