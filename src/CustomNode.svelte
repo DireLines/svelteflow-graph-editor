@@ -11,7 +11,7 @@
   import { onMount, onDestroy } from "svelte";
   import { globals } from "./App.svelte";
   import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
-  let { isConnectable, id, data }: NodeProps = $props();
+  let { isConnectable, id, data, parentId }: NodeProps = $props();
   const { updateNodeData } = useSvelteFlow();
 
   let displayedContent: HTMLElement;
@@ -31,11 +31,13 @@
     data.label = editable.innerText;
     globals.graph.updateNode(id, { label: data.label });
     updateNodeData(id, { label: data.label });
+    globals.resizeNodeToEncapsulateChildren(parentId, {});
     globals.refresh();
   };
   // Whenever the user types, resize the box
   const handleLabelInput = () => {
     data.label = editable.innerText;
+    globals.resizeNodeToEncapsulateChildren(parentId, {});
   };
 
   const handleCheckboxChange = (e) => {
@@ -47,6 +49,7 @@
   const handleResize = (_, newDims) => {
     const dims = { width: newDims.width, height: newDims.height };
     globals.graph.updateNode(id, { lastManualResize: dims, size: dims });
+    globals.resizeNodeToEncapsulateChildren(parentId, {});
   };
 
   // Optional: keep caret at end when programmatically updating
@@ -79,13 +82,13 @@
   <!-- TODO: click to edit node -->
   <!-- <button onclick={() => console.log("edit")}>✏️</button> -->
   <!-- TODO: click to focus -->
-  <button
+  <!-- <button
     title="focus node"
     onclick={() => {
       console.log("focus");
       globals.setFocusedNode(id);
     }}>⬇</button
-  >
+  > -->
 </div>
 <div style={getOpacity()}>
   <Handle type="target" position={Position.Left} {isConnectable} />

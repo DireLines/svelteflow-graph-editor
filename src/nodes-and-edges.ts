@@ -1,4 +1,5 @@
 import { MarkerType, type Node, type Edge, Position } from "@xyflow/svelte";
+import { subPositions } from "./math";
 import { isNil } from "./util";
 
 export const nodeDefaults = {
@@ -397,7 +398,7 @@ const nodeToNodeData = (node: Node): NodeData => {
     id,
     position,
     children: [],
-    size: { x: width ?? measured?.width, y: height ?? measured?.height },
+    size: { width: width ?? measured?.width, height: height ?? measured?.height },
     ...data,
   };
   //TODO: keep only NodeData keys
@@ -412,7 +413,10 @@ export const displayStateToGraph = (displayState: DisplayState): Graph => {
 
   // Initialize all nodes with a children array and store in a map
   for (const node of displayState.nodes) {
-    nodeMap.set(node.id, nodeToNodeData(node));
+    const nodeData = nodeToNodeData(node);
+    //switching from origin [0.5,0.5] to origin [0,0] in update, so shift so that middle is where top left used to be
+    nodeData.position = subPositions(nodeData.position, { x: nodeData.size.width / 2, y: nodeData.size.height / 2 });
+    nodeMap.set(node.id, nodeData);
   }
 
   // Assign children to their parent
@@ -427,7 +431,6 @@ export const displayStateToGraph = (displayState: DisplayState): Graph => {
       }
     }
   }
-
   result.edges = [...displayState.edges.map(serializeEdge)];
   return result;
 };

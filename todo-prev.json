@@ -1,0 +1,2488 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "data": {
+        "label": "component to display completion status",
+        "completed": false
+      },
+      "position": {
+        "x": 1037.0441298626854,
+        "y": 751.2990315200905
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 232,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "2",
+      "data": {
+        "label": "logic to parse the graph (topo sort and dependency stuff)",
+        "completed": false
+      },
+      "position": {
+        "x": 795.8034046999488,
+        "y": 860.7014698608366
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 323,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "3",
+      "data": {
+        "label": "indirection between actual graph and displayed graph",
+        "completed": false
+      },
+      "position": {
+        "x": 191.97188727577176,
+        "y": 1046.877792376206
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 377,
+        "height": 54
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 377,
+      "height": 54,
+      "hidden": false
+    },
+    {
+      "id": "27",
+      "data": {
+        "label": "dropdown component in-line with text",
+        "completed": false
+      },
+      "position": {
+        "x": -46.63596055740568,
+        "y": 1249.0214062924274
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 220,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "6",
+      "data": {
+        "label": "function to \"focus node\"",
+        "completed": false
+      },
+      "position": {
+        "x": 1002.6430719267698,
+        "y": 932.5198018693519
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 359,
+        "height": 86
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 359,
+      "height": 86,
+      "hidden": false
+    },
+    {
+      "id": "23",
+      "data": {
+        "label": "make focused node name styled like the project name",
+        "completed": false
+      },
+      "position": {
+        "x": 179.54783030674662,
+        "y": 54.301995920915715
+      },
+      "parentId": "6",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 309,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "7",
+      "data": {
+        "label": "buttons to enter node / go up a level / go to top level",
+        "completed": false
+      },
+      "position": {
+        "x": 1602.4844834632806,
+        "y": 950.3297596123576
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 171,
+        "height": 54
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 171,
+      "height": 54,
+      "hidden": false
+    },
+    {
+      "id": "8",
+      "data": {
+        "label": "do not show nodes at levels more than 2 beneath current",
+        "completed": false
+      },
+      "position": {
+        "x": 908.2734834963742,
+        "y": 1059.4082229605215
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 325,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "10",
+      "data": {
+        "label": "grey out node if completed",
+        "completed": false
+      },
+      "position": {
+        "x": 710.9461674644419,
+        "y": 812.1724424424233
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 193,
+        "height": 46
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 193,
+      "height": 46,
+      "hidden": false
+    },
+    {
+      "id": "11",
+      "data": {
+        "label": "highlight node if all dependencies resolved",
+        "completed": false
+      },
+      "position": {
+        "x": 1243.52013293666,
+        "y": 855.0015007960445
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 248,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "13",
+      "data": {
+        "label": "function to get completion status (num subtasks completed / num subtasks)",
+        "completed": false
+      },
+      "position": {
+        "x": 425.0885033002703,
+        "y": 717.3446687206814
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 422,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "17",
+      "data": {
+        "label": "resize handle in bottom right of node",
+        "completed": true
+      },
+      "position": {
+        "x": -568.8003265918264,
+        "y": 521.1864568085886
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 216,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "18",
+      "data": {
+        "label": "checkbox to mark completed/incomplete",
+        "completed": true
+      },
+      "position": {
+        "x": -567.6599323971298,
+        "y": 848.9040354562459
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 236,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "20",
+      "data": {
+        "label": "add parent of entire graph and localize coordinates",
+        "completed": false
+      },
+      "position": {
+        "x": 959.8407679882481,
+        "y": 1011.6086989249508
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 292,
+        "height": 36
+      },
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "id": "22",
+      "data": {
+        "label": "project name component",
+        "completed": false
+      },
+      "position": {
+        "x": 476.8572926347011,
+        "y": 962.573708775139
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 154,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "25",
+      "data": {
+        "label": "button to edit node",
+        "completed": false
+      },
+      "position": {
+        "x": 752.0289340722752,
+        "y": 642.4959249054932
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 121,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "26",
+      "data": {
+        "label": "import / export / clear entire node vs entire graph",
+        "completed": false
+      },
+      "position": {
+        "x": -122.04624796315312,
+        "y": 1323.4685213462515
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 281,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "30",
+      "data": {
+        "label": "dropdowns on export button: export [entire graph/this node] as [cached name].[json/jsonb/my format]",
+        "completed": false
+      },
+      "position": {
+        "x": 611.0924496875132,
+        "y": 1305.1251006178686
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 556,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "32",
+      "data": {
+        "label": "dropdown on import button: import into [entire graph/this node]",
+        "completed": false
+      },
+      "position": {
+        "x": 601.3403705213594,
+        "y": 1363.9727178246715
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 354,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "33",
+      "data": {
+        "label": "node editor modal component",
+        "completed": false
+      },
+      "position": {
+        "x": 348.74421821771796,
+        "y": 544.6026344519405
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 441,
+        "height": 139
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 441.3636445704574,
+      "height": 138.6870913069905,
+      "hidden": false
+    },
+    {
+      "id": "15",
+      "data": {
+        "label": "mark as in progress",
+        "completed": false
+      },
+      "position": {
+        "x": 303.4528817472635,
+        "y": 108.13754064558799
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 127,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "parentId": "33",
+      "hidden": false
+    },
+    {
+      "id": "16",
+      "data": {
+        "label": "set assignees",
+        "completed": false
+      },
+      "position": {
+        "x": 357.6992053834466,
+        "y": 55.85154496794951
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 95,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "parentId": "33",
+      "hidden": false
+    },
+    {
+      "id": "73",
+      "data": {
+        "label": "title (keep synced with node label component)",
+        "completed": false
+      },
+      "position": {
+        "x": 146.3355608129893,
+        "y": 63.505015106294024
+      },
+      "parentId": "33",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 265,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "74",
+      "data": {
+        "label": "description",
+        "completed": false
+      },
+      "position": {
+        "x": 65.79478677348027,
+        "y": 101.79769283723374
+      },
+      "parentId": "33",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 80,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "94",
+      "data": {
+        "label": "time estimates",
+        "completed": false
+      },
+      "position": {
+        "x": 168.67710623157743,
+        "y": 108.53863627493996
+      },
+      "parentId": "33",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 99,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "34",
+      "data": {
+        "label": "create a nested bulleted list text format for the graphs",
+        "completed": true
+      },
+      "position": {
+        "x": -198.4505620862276,
+        "y": 1411.9035619696003
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 305,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "35",
+      "data": {
+        "label": "import from this format",
+        "completed": false
+      },
+      "position": {
+        "x": 156.79526364067556,
+        "y": 1438.02356744468
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 142,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "36",
+      "data": {
+        "label": "export to this format",
+        "completed": false
+      },
+      "position": {
+        "x": 135.28438203726768,
+        "y": 1378.8636037369504
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 128,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "38",
+      "data": {
+        "label": "append to state history buffer when state changed",
+        "completed": false
+      },
+      "position": {
+        "x": 494.17366019162347,
+        "y": 1173.793124644725
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 227,
+        "height": 57
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 227,
+      "height": 57,
+      "hidden": false
+    },
+    {
+      "id": "39",
+      "data": {
+        "label": "undo / redo commands",
+        "completed": false
+      },
+      "position": {
+        "x": 938.0698871252488,
+        "y": 1154.7734837789371
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 145,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "40",
+      "data": {
+        "label": "determine when to record state changes?",
+        "completed": false
+      },
+      "position": {
+        "x": 102.15674256568492,
+        "y": 1161.405604210798
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 243,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "41",
+      "data": {
+        "label": "automatic node layout (first try dagre.js)",
+        "completed": false
+      },
+      "position": {
+        "x": -213.43309571363352,
+        "y": 1544.8157846925442
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 233,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "43",
+      "data": {
+        "label": "save completion to json",
+        "completed": true
+      },
+      "position": {
+        "x": 166.50334215556103,
+        "y": 876.6651789615206
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 147,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "46",
+      "data": {
+        "label": "bug: need to click outside of node for completion status to be saved",
+        "completed": true
+      },
+      "position": {
+        "x": -189.36660761766558,
+        "y": 750.7304181933101
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 380,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "47",
+      "data": {
+        "label": "side panel controls",
+        "completed": false
+      },
+      "position": {
+        "x": 1067.1888209210922,
+        "y": 536.2075111027589
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 451,
+        "height": 183
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 451.3219319571476,
+      "height": 183.42262643493746,
+      "hidden": false
+    },
+    {
+      "id": "42",
+      "data": {
+        "label": "filter nodes to in progress / workable / set of assignees",
+        "completed": false
+      },
+      "position": {
+        "x": 195.815841986811,
+        "y": 59.7027772658341
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 331,
+        "height": 37
+      },
+      "selected": false,
+      "dragging": false,
+      "parentId": "47",
+      "hidden": false,
+      "width": 331,
+      "height": 37
+    },
+    {
+      "id": "48",
+      "data": {
+        "label": "show / hide completed tasks",
+        "completed": true
+      },
+      "position": {
+        "x": 272.04974096801817,
+        "y": 113.69965123082963
+      },
+      "parentId": "47",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 124,
+        "height": 43
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false,
+      "width": 124,
+      "height": 43
+    },
+    {
+      "id": "53",
+      "data": {
+        "label": "filter nodes by keywords",
+        "completed": false
+      },
+      "position": {
+        "x": 100.49016730493514,
+        "y": 112.68934573316946
+      },
+      "parentId": "47",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 151,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "78",
+      "data": {
+        "label": "organize nodes",
+        "completed": false
+      },
+      "position": {
+        "x": 374.3120992620827,
+        "y": 156.01815036288406
+      },
+      "parentId": "47",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 104,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "106",
+      "data": {
+        "label": "cache side panel settings in localStorage",
+        "completed": false
+      },
+      "position": {
+        "x": 160.82144701688844,
+        "y": 156.62540370077159
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 239,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false,
+      "parentId": "47"
+    },
+    {
+      "id": "51",
+      "data": {
+        "label": "bug: instead of entering newline, pressing enter should stop editing title",
+        "completed": false
+      },
+      "position": {
+        "x": 107.2689813930578,
+        "y": 377.985745520055
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 400,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "52",
+      "data": {
+        "label": "grey out children of completed nodes",
+        "completed": false
+      },
+      "position": {
+        "x": 322.0399878404503,
+        "y": 788.2424984612151
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 219,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "54",
+      "data": {
+        "label": "bug: fix parent resizing logic",
+        "completed": false
+      },
+      "position": {
+        "x": 57.81129952858508,
+        "y": 158.24682114837984
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 171,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "63",
+      "data": {
+        "label": "bug: text keeps entering backwards into field lmao",
+        "completed": true
+      },
+      "position": {
+        "x": 75.60019497962314,
+        "y": 316.34546765773536
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 342,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 342,
+      "height": 42,
+      "hidden": false
+    },
+    {
+      "id": "64",
+      "data": {
+        "label": "bug: if node has been manually resized, only auto-resize if new size >= this size in both dimensions",
+        "completed": false
+      },
+      "position": {
+        "x": 402.05408456424664,
+        "y": 172.49893217936565
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 339,
+        "height": 64
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 339,
+      "height": 64,
+      "hidden": false
+    },
+    {
+      "id": "65",
+      "data": {
+        "label": "show resizer only on hover",
+        "completed": true
+      },
+      "position": {
+        "x": -122.88376272564344,
+        "y": 538.5394083141755
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 209,
+        "height": 48
+      },
+      "selected": false,
+      "width": 209,
+      "height": 48,
+      "hidden": false
+    },
+    {
+      "id": "66",
+      "data": {
+        "label": "bug: text should not overflow out of node - scroll bar instead",
+        "completed": false
+      },
+      "position": {
+        "x": 99.25207280092862,
+        "y": 106.68493059653267
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 340,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "67",
+      "data": {
+        "label": "bug: when adding a newline, it seems to fuck up the contents of the node",
+        "completed": true
+      },
+      "position": {
+        "x": 116.07509210534246,
+        "y": 435.56778107094954
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 410,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "72",
+      "data": {
+        "label": "styling: reorganize checkbox, edit, focus controls to on-hover menu above node",
+        "completed": true
+      },
+      "position": {
+        "x": -240.96350623693718,
+        "y": 659.23594212846
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 214,
+        "height": 90
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 214,
+      "height": 90,
+      "hidden": false
+    },
+    {
+      "id": "76",
+      "data": {
+        "label": "select multiple nodes (click & drag rect or shift-click)",
+        "completed": false
+      },
+      "position": {
+        "x": 566.2605086842822,
+        "y": 1589.630108214224
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 297,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "80",
+      "data": {
+        "label": "grey out incoming edges to completed nodes",
+        "completed": false
+      },
+      "position": {
+        "x": 117.97776587298165,
+        "y": 966.513386249604
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 261,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "81",
+      "data": {
+        "label": "styling: make node label font size proportional to node size",
+        "completed": false
+      },
+      "position": {
+        "x": 68.34455549062758,
+        "y": -22.216137635907884
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 334,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "83",
+      "data": {
+        "label": "button to duplicate node (incl child nodes)",
+        "completed": false
+      },
+      "position": {
+        "x": 865.3235539064356,
+        "y": 1772.8292738348557
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 243,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "84",
+      "data": {
+        "label": "duplicate arbitrary set of nodes under a node - new ids, same data/connections",
+        "completed": false
+      },
+      "position": {
+        "x": 313.1596077078963,
+        "y": 1784.3784813645652
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 442,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "86",
+      "data": {
+        "label": "import graph into a node",
+        "completed": false
+      },
+      "position": {
+        "x": 892.2662968504942,
+        "y": 1675.1832111715069
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 152,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "87",
+      "data": {
+        "label": "make a copy of this node every x hours (for recurring tasks)",
+        "completed": false
+      },
+      "position": {
+        "x": 836.5684964406065,
+        "y": 1885.961161742258
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 338,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "89",
+      "data": {
+        "label": "react at graph level to events at node level",
+        "completed": true
+      },
+      "position": {
+        "x": -807.148541129657,
+        "y": 684.984676400149
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 247,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "90",
+      "data": {
+        "label": "semantics: checkboxes for letting the program warn / error on certain conditions",
+        "completed": false
+      },
+      "position": {
+        "x": 1685.6906412968533,
+        "y": 561.5351696824267
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 501,
+        "height": 249
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 501.4107405608843,
+      "height": 249.12060484601102,
+      "hidden": false
+    },
+    {
+      "id": "93",
+      "data": {
+        "label": "task marked in progress / complete with incomplete dependencies",
+        "completed": false
+      },
+      "position": {
+        "x": 244.38495733293962,
+        "y": 129.1735974984989
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 334,
+        "height": 39
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 334,
+      "height": 39,
+      "hidden": false
+    },
+    {
+      "id": "96",
+      "data": {
+        "label": "task marked complete with incomplete subtasks",
+        "completed": false
+      },
+      "position": {
+        "x": 287.42794372307196,
+        "y": 172.08990107483413
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 276,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "102",
+      "data": {
+        "label": "cyclic dependencies",
+        "completed": false
+      },
+      "position": {
+        "x": 126.97421677205534,
+        "y": 213.80218522667099
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 129,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "92",
+      "data": {
+        "label": "dependencies going between levels",
+        "completed": false
+      },
+      "position": {
+        "x": 212.00365555891256,
+        "y": 74.68158038065997
+      },
+      "parentId": "90",
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 212,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "97",
+      "data": {
+        "label": "get nodes at or up to n levels below arbitrary node",
+        "completed": false
+      },
+      "position": {
+        "x": -601.7742308485018,
+        "y": 1085.8843967319847
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 288,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "99",
+      "data": {
+        "label": "replace graph state smoothly",
+        "completed": false
+      },
+      "position": {
+        "x": -574.4298564957389,
+        "y": 1004.6714569367857
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 176,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "104",
+      "data": {
+        "label": "UX: it is impossible to find the node label input field after the user completely clears it - have minimum width",
+        "completed": false
+      },
+      "position": {
+        "x": 155.4168103678859,
+        "y": 43.70119324236724
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 592,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "105",
+      "data": {
+        "label": "styling: checkbox in side panel with visible label",
+        "completed": true
+      },
+      "position": {
+        "x": 79.97882767045895,
+        "y": -80.40278255864214
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 274,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "108",
+      "data": {
+        "label": "convert between nested format and flat list with parent ids",
+        "completed": false
+      },
+      "position": {
+        "x": -604.3044338497607,
+        "y": 1157.0603105106018
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 346,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false,
+      "width": 346,
+      "height": null
+    },
+    {
+      "id": "112",
+      "data": {
+        "label": "real-time collab mode - investigate Automerge",
+        "completed": false
+      },
+      "position": {
+        "x": 667.1695066755325,
+        "y": 1473.1659872388727
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 266,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false,
+      "hidden": false
+    },
+    {
+      "id": "113",
+      "data": {
+        "label": "get size of node content in flow coordinates at graph level",
+        "completed": true
+      },
+      "position": {
+        "x": -447.8413443352091,
+        "y": 282.758625815086
+      },
+      "type": "custom",
+      "sourcePosition": "bottom",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "measured": {
+        "width": 209,
+        "height": 68
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 209,
+      "height": 68,
+      "hidden": false
+    },
+    {
+      "id": "114",
+      "data": {
+        "label": "styling: add to css style instead of overwriting",
+        "completed": false
+      },
+      "position": {
+        "x": -472.1345036420329,
+        "y": 938.9973550354384
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 262,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "116",
+      "data": {
+        "label": "highlight workable nodes with different border color",
+        "completed": false
+      },
+      "position": {
+        "x": 125.73325308642505,
+        "y": 1111.306662987548
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 293,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "117",
+      "data": {
+        "label": "propagate edits into serialized graph",
+        "completed": false
+      },
+      "position": {
+        "x": -222.36624142034765,
+        "y": 1186.4487104127732
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 215,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "118",
+      "data": {
+        "label": "styling: make node hover menus constant in screen space",
+        "completed": false
+      },
+      "position": {
+        "x": 73.14426374291519,
+        "y": -134.70141815191073
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 331,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "119",
+      "data": {
+        "label": "bug: some edges react strangely to past/present/future checkboxes",
+        "completed": false
+      },
+      "position": {
+        "x": 37.428575571247336,
+        "y": -195.25981407985267
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 380,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "120",
+      "data": {
+        "label": "styling: all colors should adapt to light/dark mode",
+        "completed": false
+      },
+      "position": {
+        "x": 51.94381388377292,
+        "y": -251.3642784496355
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 281,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "126",
+      "data": {
+        "label": "transform child bounds to global coords",
+        "completed": true
+      },
+      "position": {
+        "x": -373.2868556213441,
+        "y": 132.57795357299923
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 231,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "128",
+      "data": {
+        "label": "bug: child bounds are slightly smaller than what svelteflow reports",
+        "completed": false
+      },
+      "position": {
+        "x": -516.2711214522562,
+        "y": 48.03055942849338
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 371,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "134",
+      "data": {
+        "label": "bug: child rect xy is slightly smaller than what svelteflow reports",
+        "completed": false
+      },
+      "position": {
+        "x": -521.5587918780707,
+        "y": -36.06317123935682
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 358,
+        "height": 36
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "140",
+      "data": {
+        "label": "bug: somehow after some parenting/unparenting operations, a node will sometimes get \"stuck\" and seemingly not be considered in reparenting or be moveable.\n\n\nI believe this to be an infinite loop during parent resizing where there are still cycles in the \"parentId\" graph at the point where the resize operation happens",
+        "completed": false
+      },
+      "position": {
+        "x": -495.73295494917215,
+        "y": -193.1820850431552
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 326,
+        "height": 137
+      },
+      "width": 326,
+      "height": 137,
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "141",
+      "data": {
+        "label": "perf: considerably slower on firefox. it's svelteflow's rendering logic, not my code, and it's not slow on safari",
+        "completed": false
+      },
+      "position": {
+        "x": 37.68756651522064,
+        "y": -343.2525699064852
+      },
+      "type": "custom",
+      "sourcePosition": "right",
+      "targetPosition": "left",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "hidden": false,
+      "measured": {
+        "width": 230,
+        "height": 69
+      },
+      "selected": false,
+      "dragging": false,
+      "width": 230,
+      "height": 69
+    }
+  ],
+  "edges": [
+    {
+      "source": "6",
+      "target": "7",
+      "id": "6->7",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "2",
+      "target": "11",
+      "id": "2->11",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "13",
+      "target": "1",
+      "id": "xy-edge__13-1",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "18",
+      "target": "10",
+      "id": "xy-edge__18-10",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "20",
+      "target": "7",
+      "id": "xy-edge__20-7",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "22",
+      "target": "23",
+      "id": "22->23",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "26",
+      "target": "30",
+      "id": "xy-edge__26-30",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "26",
+      "target": "32",
+      "id": "xy-edge__26-32",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "34",
+      "target": "35",
+      "id": "34->35",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "34",
+      "target": "36",
+      "id": "xy-edge__34-36",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "35",
+      "target": "32",
+      "id": "xy-edge__35-32",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "36",
+      "target": "30",
+      "id": "xy-edge__36-30",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "38",
+      "target": "39",
+      "id": "xy-edge__38-39",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "40",
+      "target": "38",
+      "id": "xy-edge__40-38",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "27",
+      "target": "30",
+      "id": "xy-edge__27-30",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "27",
+      "target": "32",
+      "id": "xy-edge__27-32",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "16",
+      "target": "42",
+      "id": "xy-edge__16-42",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "15",
+      "target": "42",
+      "id": "xy-edge__15-42",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "18",
+      "target": "43",
+      "id": "xy-edge__18-43",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "18",
+      "target": "46",
+      "id": "xy-edge__18-46",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "46",
+      "target": "43",
+      "id": "xy-edge__46-43",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "52",
+      "target": "10",
+      "id": "xy-edge__52-10",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "18",
+      "target": "52",
+      "id": "xy-edge__18-52",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "17",
+      "target": "65",
+      "id": "17->65",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "41",
+      "target": "35",
+      "id": "xy-edge__41-35",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "18",
+      "target": "80",
+      "id": "xy-edge__18-80",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "80",
+      "target": "10",
+      "id": "xy-edge__80-10",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "84",
+      "target": "83",
+      "id": "84->83",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "84",
+      "target": "86",
+      "id": "84->86",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "84",
+      "target": "87",
+      "id": "xy-edge__84-87",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "89",
+      "target": "80",
+      "id": "xy-edge__89-80",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "89",
+      "target": "52",
+      "id": "xy-edge__89-52",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "89",
+      "target": "13",
+      "id": "xy-edge__89-13",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "47",
+      "target": "90",
+      "id": "xy-edge__47-90",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "3",
+      "target": "6",
+      "id": "xy-edge__3-6",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "3",
+      "target": "8",
+      "id": "xy-edge__3-8",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "97",
+      "target": "3",
+      "id": "97->3",
+      "style": "stroke-width: 2px;",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15
+      },
+      "zIndex": 10000,
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "99",
+      "target": "3",
+      "id": "xy-edge__99-3",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "72",
+      "target": "25",
+      "id": "xy-edge__72-25",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "97",
+      "target": "52",
+      "id": "xy-edge__97-52",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "97",
+      "target": "26",
+      "id": "xy-edge__97-26",
+      "selected": false,
+      "hidden": false
+    },
+    {
+      "source": "33",
+      "target": "25",
+      "id": "xy-edge__33-25",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "108",
+      "target": "3",
+      "id": "xy-edge__108-3",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "113",
+      "target": "54",
+      "id": "xy-edge__113-54",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "89",
+      "target": "113",
+      "id": "xy-edge__89-113",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "114",
+      "target": "80",
+      "id": "xy-edge__114-80",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "114",
+      "target": "116",
+      "id": "xy-edge__114-116",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "108",
+      "target": "117",
+      "id": "xy-edge__108-117",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "117",
+      "target": "3",
+      "id": "xy-edge__117-3",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "126",
+      "target": "54",
+      "id": "xy-edge__126-54",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "128",
+      "target": "54",
+      "id": "xy-edge__128-54",
+      "hidden": false,
+      "selected": false
+    },
+    {
+      "source": "134",
+      "target": "54",
+      "id": "xy-edge__134-54",
+      "hidden": false
+    },
+    {
+      "source": "140",
+      "target": "54",
+      "id": "xy-edge__140-54",
+      "hidden": false
+    },
+    {
+      "source": "54",
+      "target": "64",
+      "id": "xy-edge__54-64",
+      "hidden": false
+    }
+  ]
+}

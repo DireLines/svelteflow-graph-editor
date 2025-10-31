@@ -222,6 +222,7 @@
     const estimateLabelWidth = (label) => 50 + 7 * (label.length - 5);
     const label = `Task ${id}`;
     const size = { width: estimateLabelWidth(label), height: 36 };
+    position = subPositions(position, { x: size.width / 2, y: size.height / 2 }); //start with middle of node at cursor
     //make node as child of parent
     const newNode: NodeData = {
       id,
@@ -360,6 +361,7 @@
   const handleDelete = async ({ nodes: deletedNodes, edges: deletedEdges }) => {
     for (const node of deletedNodes) {
       graph.deleteNode(node.id);
+      resizeNodeToEncapsulateChildren(node.parentId, {});
     }
     for (const edge of deletedEdges) {
       graph.deleteEdge(edge.id);
@@ -386,6 +388,12 @@
   //this is because that info doesn't propagate immediately in svelteflow
   const resizeNodeToEncapsulateChildren = (nodeId, nodesById, resizedNodesById = {}) => {
     console.log("resizing", nodeId, { ...resizedNodesById });
+    if (Object.keys(nodesById).length === 0) {
+      nodesById = getNodesById(nodes);
+    }
+    if (!(nodeId in nodesById)) {
+      return;
+    }
     //gather data needed
     //1. current size of parent's label
     const labelSize = getNodeLabelSize(nodeId);
@@ -507,11 +515,13 @@
   globals.refresh = refresh;
   globals.graph = graph;
   globals.setFocusedNode = setFocusedNode;
+  globals.resizeNodeToEncapsulateChildren = resizeNodeToEncapsulateChildren;
   //in case link gets broken
   $effect(() => {
     globals.refresh = refresh;
     globals.graph = graph;
     globals.setFocusedNode = setFocusedNode;
+    globals.resizeNodeToEncapsulateChildren = resizeNodeToEncapsulateChildren;
   });
 </script>
 
