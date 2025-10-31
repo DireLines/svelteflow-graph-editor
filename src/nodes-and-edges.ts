@@ -5,6 +5,7 @@ export const nodeDefaults = {
   type: "custom",
   sourcePosition: Position.Right,
   targetPosition: Position.Left,
+  origin: [0.5, 0.5],
 };
 
 export const edgeDefaults = {
@@ -346,9 +347,9 @@ export class Graph {
       }
     }
     for (const node of result.nodes) {
-      if (this.isCompletedOrParentCompleted(node.id)) {
-        node.style = "border-color: #49954aff";
-      }
+      // if (this.isCompletedOrParentCompleted(node.id)) {
+      //   node.style = "border-color: #49954aff";
+      // }
       if (this.isWorkable(node.id)) {
         node.style = "border-color: #f7c923ff;";
       }

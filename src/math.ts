@@ -1,4 +1,5 @@
 import { type XYPosition, type Rect, type Node } from "@xyflow/svelte";
+import { nodeDefaults } from "./nodes-and-edges";
 
 export const addPositions = (a: XYPosition, b: XYPosition) => ({
   x: a.x + b.x,
@@ -21,7 +22,9 @@ export const getNodeRectLocalCoordinates = (n: Node, resizedNodesById: any = {})
     height: n.height ?? n.measured?.height ?? 0,
   };
 };
+
 export const getBoundingRect = (rects: Rect[]): Rect => {
+  const origin = nodeDefaults.origin;
   const min: XYPosition = { x: Infinity, y: Infinity };
   const max: XYPosition = { x: -Infinity, y: -Infinity };
   if (rects.length === 0) {
@@ -33,15 +36,22 @@ export const getBoundingRect = (rects: Rect[]): Rect => {
     };
   }
   for (const rect of rects) {
-    min.x = Math.min(min.x, rect.x);
-    min.y = Math.min(min.y, rect.y);
-    max.x = Math.max(max.x, rect.x + rect.width);
-    max.y = Math.max(max.y, rect.y + rect.height);
+    const topLeft = { x: rect.x - rect.width * origin[0], y: rect.y - rect.height * origin[1] };
+    min.x = Math.min(min.x, topLeft.x);
+    min.y = Math.min(min.y, topLeft.y);
+    max.x = Math.max(max.x, topLeft.x + rect.width);
+    max.y = Math.max(max.y, topLeft.y + rect.height);
   }
-  return {
+  const rectTopLeft = {
     x: min.x,
     y: min.y,
     width: max.x - min.x,
     height: max.y - min.y,
+  };
+  return {
+    x: rectTopLeft.x - rectTopLeft.width / 2,
+    y: rectTopLeft.y - rectTopLeft.height / 2,
+    width: rectTopLeft.width,
+    height: rectTopLeft.height,
   };
 };
