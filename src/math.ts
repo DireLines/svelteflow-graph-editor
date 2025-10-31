@@ -49,8 +49,8 @@ export const getBoundingRect = (rects: Rect[]): Rect => {
     height: max.y - min.y,
   };
   return {
-    x: rectTopLeft.x - rectTopLeft.width / 2,
-    y: rectTopLeft.y - rectTopLeft.height / 2,
+    x: rectTopLeft.x - rectTopLeft.width * origin[0],
+    y: rectTopLeft.y - rectTopLeft.height * origin[0],
     width: rectTopLeft.width,
     height: rectTopLeft.height,
   };

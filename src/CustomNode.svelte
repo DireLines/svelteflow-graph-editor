@@ -11,6 +11,7 @@
   import { onMount, onDestroy } from "svelte";
   import { globals } from "./App.svelte";
   import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
+  import { addPositions } from "./math";
   let { isConnectable, id, data }: NodeProps = $props();
   const { updateNodeData } = useSvelteFlow();
 
@@ -46,6 +47,8 @@
 
   const handleResize = (_, newDims) => {
     const dims = { width: newDims.width, height: newDims.height };
+    //TODO add change in offset to position
+    // const newPos = addPositions(newDims,)
     globals.graph.updateNode(id, { lastManualResize: dims, size: dims });
   };
 
