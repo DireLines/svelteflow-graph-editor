@@ -1,4 +1,4 @@
-import { displayStateToGraph, Graph, serializeEdge } from "./nodes-and-edges";
+import { DEFAULT_GRAPH_TITLE, displayStateToGraph, Graph, serializeEdge } from "./nodes-and-edges";
 import { isNil } from "./util";
 
 const STORAGE_KEY = "graph";
@@ -12,7 +12,7 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
   try {
     const json = localStorage.getItem(storageKey);
     const parsed = json ? JSON.parse(json) : empty;
-    initial = new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? "My Graph");
+    initial = new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
     if (parsed.nodes.length > 0 && isNil(parsed.nodes[0]?.children)) {
       //old format
       initial = displayStateToGraph(parsed);

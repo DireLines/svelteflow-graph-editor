@@ -1,6 +1,7 @@
 import { MarkerType, type Node, type Edge, Position } from "@xyflow/svelte";
 import { subPositions } from "./math";
 import { isNil } from "./util";
+export const DEFAULT_GRAPH_TITLE = "My Graph";
 
 export const nodeDefaults = {
   type: "custom",
@@ -93,7 +94,7 @@ export class Graph {
   nodes: NodeData[];
   edges: Edge[];
   title: string;
-  constructor(nodes: NodeData[], edges: Edge[], title: string = "My Graph") {
+  constructor(nodes: NodeData[], edges: Edge[], title: string = DEFAULT_GRAPH_TITLE) {
     this.nodes = nodes;
     this.edges = edges;
     this.title = title;
@@ -414,7 +415,7 @@ const nodeToNodeData = (node: Node): NodeData => {
 export const displayStateToGraph = (displayState: DisplayState): Graph => {
   console.log("displayStateToGraph");
   const nodeMap = new Map();
-  const result: Graph = new Graph([], []);
+  const result: Graph = new Graph([], [], displayState.title);
 
   // Initialize all nodes with a children array and store in a map
   for (const node of displayState.nodes) {

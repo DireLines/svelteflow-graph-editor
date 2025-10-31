@@ -22,6 +22,7 @@
     displayStateToGraph,
     addDefaultsToEdge,
     nodeDataToNode,
+    DEFAULT_GRAPH_TITLE,
   } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
@@ -114,7 +115,7 @@
       }
       graph.nodes = data.nodes;
       graph.edges = data.edges;
-      graph.title = data.title;
+      graph.title = data.title ?? DEFAULT_GRAPH_TITLE;
       nextNodeId = getHighestNumericId(graph.nodes) + 1;
       focusedNodeId = null;
       unsavedChanges = false;
