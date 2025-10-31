@@ -12,7 +12,7 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
   try {
     const json = localStorage.getItem(storageKey);
     const parsed = json ? JSON.parse(json) : empty;
-    initial = new Graph(parsed.nodes, parsed.edges.map(serializeEdge));
+    initial = new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? "My Graph");
     if (parsed.nodes.length > 0 && isNil(parsed.nodes[0]?.children)) {
       //old format
       initial = displayStateToGraph(parsed);

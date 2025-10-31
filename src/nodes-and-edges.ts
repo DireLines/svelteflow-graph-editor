@@ -92,9 +92,11 @@ function removeFirstMatch(arr: any[], match: (x: any) => boolean) {
 export class Graph {
   nodes: NodeData[];
   edges: Edge[];
-  constructor(nodes: NodeData[], edges: Edge[]) {
+  title: string;
+  constructor(nodes: NodeData[], edges: Edge[], title: string = "My Graph") {
     this.nodes = nodes;
     this.edges = edges;
+    this.title = title;
   }
   addNode(node: NodeData, parentId: string | null) {
     if (isNil(parentId)) {
@@ -296,7 +298,7 @@ export class Graph {
     const result: DisplayState = {
       nodes: [],
       edges: [],
-      title: "My Graph",
+      title: this.title,
       description: "right-click to make a new node. left click to drag or edit nodes",
       backgroundColor: "#111",
     };
@@ -355,6 +357,9 @@ export class Graph {
       }
     }
     return result;
+  }
+  setTitle(newTitle: string) {
+    this.title = newTitle;
   }
 }
 

@@ -17,3 +17,10 @@ export const getHighestNumericId = (nodes: any[]): number => {
   }
   return maxId;
 };
+
+export const slugify = (s: string) => {
+  return s
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w]+/g, "-");
+};

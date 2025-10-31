@@ -27,7 +27,7 @@
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
   import { addPositions, subPositions, getBoundingRect, getNodeRectLocalCoordinates } from "./math";
   import { getNodeLabelElement } from "./nodeElements";
-  import { getHighestNumericId, isNil } from "./util";
+  import { getHighestNumericId, isNil, slugify } from "./util";
   import { globals } from "./App.svelte";
   const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode, getZoom, getNodesBounds, fitView } =
     useSvelteFlow();
@@ -114,6 +114,7 @@
       }
       graph.nodes = data.nodes;
       graph.edges = data.edges;
+      graph.title = data.title;
       nextNodeId = getHighestNumericId(graph.nodes) + 1;
       focusedNodeId = null;
       unsavedChanges = false;
@@ -512,6 +513,18 @@
       fitView();
     });
   };
+  let titleEditable: HTMLElement;
+  // Whenever the user types, resize the box
+  const handleTitleInput = () => {
+    graph.setTitle(titleEditable.innerText);
+    saveGraphToLocalStorage(graph);
+  };
+  const handleTitleBlur = () => {
+    //TODO edit label of focused node if focusedNode not null
+    title = titleEditable.innerText;
+    graph.setTitle(titleEditable.innerText);
+    saveGraphToLocalStorage(graph);
+  };
   globals.refresh = refresh;
   globals.graph = graph;
   globals.setFocusedNode = setFocusedNode;
@@ -554,13 +567,22 @@
   maxZoom={6}
 >
   <Panel position="top-center" class="titlebar" aria-hidden="true">
-    <h1 class="title" contenteditable="true" spellcheck="false">{title}</h1>
+    <h1
+      class="title"
+      bind:this={titleEditable}
+      contenteditable="true"
+      spellcheck="false"
+      oninput={handleTitleInput}
+      onblur={handleTitleBlur}
+    >
+      {title}
+    </h1>
   </Panel>
   <Background />
   <Controls />
   <MiniMap />
   <Panel style="display:flex; flex-direction: column; gap:2px;">
-    <button onclick={() => saveObjToFile(graph)}> 💾 Export </button>
+    <button onclick={() => saveObjToFile(graph, slugify(graph.title) + ".json")}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
     <button onclick={clearGraph}> Clear </button>
     <select bind:value={colorMode}>
