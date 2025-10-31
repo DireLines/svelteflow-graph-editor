@@ -586,11 +586,12 @@
     <button onclick={() => saveObjToFile(graph, slugify(graph.title) + ".json")}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
     <button onclick={clearGraph}> Clear </button>
-    <select bind:value={colorMode}>
+    <!-- TODO put back once we know how to refer to theme colors -->
+    <!-- <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
       <option value="system">system</option>
-    </select>
+    </select> -->
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
   </Panel>
