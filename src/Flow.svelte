@@ -1,5 +1,4 @@
 <script lang="ts">
-  //TODO move things into module-level script when applicable
   import {
     SvelteFlow,
     useSvelteFlow,
@@ -7,79 +6,146 @@
     Controls,
     MiniMap,
     Panel,
-    type Node,
-    type Edge,
-    type Rect,
     type ColorMode,
     type OnConnectEnd,
     type NodeTargetEventWithPointer,
-    getIncomers,
+    type Node,
+    type Edge,
   } from "@xyflow/svelte";
-
   import "@xyflow/svelte/dist/style.css";
+
+  import {
+    edgeDefaults,
+    Graph,
+    type NodeData,
+    getNodesById,
+    displayStateToGraph,
+    addDefaultsToEdge,
+    nodeDataToNode,
+    DEFAULT_GRAPH_TITLE,
+  } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
-
-  import { globalFuncs } from "./App.svelte";
-
-  import { nodeDefaults, edgeDefaults, type DisplayState, reorderParentsFirst, getNodesById } from "./nodes-and-edges";
-  import { addPositions, subPositions, getNodeRectFlowCoordinates, getBoundingRect } from "./math";
+  import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
+  import { addPositions, subPositions, getBoundingRect, getNodeRectLocalCoordinates } from "./math";
   import { getNodeLabelElement } from "./nodeElements";
-  import { getBackgroundColor, getTextColor } from "./colors";
-  import { containsOnlyDigits, isNil } from "./util";
-  const {
-    screenToFlowPosition,
-    // flowToScreenPosition,
-    // isNodeIntersecting,
-    getIntersectingNodes,
-    // fitBounds,
-    // getNode,
-    getNodesBounds,
-    updateNode,
-    deleteElements,
-    getNode,
-    updateEdge,
-    getZoom,
-  } = useSvelteFlow();
-  const STORAGE_KEY = "graph";
+  import { getHighestNumericId, isNil, slugify } from "./util";
+  import { globals } from "./App.svelte";
+  const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode, getZoom, getNodesBounds, fitView } =
+    useSvelteFlow();
 
-  let showCompleted = $state(true);
-  let showWorkable = $state(true);
-  let showUpcoming = $state(true);
-
-  // load existing state or fall back
-  let initial;
-  const defaultValue = { nodes: [], edges: [] };
-  try {
-    const json = localStorage.getItem(STORAGE_KEY);
-    initial = json ? JSON.parse(json) : defaultValue;
-  } catch {
-    initial = defaultValue;
-  }
+  let colorMode: ColorMode = $state("dark");
   const nodeTypes = { custom: CustomNode };
-  let nodes = $state.raw<Node[]>(initial.nodes);
-  let edges = $state.raw<Edge[]>(initial.edges);
 
+  //backend graph - source of truth
+  let graph = $state.raw<Graph>(loadGraphFromLocalStorage());
+  let focusedNodeId = $state.raw<string | null>(null);
+  //number used and incremented when new node generated
+  let nextNodeId: number = getHighestNumericId(graph.nodes) + 1;
+  const getId = () => `${nextNodeId++}`;
+
+  //frontend graph - what is displayed by svelteflow
+  let displayState = graph.getDisplayState(focusedNodeId);
+  console.log("graph", graph);
+  console.log("displayState", displayState);
+
+  //NOTE: do not directly modify this state. it gets refreshed in the refresh() function based on the value of graph
+  let nodes = $state.raw<Node[]>(displayState.nodes);
+  let edges = $state.raw<Edge[]>(displayState.edges);
+  let title = $state.raw<string>(displayState.title);
+  let subtitle = $state.raw<string>(displayState.description);
+
+  let fileInput: HTMLInputElement; // for “Load” dialog
+
+  // enter file selection for load
+  const triggerLoad = () => {
+    if (graph.nodes.length > 0 || graph.edges.length > 0) {
+      const discard = window.confirm("You have unsaved changes - importing from a file will discard them. Continue?");
+      if (!discard) {
+        return;
+      }
+    }
+    fileInput.click();
+  };
+
+  //track unsaved changes
   let unsavedChanges = $state(false);
-
   // tell the browser to prompt the user on unsaved changes
-  const handleBeforeUnload = (event) => {
+  const warnUnsavedChanges = (event) => {
     if (!unsavedChanges) return;
     event.preventDefault();
     event.returnValue = "";
   };
 
-  //set id to max of incoming node ids + 1
-  let id = 0;
-  for (const n of nodes) {
-    if (containsOnlyDigits(n.id)) {
-      const parsed = parseInt(n.id);
-      if (parsed > id) {
-        id = parsed;
+  //save graph to local storage and refresh display
+  const refresh = async () => {
+    console.log("refresh");
+    //TODO update project name component with focused node
+    //TODO why is top-level node still being displayed?
+    saveGraphToLocalStorage(graph);
+    unsavedChanges = false;
+    const selectedNodes = {};
+    for (const node of nodes) {
+      if (node.selected) {
+        selectedNodes[node.id] = true;
       }
     }
-  }
-  id++;
-  const getId = () => `${id++}`;
+    await deleteElements(displayState);
+    displayState = graph.getDisplayState(focusedNodeId);
+    console.log(graph);
+    console.log("displayState", displayState);
+    nodes = displayState.nodes;
+    edges = displayState.edges;
+    title = displayState.title;
+    subtitle = displayState.description;
+    for (const selectedNodeId in selectedNodes) {
+      updateNode(selectedNodeId, { selected: true });
+    }
+  };
+
+  const loadGraphFromFile = async (event) => {
+    const [file] = event.target.files;
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      let data = JSON.parse(text);
+      if (data.nodes.length > 0 && isNil(data.nodes[0]?.children)) {
+        //old format
+        data = displayStateToGraph(data);
+      }
+      graph.nodes = data.nodes;
+      graph.edges = data.edges;
+      graph.title = data.title ?? DEFAULT_GRAPH_TITLE;
+      nextNodeId = getHighestNumericId(graph.nodes) + 1;
+      focusedNodeId = null;
+      unsavedChanges = false;
+      await refresh().then(() => fitView());
+    } catch (err) {
+      console.error("Failed to load/parse JSON", err);
+    } finally {
+      // reset so the same file can be re-selected later if desired
+      event.target.value = "";
+    }
+  };
+
+  //TODO: when calling, use project name for filename
+  const saveObjToFile = (stateObj: any, filename: string = "graph-project.json") => {
+    const json = JSON.stringify(stateObj);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const tempLink = document.createElement("a");
+
+    tempLink.download = filename;
+    tempLink.href = url;
+    document.body.appendChild(tempLink);
+    tempLink.click();
+
+    // cleanup
+    document.body.removeChild(tempLink);
+    URL.revokeObjectURL(url);
+    unsavedChanges = false;
+  };
+  //TODO: default to focusedNodeId rather than undefined
   const getParentNode = (clientX, clientY, ignoreNodeId = null) => {
     // project the screen coordinates to pane coordinates
     const position = screenToFlowPosition({
@@ -94,7 +160,7 @@
       height: epsilon,
     };
     const nodesHitByCursor = getIntersectingNodes(posRect);
-    let parent = undefined;
+    let parent = focusedNodeId;
     //lowest node has no children among these nodes
     //TODO: O(n^2) cringe
     for (const node of nodesHitByCursor) {
@@ -119,11 +185,31 @@
     }
     return parent;
   };
-  const getOffsetOfOrigin = (node) => ({
-    x: node.measured.width * node.origin[0],
-    y: node.measured.height * node.origin[1],
-  });
-  const getPositionOfOrigin = (node) => subPositions(node.position, getOffsetOfOrigin(node));
+  //flowPosition in global (flow) coordinates to coordinates of node with id nodeId
+  const flowToLocalPosition = (flowPosition, nodeId) => {
+    const nodesById = getNodesById(displayState.nodes); //TODO precompute when nodes change
+    const thisNode = nodesById[nodeId];
+    if (!thisNode) {
+      return flowPosition;
+    }
+    console.log(flowPosition, nodeId, thisNode.position);
+    if (thisNode.parentId === null || thisNode.parentId === undefined) {
+      return subPositions(flowPosition, thisNode.position);
+    }
+    return flowToLocalPosition(subPositions(flowPosition, thisNode.position), thisNode.parentId);
+  };
+  //localPosition in coordinates of node with id nodeId to global (flow) coordinates
+  const localToFlowPosition = (localPosition, nodeId) => {
+    const nodesById = getNodesById(displayState.nodes); //TODO precompute when nodes change
+    const thisNode = nodesById[nodeId];
+    if (!thisNode) {
+      return localPosition;
+    }
+    if (thisNode.parentId === null || thisNode.parentId === undefined) {
+      return addPositions(localPosition, thisNode.position);
+    }
+    return localToFlowPosition(addPositions(localPosition, thisNode.position), thisNode.parentId);
+  };
   const makeNode = (id, clientX, clientY) => {
     let parent = getParentNode(clientX, clientY);
     // project the screen coordinates to pane coordinates
@@ -135,160 +221,43 @@
       //adjust position to be relative to parent
       position = flowToLocalPosition(position, parent.id);
     }
+    const estimateLabelWidth = (label) => 50 + 7 * (label.length - 5);
+    const label = `Task ${id}`;
+    const size = { width: estimateLabelWidth(label), height: 36 };
+    position = subPositions(position, { x: size.width / 2, y: size.height / 2 }); //start with middle of node at cursor
     //make node as child of parent
-    const newNode: any = {
+    const newNode: NodeData = {
       id,
-      data: { label: `Task ${id}`, completed: false },
+      children: [],
+      label,
+      completed: false,
+      lastManualResize: null,
+      size,
+      backgroundColor: "#111",
       position,
-      parentId: parent?.id,
-      ...nodeDefaults,
     };
+    graph.addNode(newNode, parent?.id);
+    const resizedNodesById = {};
+    resizedNodesById[id] = { ...position, ...size };
     if (parent) {
-      const nodesById = getNodesById(nodes);
-      //recursively resize parents
-      resizeNodeToEncapsulateChildren(parent.id, nodesById);
+      resizeNodeToEncapsulateChildren(
+        parent.id,
+        { ...getNodesById(nodes), [id]: { ...nodeDataToNode(newNode), parentId: parent.id } },
+        resizedNodesById
+      );
     }
     return newNode;
   };
+
   const makeEdge = (sourceId, targetId) => ({
     source: sourceId,
     target: targetId,
     id: `${sourceId}->${targetId}`,
-    ...edgeDefaults,
   });
-  let colorMode: ColorMode = $state("dark");
-  //localPosition in coordinates of node with id nodeId to global (flow) coordinates
-  const localToFlowPosition = (localPosition, nodeId) => {
-    const nodesById = getNodesById(nodes); //TODO precompute when nodes change
-    const thisNode = nodesById[nodeId];
-    if (!thisNode) {
-      return localPosition;
-    }
-    if (thisNode.parentId === null || thisNode.parentId === undefined) {
-      return addPositions(localPosition, getPositionOfOrigin(thisNode));
-    }
-    return localToFlowPosition(addPositions(localPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
-  };
-  //flowPosition in global (flow) coordinates to coordinates of node with id nodeId
-  const flowToLocalPosition = (flowPosition, nodeId) => {
-    const nodesById = getNodesById(nodes); //TODO precompute when nodes change
-    const thisNode = nodesById[nodeId];
-    if (!thisNode) {
-      return flowPosition;
-    }
-    if (thisNode.parentId === null || thisNode.parentId === undefined) {
-      return subPositions(flowPosition, getPositionOfOrigin(thisNode));
-    }
-    return flowToLocalPosition(subPositions(flowPosition, getPositionOfOrigin(thisNode)), thisNode.parentId);
-  };
-  const findDiffInLocalPosition = (parentNode, newSize) => {
-    const existingOffset = getOffsetOfOrigin(parentNode);
-    const newOffset = {
-      x: newSize.width * parentNode.origin[0],
-      y: newSize.height * parentNode.origin[1],
-    };
-    return subPositions(newOffset, existingOffset);
-  };
-  //resizedNodesById caches nodes which have been resized by this resize operation and their new sizes
-  //this is because that info doesn't propagate immediately in svelteflow
-  const resizeNodeToEncapsulateChildren = (nodeId, nodesById, resizedNodesById = {}) => {
-    console.log("resizing", nodeId);
-    const thisNode = nodesById[nodeId];
-    const children = [];
-    for (const otherId in nodesById) {
-      const node = nodesById[otherId];
-      if (node?.parentId === nodeId) {
-        children.push(node);
-      }
-    }
-    const padding = 40; // padding on all sides
-    const contentSize = getNodeLabelSize(nodeId);
-    if (children.length > 0) {
-      contentSize.height += 10; //vertical pad before child nodes
-    }
-    const childBounds = getBoundingRect(children.map((n) => getNodeRectFlowCoordinates(n, resizedNodesById)));
-    const contentPos = localToFlowPosition(childBounds, nodeId);
-    const contentBounds = {
-      x: contentPos.x,
-      y: contentPos.y - contentSize.height,
-      width: Math.max(contentSize.width, childBounds.width),
-      height: contentSize.height + childBounds.height,
-    };
-    const bounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
-    console.log(contentBounds, childBounds, bounds);
-    //want that
-    // - children stay where they are globally
-    // - size of parent node changes to encapsulate children and parent contents with some padding on all sides
-    // - center of parent node moves to center of (children and parent contents)
-    const boundsLocal = flowToLocalPosition(bounds, nodeId); //get xy in local coords
-    const newSize = { width: contentBounds.width + padding, height: contentBounds.height + padding };
-    // const newParentCenterPos = {x:}
-    console.log(newSize);
-    //figure out diff in local position for children
-    const positionDiff = findDiffInLocalPosition(thisNode, newSize);
-    //reposition children for new offset
-    for (const node of children) {
-      const newPos = addPositions(node.position, positionDiff);
-      updateNode(node.id, { position: newPos });
-    }
-    updateNode(thisNode.id, { width: newSize.width, height: newSize.height });
-    //resize parent recursively
-    if (!isNil(thisNode.parentId)) {
-      resizeNodeToEncapsulateChildren(thisNode.parentId, nodesById, resizedNodesById);
-    }
-  };
-  //stop dragging node
-  const handleNodeDragStop: NodeTargetEventWithPointer = (event) => {
-    unsavedChanges = true;
-    const { clientX, clientY } = event?.event;
-    const thisNode = event.targetNode;
-    const parent = getParentNode(clientX, clientY, thisNode.id);
-    const oldParentId = thisNode.parentId;
-    const newParentId = parent?.id;
-    if (parent && parent.id !== thisNode.id) {
-      const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
-      const newPos = flowToLocalPosition(globalCoords, parent.id);
-      updateNode(thisNode.id, { parentId: parent.id, position: newPos });
-    } else if (!isNil(thisNode.parentId)) {
-      const globalCoords = localToFlowPosition(thisNode.position, thisNode.parentId);
-      updateNode(thisNode.id, { parentId: undefined, position: globalCoords });
-    }
-    const nodesById = getNodesById(nodes);
-    if (!isNil(newParentId)) {
-      resizeNodeToEncapsulateChildren(newParentId, nodesById);
-    }
-    if (!isNil(oldParentId)) {
-      resizeNodeToEncapsulateChildren(oldParentId, nodesById);
-    }
-    nodes = reorderParentsFirst(nodes);
-  };
-  //right click inside node
-  const handleNodeContextMenu = ({ event, node }) => {
-    unsavedChanges = true;
-    // Prevent native context menu from showing
-    event.preventDefault();
-
-    const { clientX, clientY } = event;
-    //make child node inside this node
-    const id = getId();
-    nodes = [...nodes, makeNode(id, clientX, clientY)];
-    globalFuncs.restyleGraph();
-  };
-  //right click on background
-  const handlePaneContextMenu = ({ event }) => {
-    unsavedChanges = true;
-    // Prevent native context menu from showing
-    event.preventDefault();
-
-    const { clientX, clientY } = event;
-    const id = getId();
-    nodes = [...nodes, makeNode(id, clientX, clientY)];
-    globalFuncs.restyleGraph();
-  };
   const isValidConnection = (_) => false; //if we say true, it will create an edge outside of handleConnectEnd
-
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
+    console.log("handleConnectEnd");
     unsavedChanges = true;
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
@@ -297,92 +266,111 @@
     const { clientX, clientY } = "changedTouches" in event ? event.changedTouches[0] : event;
 
     const id = getId();
-    let newEdge;
+    let startId = sourceNodeId;
+    let endId = targetNodeId;
     if (isNil(targetNodeId)) {
-      const newNode = makeNode(id, clientX, clientY);
-      nodes = [...nodes, newNode];
-      newEdge = draggingFromSource ? makeEdge(sourceNodeId, id) : makeEdge(id, sourceNodeId);
-    } else {
-      newEdge = makeEdge(sourceNodeId, targetNodeId);
+      makeNode(id, clientX, clientY);
+      endId = id;
     }
-    edges = [...edges, newEdge];
-    globalFuncs.restyleGraph();
+    if (!draggingFromSource) {
+      //swap
+      const temp = startId;
+      startId = endId;
+      endId = temp;
+    }
+    const newEdge = makeEdge(startId, endId);
+    graph.addEdge(newEdge);
+    displayState.edges = [...displayState.edges, addDefaultsToEdge(newEdge)];
+    refresh();
   };
 
-  let fileInput: HTMLInputElement; // for “Load” dialog
-
-  // --- LOADING (open file) ---
-  const triggerLoad = () => {
-    if (nodes.length > 0 || edges.length > 0) {
-      const discard = window.confirm("You have unsaved changes - importing from a file will discard them. Continue?");
-      if (!discard) {
-        return;
-      }
+  //stop dragging node
+  const handleNodeDragStop: NodeTargetEventWithPointer = (event, defaultParentId: string | null = focusedNodeId) => {
+    console.log("handleNodeDragStop", event.nodes[0].id);
+    unsavedChanges = true;
+    const { clientX, clientY } = event?.event;
+    const thisNode = event.targetNode;
+    const parent = getParentNode(clientX, clientY, thisNode.id);
+    const oldParentId = thisNode.parentId;
+    const newParentId = parent?.id ?? defaultParentId;
+    if (parent?.id === thisNode.id) {
+      return;
     }
-    fileInput.click();
-  };
-
-  const handleFileChange = async (event) => {
-    const [file] = event.target.files;
-    if (!file) return;
-
-    try {
-      const text = await file.text();
-      const data = JSON.parse(text);
-      await deleteElements({ nodes, edges });
-      nodes = data.nodes;
-      edges = data.edges;
-      //set id to max of incoming node ids + 1
-      for (const n of nodes) {
-        n.hidden = false;
-        if (containsOnlyDigits(n.id)) {
-          const parsed = parseInt(n.id);
-          if (parsed > id) {
-            id = parsed;
-          }
-        }
-      }
-      id++;
-      unsavedChanges = false;
-    } catch (err) {
-      console.error("Failed to load/parse JSON", err);
-    } finally {
-      // reset so the same file can be re-selected later if desired
-      event.target.value = "";
+    //due to some frontend sloppiness, the node we ended with the cursor on can be a child of the dragged node
+    //you can trigger this most easily by dragging a parent node, grabbing a position right next to the border of its child
+    //we don't want to create a cycle in the parent-child hierarchy
+    //so check that parent is not a child or deep child of thisNode before continuing
+    if (graph.isAncestor(thisNode.id, parent?.id)) {
+      return;
     }
+    //reparent on backend
+    let newPos = localToFlowPosition(thisNode.position, thisNode.parentId);
+    if (parent) {
+      newPos = flowToLocalPosition(newPos, parent.id);
+    }
+    updateNode(thisNode.id, { position: newPos, parentId: newParentId });
+    graph.reparent(oldParentId, newParentId, thisNode.id);
+    graph.refreshParentIds();
+    graph.updateNode(thisNode.id, { position: newPos });
+    const nodesById = getNodesById(nodes);
+    if (!isNil(oldParentId)) {
+      resizeNodeToEncapsulateChildren(oldParentId, nodesById);
+    }
+    if (!isNil(newParentId) && newParentId !== oldParentId) {
+      resizeNodeToEncapsulateChildren(newParentId, nodesById);
+    }
+    refresh();
   };
+  //right click on background
+  const handlePaneContextMenu = ({ event }) => {
+    console.log("handlePaneContextMenu");
+    unsavedChanges = true;
+    // Prevent native context menu from showing
+    event.preventDefault();
 
-  // --- SAVING (download file) ---
-  const triggerSave = (stateObj) => {
-    const json = JSON.stringify(stateObj, null, 2);
-    const blob = new Blob([json], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const { clientX, clientY } = event;
+    const id = getId();
+    makeNode(id, clientX, clientY);
+    refresh();
+  };
+  //right click inside node
+  const handleNodeContextMenu = ({ event }) => {
+    console.log("handleNodeContextMenu");
+    unsavedChanges = true;
+    // Prevent native context menu from showing
+    event.preventDefault();
 
-    a.download = "graph-project.json"; //TODO: use project name for filename
-    a.href = url;
-    document.body.appendChild(a);
-    a.click();
-
-    // cleanup
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    unsavedChanges = false;
+    const { clientX, clientY } = event;
+    //make child node inside this node
+    const id = getId();
+    makeNode(id, clientX, clientY);
+    refresh();
   };
 
   const clearGraph = () => {
-    if (nodes.length > 0 || edges.length > 0) {
+    if (graph.nodes.length > 0 || graph.edges.length > 0) {
       const discard = window.confirm("Clear entire graph?");
       if (!discard) {
         return;
       }
     }
-    nodes = [];
-    edges = [];
-    id = 1;
-    unsavedChanges = false;
+    graph = new Graph([], []);
+    nextNodeId = 1;
+    globals.graph = graph;
+    refresh();
   };
 
+  const handleDelete = async ({ nodes: deletedNodes, edges: deletedEdges }) => {
+    for (const node of deletedNodes) {
+      graph.deleteNode(node.id);
+      resizeNodeToEncapsulateChildren(node.parentId, {});
+    }
+    for (const edge of deletedEdges) {
+      graph.deleteEdge(edge.id);
+    }
+    refresh();
+    return true;
+  };
   const getNodeLabelSize = (nodeId: string) => {
     const el = getNodeLabelElement(nodeId);
     if (!el) return undefined;
@@ -394,54 +382,174 @@
     };
   };
 
-  const saveGraph = () => {
-    //TODO: more defined serializeNode function to clean node for serialization
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
-        nodes: nodes.map((n) => ({ ...n, hidden: false })),
-        edges: edges.map((e) => ({ ...e, hidden: false })),
-      })
-    );
-    unsavedChanges = false;
-  };
-  //TODO: this should handle all node display changes in response to changes to the graph
-  //(e.g. progress indicators) and get called everywhere appropriate
-  globalFuncs.restyleGraph = () => {
-    for (const node of nodes) {
-      //TODO: if this node is a child, handle status of parent(s)
-      //if parent is not workable, this should be displayed as not workable
-      //if parent is completed, this should be displayed as completed
-      let workable = true;
-      const incomingNodes = getIncomers(node, nodes, edges);
-      for (const incomingNode of incomingNodes) {
-        if (!incomingNode.data.completed) {
-          workable = false;
+  //want that
+  // - children stay where they are globally
+  // - size of parent node changes to encapsulate children and parent contents with some padding on all sides
+  // - center of parent node moves to center of (children and parent contents)
+  //resizedNodesById caches nodes which have been resized by this resize operation and their new sizes
+  //this is because that info doesn't propagate immediately in svelteflow
+  const resizeNodeToEncapsulateChildren = (nodeId, nodesById, resizedNodesById = {}) => {
+    console.log("resizing", nodeId, { ...resizedNodesById });
+    if (Object.keys(nodesById).length === 0) {
+      nodesById = getNodesById(nodes);
+    }
+    if (!(nodeId in nodesById)) {
+      return;
+    }
+    //gather data needed
+    //1. current size of parent's label
+    const labelSize = getNodeLabelSize(nodeId);
+    //2. current offset of parent
+    const thisNode = nodesById[nodeId];
+    //3. list of child nodes
+    const children = [];
+    for (const otherId in nodesById) {
+      const node = nodesById[otherId];
+      if (node?.parentId === nodeId) {
+        children.push(node);
+      }
+    }
+    //rects of child nodes in flow coordinates
+    const childRectsFlowCoordinates = children
+      .map((n) => getNodeRectLocalCoordinates(n, resizedNodesById))
+      .map((r) => ({ ...r, ...localToFlowPosition(r, nodeId) }));
+    //4. padding
+    const padding = 20; // padding on all sides (radius, not diameter)
+    //TODO: padding should be proportional to node size
+
+    //determine new size of this node
+    //bounding rectangle of children (flow coordinates)
+    const childBounds = getBoundingRect(childRectsFlowCoordinates);
+
+    //labelSize will be different after resizing to fit children - estimate new size of label
+    //label contains same text, so takes up roughly the same area
+    //TODO if label font size is proportional to node size, also need to account for that
+    const widthRatio = labelSize.width / childBounds.width;
+    const vertPad = 10;
+    const heightOfOneLine = 14;
+    let resultLabelHeight = heightOfOneLine;
+    if (childBounds.width > 0) {
+      resultLabelHeight = Math.max(heightOfOneLine, labelSize.height * widthRatio);
+    }
+    const newLabelSize = {
+      width: childBounds.width,
+      height: resultLabelHeight,
+    };
+
+    //determine new xy and size of parent minus padding (flow coordinates)
+    let contentBounds = {
+      x: childBounds.x,
+      y: childBounds.y - newLabelSize.height - vertPad,
+      width: childBounds.width,
+      height: childBounds.height + newLabelSize.height + vertPad,
+    };
+    if (children.length === 0) {
+      const flowPos = localToFlowPosition(thisNode.position, thisNode?.parentId);
+      contentBounds = {
+        x: flowPos.x + thisNode.measured.width / 2,
+        y: flowPos.y + thisNode.measured.height / 2,
+        width: newLabelSize.width,
+        height: newLabelSize.height + vertPad,
+      };
+    }
+
+    const svelteflowBounds = getNodesBounds(children); //this returns bounding rect as top left corner in global coords + width/height
+    console.log("bounds (reported from svelteflow)", svelteflowBounds);
+    console.log("childBounds (estimated, should match svelteflow)", childBounds);
+    console.log("total contentBounds (children + node label)", contentBounds);
+    const newSize = { width: contentBounds.width + 2 * padding, height: contentBounds.height + 2 * padding };
+    console.log("new size", newSize);
+    console.log("labelSize", labelSize);
+    console.log("newLabelSize", newLabelSize);
+    const backendNode = graph.getNode(nodeId);
+    {
+      //don't resize smaller than manual resize
+      if (backendNode) {
+        const lastManualResize = backendNode.lastManualResize;
+        if (lastManualResize) {
+          newSize.width = Math.max(newSize.width, lastManualResize.width);
+          newSize.height = Math.max(newSize.height, lastManualResize.height);
         }
       }
-      const shouldHide = !(node.data.completed ? showCompleted : workable ? showWorkable : showUpcoming);
-      updateNode(node.id, { hidden: shouldHide }); //TODO: set border-color when workable, otherwise do not override
     }
-    for (const edge of edges) {
-      //if both endpoints of edge should be visible, so should edge, otherwise it should be hidden
-      const sourceHidden = getNode(edge.source)?.hidden;
-      const targetHidden = getNode(edge.target)?.hidden;
-      const shouldHide = sourceHidden || targetHidden;
-      const shouldGrey = getNode(edge.target)?.data.completed; //TODO: set edge opacity to 30% if shouldGrey, else 100%
-      updateEdge(edge.id, { hidden: shouldHide ?? undefined });
+    //figure out diff in position for parent
+    const newParentPos = subPositions({ x: contentBounds.x, y: contentBounds.y }, { x: padding, y: padding });
+    //need to set this node's position in coords relative to its parent
+    const newParentPosLocal = flowToLocalPosition(newParentPos, thisNode?.parentId);
+    console.log(
+      "parent's position has changed from",
+      thisNode.position,
+      "to",
+      newParentPosLocal,
+      "(",
+      newParentPos,
+      ")"
+    );
+    const parentPosDiff = subPositions(newParentPosLocal, thisNode.position);
+    console.log("parent has moved by ", parentPosDiff);
+    //figure out diff in local position for children
+    updateNode(thisNode.id, { ...newSize, position: newParentPosLocal });
+    graph.updateNode(thisNode.id, { size: newSize, position: newParentPosLocal });
+    resizedNodesById[thisNode.id] = { ...newParentPosLocal, ...newSize };
+    //reposition children for new offset
+    for (const node of children) {
+      let positionToKeep = node.position;
+      if (node.id in resizedNodesById) {
+        positionToKeep = { ...resizedNodesById[node.id] };
+      }
+      const newPos = subPositions(positionToKeep, parentPosDiff);
+      updateNode(node.id, { position: newPos });
+      graph.updateNode(node.id, { position: newPos });
+    }
+
+    //resize parent recursively
+    if (!isNil(backendNode.parentId)) {
+      resizeNodeToEncapsulateChildren(backendNode.parentId, nodesById, resizedNodesById);
     }
   };
-
+  const setFocusedNode = (nodeId: string) => {
+    //TODO: handle setting to null to go back to root
+    focusedNodeId = nodeId;
+    refresh().then(() => {
+      fitView();
+    });
+  };
+  let titleEditable: HTMLElement;
+  // Whenever the user types, resize the box
+  const handleTitleInput = () => {
+    graph.setTitle(titleEditable.innerText);
+    saveGraphToLocalStorage(graph);
+  };
+  const handleTitleBlur = () => {
+    //TODO edit label of focused node if focusedNode not null
+    title = titleEditable.innerText;
+    graph.setTitle(titleEditable.innerText);
+    saveGraphToLocalStorage(graph);
+  };
+  globals.refresh = refresh;
+  globals.graph = graph;
+  globals.setFocusedNode = setFocusedNode;
+  globals.resizeNodeToEncapsulateChildren = resizeNodeToEncapsulateChildren;
+  //in case link gets broken
   $effect(() => {
-    saveGraph();
+    globals.refresh = refresh;
+    globals.graph = graph;
+    globals.setFocusedNode = setFocusedNode;
+    globals.resizeNodeToEncapsulateChildren = resizeNodeToEncapsulateChildren;
   });
 </script>
 
 <!-- hook into the window event declaratively -->
-<svelte:window on:beforeunload={handleBeforeUnload} />
+<svelte:window on:beforeunload={warnUnsavedChanges} />
 
 <!-- Hidden file input for “Load” -->
-<input type="file" accept="application/json" bind:this={fileInput} onchange={handleFileChange} style="display: none;" />
+<input
+  type="file"
+  accept="application/json"
+  bind:this={fileInput}
+  onchange={loadGraphFromFile}
+  style="display: none;"
+/>
 
 <SvelteFlow
   bind:nodes
@@ -454,33 +562,69 @@
   onnodedragstop={handleNodeDragStop}
   onpanecontextmenu={handlePaneContextMenu}
   onnodecontextmenu={handleNodeContextMenu}
+  ondelete={handleDelete}
   {isValidConnection}
   minZoom={0.2}
   maxZoom={6}
 >
+  <Panel position="top-center" class="titlebar" aria-hidden="true">
+    <h1
+      class="title"
+      bind:this={titleEditable}
+      contenteditable="true"
+      spellcheck="false"
+      oninput={handleTitleInput}
+      onblur={handleTitleBlur}
+    >
+      {title}
+    </h1>
+  </Panel>
   <Background />
   <Controls />
   <MiniMap />
   <Panel style="display:flex; flex-direction: column; gap:2px;">
-    <button onclick={() => triggerSave({ nodes, edges })}> 💾 Export </button>
+    <button onclick={() => saveObjToFile(graph, slugify(graph.title) + ".json")}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
-    <button onclick={clearGraph}> 🗑️ Clear </button>
+    <button onclick={clearGraph}> Clear </button>
     <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
       <option value="light">light mode</option>
       <option value="system">system</option>
     </select>
-    <div style="color:#f8f8f8">Show</div>
-    <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showCompleted as boolean} onchange={globalFuncs.restyleGraph} />past
-    </div>
-    <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showWorkable as boolean} onchange={globalFuncs.restyleGraph} />present
-    </div>
-    <div style="color:#f8f8f8">
-      <input type="checkbox" bind:checked={showUpcoming as boolean} onchange={globalFuncs.restyleGraph} />future
-    </div>
     <!--TODO filter by set of assignees-->
     <!--TODO node search bar-->
   </Panel>
 </SvelteFlow>
+
+<style>
+  .flow-root {
+    width: 100%;
+    height: 100vh; /* or your own container size */
+  }
+
+  /* Make the whole panel non-interactive so you can drag/pan beneath it */
+  .titlebar {
+    pointer-events: none;
+    padding-top: 0.5rem; /* a little breathing room from the top edge */
+  }
+
+  .title {
+    pointer-events: auto; /* flip this to 'auto' only if you add buttons/links inside */
+    margin: 0;
+    line-height: 1;
+    padding: 0.25rem 0.75rem;
+    font-weight: 800;
+    font-size: clamp(20px, 4vw, 80px);
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px); /* tasteful readability chip; remove if you prefer */
+    border-radius: 10%;
+  }
+
+  @media print {
+    .titlebar {
+      display: none;
+    }
+  }
+</style>

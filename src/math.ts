@@ -10,7 +10,11 @@ export const subPositions = (a: XYPosition, b: XYPosition) => ({
   y: a.y - b.y,
 });
 
-export const getNodeRectFlowCoordinates = (n: Node, resizedNodesById: any = {}): Rect => {
+//not getting in flow coordinates, getting local to parent
+export const getNodeRectLocalCoordinates = (n: Node, resizedNodesById: any = {}): Rect => {
+  if (n.id in resizedNodesById) {
+    return resizedNodesById[n.id];
+  }
   return {
     ...n.position,
     width: n.width ?? n.measured?.width ?? 0,
@@ -20,6 +24,14 @@ export const getNodeRectFlowCoordinates = (n: Node, resizedNodesById: any = {}):
 export const getBoundingRect = (rects: Rect[]): Rect => {
   const min: XYPosition = { x: Infinity, y: Infinity };
   const max: XYPosition = { x: -Infinity, y: -Infinity };
+  if (rects.length === 0) {
+    return {
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+    };
+  }
   for (const rect of rects) {
     min.x = Math.min(min.x, rect.x);
     min.y = Math.min(min.y, rect.y);

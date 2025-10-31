@@ -9,9 +9,9 @@
     NodeResizeControl,
   } from "@xyflow/svelte";
   import { onMount, onDestroy } from "svelte";
-  import { globalFuncs } from "./App.svelte";
+  import { globals } from "./App.svelte";
   import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
-  let { isConnectable, id, data }: NodeProps = $props();
+  let { isConnectable, id, data, parentId }: NodeProps = $props();
   const { updateNodeData } = useSvelteFlow();
 
   let displayedContent: HTMLElement;
@@ -25,29 +25,31 @@
   let editable: HTMLElement;
   let completed = $state(data.completed);
 
-  // let workable = $state(true);
-
-  // let connections = useNodeConnections({
-  //   handleType: "target",
-  // });
-  // const nodesData = $derived(useNodesData(connections.current.map((connection) => connection.source)));
-  // useNodesData.subscribe((current) => {
-  //   for (const node of current) {
-  //     if (!node.data.completed) {
-  //       workable = false;
-  //     }
-  //   }
-  // });
-  const getOpacity = () => (completed ? "opacity: 30%" : "opacity: 100%");
-
+  const getOpacity = () => (globals.graph.isCompletedOrParentCompleted(id) ? "opacity: 30%" : "opacity: 100%");
   // Whenever the user types, update `text` and let parent know
+  const handleLabelBlur = () => {
+    data.label = editable.innerText;
+    globals.graph.updateNode(id, { label: data.label });
+    updateNodeData(id, { label: data.label });
+    globals.resizeNodeToEncapsulateChildren(parentId, {});
+    globals.refresh();
+  };
+  // Whenever the user types, resize the box
   const handleLabelInput = () => {
     data.label = editable.innerText;
+    globals.resizeNodeToEncapsulateChildren(parentId, {});
   };
 
   const handleCheckboxChange = (e) => {
+    globals.graph.updateNode(id, { completed });
     updateNodeData(id, { completed });
-    globalFuncs.restyleGraph();
+    globals.refresh();
+  };
+
+  const handleResize = (_, newDims) => {
+    const dims = { width: newDims.width, height: newDims.height };
+    globals.graph.updateNode(id, { lastManualResize: dims, size: dims });
+    globals.resizeNodeToEncapsulateChildren(parentId, {});
   };
 
   // Optional: keep caret at end when programmatically updating
@@ -70,12 +72,23 @@
 </script>
 
 <div class="control-panel">
-  <input type="checkbox" bind:checked={completed as boolean} onchange={handleCheckboxChange} />
+  <input
+    type="checkbox"
+    title="mark completed/incomplete"
+    bind:checked={completed as boolean}
+    onchange={handleCheckboxChange}
+  />
   <!-- add more buttons here -->
   <!-- TODO: click to edit node -->
   <!-- <button onclick={() => console.log("edit")}>✏️</button> -->
   <!-- TODO: click to focus -->
-  <!-- <button onclick={() => console.log("focus")}>⛶</button> -->
+  <!-- <button
+    title="focus node"
+    onclick={() => {
+      console.log("focus");
+      globals.setFocusedNode(id);
+    }}>⬇</button
+  > -->
 </div>
 <div style={getOpacity()}>
   <Handle type="target" position={Position.Left} {isConnectable} />
@@ -86,6 +99,7 @@
       spellcheck="false"
       bind:this={editable}
       oninput={handleLabelInput}
+      onblur={handleLabelBlur}
       onmousedowncapture={stopPropagation}
       onmouseupcapture={stopPropagation}
       onclickcapture={stopPropagation}
@@ -96,7 +110,14 @@
       {data.label}
     </div>
   </div>
-  <NodeResizeControl class="node-hover" minWidth={100} minHeight={5} style="background: transparent; border: none;">
+  <NodeResizeControl
+    onResizeEnd={handleResize}
+    class="node-hover"
+    title="resize"
+    minWidth={100}
+    minHeight={5}
+    style="background: transparent; border: none;"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="10"
