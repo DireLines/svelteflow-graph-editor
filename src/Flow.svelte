@@ -583,7 +583,7 @@
   <Controls />
   <MiniMap />
   <Panel style="display:flex; flex-direction: column; gap:2px;">
-    <button onclick={() => saveObjToFile(graph, slugify(graph.title) + ".json")}> 💾 Export </button>
+    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
     <button onclick={clearGraph}> Clear </button>
     <!-- TODO put back once we know how to refer to theme colors -->

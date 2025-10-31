@@ -362,6 +362,16 @@ export class Graph {
   setTitle(newTitle: string) {
     this.title = newTitle;
   }
+  getSerialized(): Graph {
+    const result = new Graph(this.nodes, this.edges, this.title);
+    for (const node of preorderTraverse(result.nodes)) {
+      node.position = {
+        x: parseFloat(node.position.x.toFixed(2)),
+        y: parseFloat(node.position.y.toFixed(2)),
+      };
+    }
+    return result;
+  }
 }
 
 const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeData[] => {
