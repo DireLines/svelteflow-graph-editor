@@ -19,7 +19,7 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
       saveGraphToLocalStorage(initial);
     }
   } catch {
-    initial = new Graph([], []);
+    initial = new Graph([], [], DEFAULT_GRAPH_TITLE);
   }
   return initial;
 };

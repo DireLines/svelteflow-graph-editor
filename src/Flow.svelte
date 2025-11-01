@@ -48,6 +48,8 @@
   console.log("graph", graph);
   console.log("displayState", displayState);
 
+  let undoRedoSteps = $state.raw<Graph[]>([]);
+
   //NOTE: do not directly modify this state. it gets refreshed in the refresh() function based on the value of graph
   let nodes = $state.raw<Node[]>(displayState.nodes);
   let edges = $state.raw<Edge[]>(displayState.edges);

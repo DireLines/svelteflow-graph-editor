@@ -37,7 +37,7 @@
   // Whenever the user types, resize the box
   const handleLabelInput = () => {
     data.label = editable.innerText;
-    globals.resizeNodeToEncapsulateChildren(parentId, {});
+    // globals.resizeNodeToEncapsulateChildren(parentId, {});
   };
 
   const handleCheckboxChange = (e) => {
