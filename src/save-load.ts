@@ -44,7 +44,6 @@ export const undo = (): Graph => {
   const revisionsJson = localStorage.getItem(REVISIONS_KEY);
   const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
   if (revisionState.revisionNumber > 0) {
-    console.log("undo", revisionState.revisionNumber, "to", revisionState.revisionNumber - 1);
     revisionState.revisionNumber -= 1;
     localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
   }
@@ -56,7 +55,6 @@ export const redo = (): Graph => {
   const revisionsJson = localStorage.getItem(REVISIONS_KEY);
   const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
   if (revisionState.revisionNumber < revisionState.revisions.length - 1) {
-    console.log("redo", revisionState.revisionNumber);
     revisionState.revisionNumber += 1;
     localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
   }
