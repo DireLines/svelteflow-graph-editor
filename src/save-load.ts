@@ -3,6 +3,8 @@ import { isNil } from "./util";
 
 const STORAGE_KEY = "graph";
 const REVISIONS_KEY = "revisions";
+const emptyGraph = new Graph([], [], DEFAULT_GRAPH_TITLE);
+const emptyRevisions = { revisions: [emptyGraph], revisionNumber: 0 };
 export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORAGE_KEY) => {
   console.log("saveGraphToLocalStorage");
   localStorage.setItem(storageKey, JSON.stringify(graph));
@@ -10,12 +12,12 @@ export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORA
   {
     //append new revision
     const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-    const revisionState = revisionsJson ? JSON.parse(revisionsJson) : { revisions: [], revisionNumber: -1 };
+    const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
     if (revisionState.revisionNumber < revisionState.revisions.length - 1 && revisionState.revisions.length > 0) {
-      revisionState.revisions = revisionState.revisions.slice(0, revisionState.revisionNumber);
+      revisionState.revisions = revisionState.revisions.slice(0, revisionState.revisionNumber + 1);
     }
     revisionState.revisions.push(graph);
-    revisionState.revisionNumber += 1;
+    revisionState.revisionNumber = revisionState.revisions.length - 1;
     localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
   }
 };
@@ -40,18 +42,24 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
 
 export const undo = (): Graph => {
   const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-  const revisionState = revisionsJson ? JSON.parse(revisionsJson) : { revisions: [], revisionNumber: -1 };
-  //TODO: handle no more undo steps
-  revisionState.revisionNumber -= 1;
-  localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
-  return revisionState.revisions[revisionState.revisionNumber];
+  const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
+  if (revisionState.revisionNumber > 0) {
+    console.log("undo", revisionState.revisionNumber, "to", revisionState.revisionNumber - 1);
+    revisionState.revisionNumber -= 1;
+    localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
+  }
+  const parsed = revisionState.revisions[revisionState.revisionNumber];
+  return new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
 };
 
 export const redo = (): Graph => {
   const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-  const revisionState = revisionsJson ? JSON.parse(revisionsJson) : { revisions: [], revisionNumber: -1 };
-  //TODO: handle no more redo steps
-  revisionState.revisionNumber += 1;
-  localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
-  return revisionState.revisions[revisionState.revisionNumber];
+  const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
+  if (revisionState.revisionNumber < revisionState.revisions.length - 1) {
+    console.log("redo", revisionState.revisionNumber);
+    revisionState.revisionNumber += 1;
+    localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
+  }
+  const parsed = revisionState.revisions[revisionState.revisionNumber];
+  return new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
 };

@@ -25,7 +25,7 @@
     DEFAULT_GRAPH_TITLE,
   } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
-  import { saveGraphToLocalStorage, loadGraphFromLocalStorage } from "./save-load";
+  import { saveGraphToLocalStorage, loadGraphFromLocalStorage, undo, redo } from "./save-load";
   import { addPositions, subPositions, getBoundingRect, getNodeRectLocalCoordinates } from "./math";
   import { getNodeLabelElement } from "./nodeElements";
   import { getHighestNumericId, isNil, slugify } from "./util";
@@ -79,12 +79,14 @@
   };
 
   //save graph to local storage and refresh display
-  const refresh = async () => {
+  const refresh = async (shouldSave: boolean = true) => {
     console.log("refresh");
     //TODO update project name component with focused node
     //TODO why is top-level node still being displayed?
-    saveGraphToLocalStorage(graph);
-    unsavedChanges = false;
+    if (shouldSave) {
+      saveGraphToLocalStorage(graph);
+      unsavedChanges = false;
+    }
     const selectedNodes = {};
     for (const node of nodes) {
       if (node.selected) {
@@ -585,6 +587,24 @@
   <Controls />
   <MiniMap />
   <Panel style="display:flex; flex-direction: column; gap:2px;">
+    <div style="display:flex; flex-direction: row; gap:20px;">
+      <button
+        onclick={() => {
+          graph = undo();
+          refresh(false);
+        }}
+      >
+        ↩
+      </button>
+      <button
+        onclick={() => {
+          graph = redo();
+          refresh(false);
+        }}
+      >
+        ↪
+      </button>
+    </div>
     <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
     <button onclick={triggerLoad}> 📂 Import </button>
     <button onclick={clearGraph}> Clear </button>
