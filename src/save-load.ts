@@ -3,9 +3,11 @@ import { isNil } from "./util";
 
 const STORAGE_KEY = "graph";
 const REVISIONS_KEY = "revisions";
-const REVISION_NUMBER_KEY = "revision";
+const REVISION_STATE_KEY = "revision";
+const MAX_REVISIONS = 50;
 const emptyGraph = new Graph([], [], DEFAULT_GRAPH_TITLE);
 const emptyRevisions = [emptyGraph];
+const emptyRevisionState = { revision: 0, numRevisions: 1 };
 
 export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORAGE_KEY) => {
   console.log("saveGraphToLocalStorage");
@@ -16,13 +18,18 @@ export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORA
   {
     //append new revision
     const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-    const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
-    if (revisionState.revisionNumber < revisionState.revisions.length - 1 && revisionState.revisions.length > 0) {
-      revisionState.revisions = revisionState.revisions.slice(0, revisionState.revisionNumber + 1);
+    const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
+    let revisions = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
+    let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
+    //if appending in the middle, forget revision history after this point
+    if (revisionState.revision < revisions.length - 1 && revisions.length > 0) {
+      revisions = revisions.slice(0, revisionState.revision + 1);
     }
-    revisionState.revisions.push(graph);
-    revisionState.revisionNumber = revisionState.revisions.length - 1;
-    localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
+    revisions.push(graph); //add revision
+    revisions = revisions.slice(-MAX_REVISIONS); //only keep last MAX_REVISIONS revisions
+    revisionState = { revision: revisions.length - 1, numRevisions: revisions.length };
+    localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisions));
+    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(revisionState));
     logElapsedTime("append revision");
   }
 };
@@ -59,12 +66,14 @@ const elapsedTimeLogger = (prefix: string) => {
 export const undo = (): Graph => {
   const logElapsedTime = elapsedTimeLogger("undo");
   const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-  const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
-  if (revisionState.revisionNumber > 0) {
-    revisionState.revisionNumber -= 1;
-    localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
+  const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
+  let revisions = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
+  let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
+  if (revisionState.revision > 0) {
+    revisionState.revision -= 1;
+    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(revisionState));
   }
-  const parsed = revisionState.revisions[revisionState.revisionNumber];
+  const parsed = revisions[revisionState.revision];
   logElapsedTime("undo");
   return new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
 };
@@ -72,12 +81,23 @@ export const undo = (): Graph => {
 export const redo = (): Graph => {
   const logElapsedTime = elapsedTimeLogger("redo");
   const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-  const revisionState = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
-  if (revisionState.revisionNumber < revisionState.revisions.length - 1) {
-    revisionState.revisionNumber += 1;
-    localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisionState));
+  const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
+  let revisions = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
+  let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
+  if (revisionState.revision < revisions.length - 1) {
+    revisionState.revision += 1;
+    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(revisionState));
   }
-  const parsed = revisionState.revisions[revisionState.revisionNumber];
+  const parsed = revisions[revisionState.revision];
   logElapsedTime("redo");
   return new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
+};
+
+export const getUndoRedoState = () => {
+  const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
+  let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
+  if (revisionState.numRevisions === 1) {
+    return { canUndo: false, canRedo: false };
+  }
+  return { canUndo: revisionState.revision > 0, canRedo: revisionState.revision < revisionState.numRevisions - 1 };
 };
