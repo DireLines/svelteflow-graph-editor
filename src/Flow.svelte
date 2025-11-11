@@ -68,15 +68,6 @@
     fileInput.click();
   };
 
-  //track unsaved changes
-  let unsavedChanges = $state(false);
-  // tell the browser to prompt the user on unsaved changes
-  const warnUnsavedChanges = (event) => {
-    if (!unsavedChanges) return;
-    event.preventDefault();
-    event.returnValue = "";
-  };
-
   //save graph to local storage and refresh display
   const refresh = async (shouldSave: boolean = true) => {
     console.log("refresh");
@@ -84,7 +75,6 @@
     //TODO why is top-level node still being displayed?
     if (shouldSave) {
       saveGraphToLocalStorage(graph);
-      unsavedChanges = false;
     }
     const selectedNodes = {};
     for (const node of nodes) {
@@ -110,7 +100,7 @@
     graph = newGraph;
     nextNodeId = getHighestNumericId(graph.nodes) + 1;
     focusedNodeId = null;
-    unsavedChanges = false;
+    globals.graph = graph;
   };
   const loadGraphFromFile = async (event) => {
     const [file] = event.target.files;
@@ -148,7 +138,6 @@
     // cleanup
     document.body.removeChild(tempLink);
     URL.revokeObjectURL(url);
-    unsavedChanges = false;
   };
   //TODO: default to focusedNodeId rather than undefined
   const getParentNode = (clientX, clientY, ignoreNodeId = null) => {
@@ -263,7 +252,6 @@
   //stop dragging edge
   const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
     console.log("handleConnectEnd");
-    unsavedChanges = true;
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
     const sourceNodeId = connectionState.fromNode?.id ?? "1";
@@ -292,7 +280,6 @@
   //stop dragging node
   const handleNodeDragStop: NodeTargetEventWithPointer = (event, defaultParentId: string | null = focusedNodeId) => {
     console.log("handleNodeDragStop", event.nodes[0].id);
-    unsavedChanges = true;
     const { clientX, clientY } = event?.event;
     const thisNode = event.targetNode;
     const parent = getParentNode(clientX, clientY, thisNode.id);
@@ -329,7 +316,6 @@
   //right click on background
   const handlePaneContextMenu = ({ event }) => {
     console.log("handlePaneContextMenu");
-    unsavedChanges = true;
     // Prevent native context menu from showing
     event.preventDefault();
 
@@ -341,7 +327,6 @@
   //right click inside node
   const handleNodeContextMenu = ({ event }) => {
     console.log("handleNodeContextMenu");
-    unsavedChanges = true;
     // Prevent native context menu from showing
     event.preventDefault();
 
@@ -353,12 +338,6 @@
   };
 
   const clearGraph = () => {
-    if (graph.nodes.length > 0 || graph.edges.length > 0) {
-      const discard = window.confirm("Clear entire graph?");
-      if (!discard) {
-        return;
-      }
-    }
     setGraph(new Graph([], []));
     globals.graph = graph;
     refresh();
@@ -544,9 +523,6 @@
     globals.resizeNodeToEncapsulateChildren = resizeNodeToEncapsulateChildren;
   });
 </script>
-
-<!-- hook into the window event declaratively -->
-<svelte:window on:beforeunload={warnUnsavedChanges} />
 
 <!-- Hidden file input for “Load” -->
 <input
