@@ -106,6 +106,12 @@
     }
   };
 
+  const setGraph = (newGraph: Graph) => {
+    graph = newGraph;
+    nextNodeId = getHighestNumericId(graph.nodes) + 1;
+    focusedNodeId = null;
+    unsavedChanges = false;
+  };
   const loadGraphFromFile = async (event) => {
     const [file] = event.target.files;
     if (!file) return;
@@ -117,12 +123,7 @@
         //old format
         data = displayStateToGraph(data);
       }
-      graph.nodes = data.nodes;
-      graph.edges = data.edges;
-      graph.title = data.title ?? DEFAULT_GRAPH_TITLE;
-      nextNodeId = getHighestNumericId(graph.nodes) + 1;
-      focusedNodeId = null;
-      unsavedChanges = false;
+      setGraph(data);
       await refresh().then(() => fitView());
     } catch (err) {
       console.error("Failed to load/parse JSON", err);
@@ -358,8 +359,7 @@
         return;
       }
     }
-    graph = new Graph([], []);
-    nextNodeId = 1;
+    setGraph(new Graph([], []));
     globals.graph = graph;
     refresh();
   };
@@ -590,7 +590,7 @@
     <div style="display:flex; flex-direction: row; gap:20px;">
       <button
         onclick={() => {
-          graph = undo();
+          setGraph(undo());
           refresh(false);
         }}
       >
@@ -598,7 +598,7 @@
       </button>
       <button
         onclick={() => {
-          graph = redo();
+          setGraph(redo());
           refresh(false);
         }}
       >
