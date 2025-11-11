@@ -508,6 +508,7 @@
     title = titleEditable.innerText;
     graph.setTitle(titleEditable.innerText);
     saveGraphToLocalStorage(graph);
+    refresh(false);
   };
   const getHiddenStyle = (visible: boolean) => (visible ? "" : "visibility:hidden;pointer-events:none;");
 
