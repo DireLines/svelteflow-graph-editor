@@ -59,12 +59,6 @@
 
   // enter file selection for load
   const triggerLoad = () => {
-    if (graph.nodes.length > 0 || graph.edges.length > 0) {
-      const discard = window.confirm("You have unsaved changes - importing from a file will discard them. Continue?");
-      if (!discard) {
-        return;
-      }
-    }
     fileInput.click();
   };
 
