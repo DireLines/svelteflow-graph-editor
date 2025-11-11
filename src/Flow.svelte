@@ -25,7 +25,7 @@
     DEFAULT_GRAPH_TITLE,
   } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
-  import { saveGraphToLocalStorage, loadGraphFromLocalStorage, undo, redo } from "./save-load";
+  import { saveGraphToLocalStorage, loadGraphFromLocalStorage, undo, redo, getUndoRedoState } from "./save-load";
   import { addPositions, subPositions, getBoundingRect, getNodeRectLocalCoordinates } from "./math";
   import { getNodeLabelElement } from "./nodeElements";
   import { getHighestNumericId, isNil, slugify } from "./util";
@@ -48,13 +48,12 @@
   console.log("graph", graph);
   console.log("displayState", displayState);
 
-  let undoRedoSteps = $state.raw<Graph[]>([]);
-
   //NOTE: do not directly modify this state. it gets refreshed in the refresh() function based on the value of graph
   let nodes = $state.raw<Node[]>(displayState.nodes);
   let edges = $state.raw<Edge[]>(displayState.edges);
   let title = $state.raw<string>(displayState.title);
   let subtitle = $state.raw<string>(displayState.description);
+  let undoRedoState = $state.raw(getUndoRedoState());
 
   let fileInput: HTMLInputElement; // for “Load” dialog
 
@@ -101,6 +100,7 @@
     edges = displayState.edges;
     title = displayState.title;
     subtitle = displayState.description;
+    undoRedoState = getUndoRedoState();
     for (const selectedNodeId in selectedNodes) {
       updateNode(selectedNodeId, { selected: true });
     }
@@ -123,7 +123,7 @@
         //old format
         data = displayStateToGraph(data);
       }
-      setGraph(data);
+      setGraph(new Graph(data.nodes, data.edges, data?.title ?? DEFAULT_GRAPH_TITLE));
       await refresh().then(() => fitView());
     } catch (err) {
       console.error("Failed to load/parse JSON", err);
@@ -530,6 +530,8 @@
     graph.setTitle(titleEditable.innerText);
     saveGraphToLocalStorage(graph);
   };
+  const getHiddenStyle = (visible: boolean) => (visible ? "" : "visibility:hidden;pointer-events:none;");
+
   globals.refresh = refresh;
   globals.graph = graph;
   globals.setFocusedNode = setFocusedNode;
@@ -587,8 +589,12 @@
   <Controls />
   <MiniMap />
   <Panel style="display:flex; flex-direction: column; gap:2px;">
+    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
+    <button onclick={triggerLoad}> 📂 Import </button>
+    <button onclick={clearGraph}> Clear </button>
     <div style="display:flex; flex-direction: row; gap:20px;">
       <button
+        style={getHiddenStyle(undoRedoState.canUndo)}
         onclick={() => {
           setGraph(undo());
           refresh(false);
@@ -597,6 +603,7 @@
         ↩
       </button>
       <button
+        style={getHiddenStyle(undoRedoState.canRedo)}
         onclick={() => {
           setGraph(redo());
           refresh(false);
@@ -605,9 +612,6 @@
         ↪
       </button>
     </div>
-    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
-    <button onclick={triggerLoad}> 📂 Import </button>
-    <button onclick={clearGraph}> Clear </button>
     <!-- TODO put back once we know how to refer to theme colors -->
     <!-- <select bind:value={colorMode}>
       <option value="dark">dark mode</option>
