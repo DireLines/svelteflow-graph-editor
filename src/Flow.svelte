@@ -511,6 +511,14 @@
       resizeNodeToEncapsulateChildren(backendNode.parentId, nodesById, resizedNodesById);
     }
   };
+  const duplicateNode = async (nodeId: string) => {
+    const node = graph.getNode(nodeId);
+    if (!node) return;
+    const parentId = graph.getParent(nodeId)?.id ?? null;
+    graph.addGraphAtNode(new Graph([node], graph.edges), parentId);
+    nextNodeId = getHighestNumericId(graph.nodes) + 1;
+    await refresh();
+  };
   const setFocusedNode = (nodeId: string) => {
     //TODO: handle setting to null to go back to root
     focusedNodeId = nodeId;
@@ -546,12 +554,14 @@
   globals.graph = graph;
   globals.setFocusedNode = setFocusedNode;
   globals.resizeNodeToEncapsulateChildren = resizeNodeToEncapsulateChildren;
+  globals.duplicateNode = duplicateNode;
   //in case link gets broken
   $effect(() => {
     globals.refresh = refresh;
     globals.graph = graph;
     globals.setFocusedNode = setFocusedNode;
     globals.resizeNodeToEncapsulateChildren = resizeNodeToEncapsulateChildren;
+    globals.duplicateNode = duplicateNode;
   });
 </script>
 

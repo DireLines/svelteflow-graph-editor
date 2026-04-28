@@ -8,6 +8,7 @@
     graph: null,
     setFocusedNode: null,
     resizeNodeToEncapsulateChildren: null,
+    duplicateNode: null,
   });
 </script>
 

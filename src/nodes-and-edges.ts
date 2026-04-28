@@ -1,6 +1,6 @@
 import { MarkerType, type Node, type Edge, Position } from "@xyflow/svelte";
 import { subPositions } from "./math";
-import { isNil } from "./util";
+import { getHighestNumericId, isNil } from "./util";
 export const DEFAULT_GRAPH_TITLE = "My Graph";
 
 export const nodeDefaults = {
@@ -223,7 +223,7 @@ export class Graph {
           childId,
           "but node",
           newParentId,
-          "does not exist"
+          "does not exist",
         );
       } else {
         newParent.children.push(childCopy);
@@ -336,7 +336,7 @@ export class Graph {
                 return { ...n, parentId: undefined };
               }
               return n;
-            })
+            }),
           );
           result.title = node.label;
           result.description = node.description;
@@ -367,6 +367,45 @@ export class Graph {
       }
     }
     return result;
+  }
+  addGraphAtNode(sourceGraph: Graph, nodeId: string | null) {
+    let targetNodeList: NodeData[];
+    if (nodeId === null) {
+      targetNodeList = this.nodes;
+    } else {
+      const targetNode = this.getNode(nodeId);
+      if (!targetNode) {
+        console.error("addGraphAtNode: no node with id", nodeId);
+        return;
+      }
+      targetNodeList = targetNode.children;
+    }
+
+    let nextId = Math.max(getHighestNumericId(this.nodes), getHighestNumericId(sourceGraph.nodes)) + 1;
+
+    const idRemapping = new Map<string, string>();
+    for (const node of preorderTraverse(sourceGraph.nodes)) {
+      idRemapping.set(node.id, String(nextId));
+      nextId++;
+    }
+
+    const cloneNode = (node: NodeData): NodeData => ({
+      ...node,
+      id: idRemapping.get(node.id)!,
+      children: node.children.map(cloneNode),
+      parentId: undefined,
+    });
+
+    targetNodeList.push(...sourceGraph.nodes.map(cloneNode));
+
+    for (const edge of sourceGraph.edges) {
+      const newSource = idRemapping.get(edge.source);
+      const newTarget = idRemapping.get(edge.target);
+      if (!newSource && !newTarget) continue;
+      const resolvedSource = newSource ?? edge.source;
+      const resolvedTarget = newTarget ?? edge.target;
+      this.edges.push({ ...edge, id: `${resolvedSource}->${resolvedTarget}`, source: resolvedSource, target: resolvedTarget });
+    }
   }
   setTitle(newTitle: string) {
     this.title = newTitle;

@@ -114,6 +114,7 @@
   <!-- add more buttons here -->
   <!-- TODO: click to edit node -->
   <button onclick={() => console.log("edit")}>✏️</button>
+  <button title="duplicate" onclick={() => globals.duplicateNode(id)}>⧉</button>
   <!-- TODO: click to focus -->
   <!-- <button
     title="focus node"
