@@ -1,0 +1,37 @@
+now that origin is 0,0 instead of 0.5,0.5
+    - need logic to spawn new nodes with center at cursor position instead of top left corner
+        added
+    - nodes (and therefore edges) shift slightly when border thickness changes
+        simply won't change border thickness
+    - nodes do not remain centered while editing label
+        whatever
+
+bugs with resizing:
+    - seems having the parent node be manually resized messes up some of the calculations for new position / size
+    - when dragging last node out of a parent, the position the parent ends up at is weird
+
+
+
+first of all, hook into the same function that svelteflow uses to generate the rectangles on the minimap
+this function needs to be repurposed to display the nodes under a sufficiently deep node, at a smaller scale / less detail
+    - can it output an image?
+    - can it base color on node's background color?
+
+second of all, need to determine behavior for placement of new node when it's dragged into a too-deep child
+    Option A: keep dragging node, but change focus to new parent node if click held after moving onto new parent.
+    Option B: place node in unoccupied space in new parent node (have function to exponential search for unoccupied space)
+A seems preferable, B easier to implement. With A, can keep dragging node into deeper children as far as you want with one click/drag action
+to implement A:
+    need to replace graph state using refreshDisplayState, but also preserve node click/drag action.
+
+third, decide whether you want to display nested nodes at all, because if focus is the only way to see nested nodes, then
+
+fourth, decide what to do with external dependencies (at levels above focused node)
+
+
+//tidy needs to resize parents to encapsulate children, and then ensure no nodes intersect
+tidy(node)
+    for child in node.children:
+        tidy(child)
+    resolve intersecting pairs of children with minimal motion
+    resize/reposition this node to capture new bounding box of children

@@ -44,7 +44,7 @@ export type NodeData = {
   inProgress?: boolean; //is the node currently being worked on?
   //note: inProgress assumed to be false if completed is true
   assignees?: string[]; //who is working on the node?
-  mainAssignee?: string; //who is directly responsible for moving progress forward on the node? also called "reporter" on some apps
+  mainAssignee?: string; //who is directly responsible for moving progress forward on the node? also called "reporter" or "owner" on some apps
   deadline?: Date; //when should the node be finished by?
   estimate?: number; //how many days should this task take?
 
@@ -295,6 +295,13 @@ export class Graph {
     //depends on parent
     return this.isCompletedOrParentCompleted(node.parentId);
   }
+  isInProgress(nodeId: string): boolean {
+    const node = this.getNode(nodeId);
+    if (!node) {
+      return false;
+    }
+    return node.inProgress ?? false;
+  }
   getDisplayState(focusedNodeId: string | null, maxDepthBelow: number = Infinity): DisplayState | null {
     const result: DisplayState = {
       nodes: [],
@@ -352,8 +359,10 @@ export class Graph {
     for (const node of result.nodes) {
       if (this.isCompletedOrParentCompleted(node.id)) {
         node.style = "border-color: #49954aff";
+      } else if (this.isWorkable(node.id)) {
+        node.style = "border-color: #4e86bfff;";
       }
-      if (this.isWorkable(node.id)) {
+      if (this.isInProgress(node.id)) {
         node.style = "border-color: #f7c923ff;";
       }
     }

@@ -24,6 +24,7 @@
 
   let editable: HTMLElement;
   let completed = $state(data.completed);
+  let inProgress = $state(data.inProgress ?? false);
 
   const getOpacity = () => (globals.graph.isCompletedOrParentCompleted(id) ? "opacity: 30%" : "opacity: 100%");
   // Whenever the user types, update `text` and let parent know
@@ -41,8 +42,8 @@
   };
 
   const handleCheckboxChange = (e) => {
-    globals.graph.updateNode(id, { completed });
-    updateNodeData(id, { completed });
+    globals.graph.updateNode(id, { completed, inProgress });
+    updateNodeData(id, { completed, inProgress });
     globals.refresh();
   };
 
@@ -74,13 +75,38 @@
 <div class="control-panel">
   <input
     type="checkbox"
-    title="mark completed/incomplete"
-    bind:checked={completed as boolean}
+    title="mark as not in progress"
+    checked={!(completed || inProgress)}
+    onclick={() => {
+      inProgress = false;
+      completed = false;
+    }}
     onchange={handleCheckboxChange}
   />
+  <input
+    type="checkbox"
+    title="mark as in progress"
+    checked={inProgress ? true : false}
+    onclick={() => {
+      inProgress = true;
+      completed = false;
+    }}
+    onchange={handleCheckboxChange}
+  />
+  <input
+    type="checkbox"
+    title="mark as complete"
+    checked={completed ? true : false}
+    onclick={() => {
+      completed = true;
+      inProgress = false;
+    }}
+    onchange={handleCheckboxChange}
+  />
+
   <!-- add more buttons here -->
   <!-- TODO: click to edit node -->
-  <!-- <button onclick={() => console.log("edit")}>✏️</button> -->
+  <button onclick={() => console.log("edit")}>✏️</button>
   <!-- TODO: click to focus -->
   <!-- <button
     title="focus node"

@@ -45,7 +45,8 @@
   pointer-events: auto;
 }
 
-.svelte-flow__node:hover .control-panel {
+.svelte-flow__node:hover .control-panel,
+.svelte-flow__node.force-hovered .control-panel {
   display: flex;
 }
 

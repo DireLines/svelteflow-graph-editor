@@ -55,6 +55,8 @@
   let subtitle = $state.raw<string>(displayState.description);
   let undoRedoState = $state.raw(getUndoRedoState());
 
+  let hoveredNodeId: string | null = null;
+
   let fileInput: HTMLInputElement; // for “Load” dialog
 
   // enter file selection for load
@@ -71,6 +73,7 @@
       saveGraphToLocalStorage(graph);
     }
     const selectedNodes = {};
+    const hoveredNodes = {};
     for (const node of nodes) {
       if (node.selected) {
         selectedNodes[node.id] = true;
@@ -87,6 +90,9 @@
     undoRedoState = getUndoRedoState();
     for (const selectedNodeId in selectedNodes) {
       updateNode(selectedNodeId, { selected: true });
+    }
+    if (hoveredNodeId) {
+      updateNode(hoveredNodeId, { class: "force-hovered" });
     }
   };
 
@@ -244,7 +250,7 @@
   });
   const isValidConnection = (_) => false; //if we say true, it will create an edge outside of handleConnectEnd
   //stop dragging edge
-  const handleConnectEnd: OnConnectEnd = (event, connectionState) => {
+  const handleConnectEnd: OnConnectEnd = async (event, connectionState) => {
     console.log("handleConnectEnd");
     const draggingFromSource = connectionState.fromHandle?.type === "source";
 
@@ -255,9 +261,11 @@
     const id = getId();
     let startId = sourceNodeId;
     let endId = targetNodeId;
+    let createdNewNode = false;
     if (isNil(targetNodeId)) {
       makeNode(id, clientX, clientY);
       endId = id;
+      createdNewNode = true;
     }
     if (!draggingFromSource) {
       //swap
@@ -268,7 +276,8 @@
     const newEdge = makeEdge(startId, endId);
     graph.addEdge(newEdge);
     displayState.edges = [...displayState.edges, addDefaultsToEdge(newEdge)];
-    refresh();
+    await refresh();
+    if (createdNewNode) focusNewNode(id);
   };
 
   //stop dragging node
@@ -307,8 +316,24 @@
     }
     refresh();
   };
+  const focusNewNode = (id: string) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const labelEl = getNodeLabelElement(id);
+        const editableEl = labelEl?.querySelector("[contenteditable]") as HTMLElement | null;
+        if (!editableEl) return;
+        editableEl.focus();
+        const sel = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(editableEl);
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+      });
+    });
+  };
+
   //right click on background
-  const handlePaneContextMenu = ({ event }) => {
+  const handlePaneContextMenu = async ({ event }) => {
     console.log("handlePaneContextMenu");
     // Prevent native context menu from showing
     event.preventDefault();
@@ -316,10 +341,11 @@
     const { clientX, clientY } = event;
     const id = getId();
     makeNode(id, clientX, clientY);
-    refresh();
+    await refresh();
+    focusNewNode(id);
   };
   //right click inside node
-  const handleNodeContextMenu = ({ event }) => {
+  const handleNodeContextMenu = async ({ event }) => {
     console.log("handleNodeContextMenu");
     // Prevent native context menu from showing
     event.preventDefault();
@@ -328,7 +354,8 @@
     //make child node inside this node
     const id = getId();
     makeNode(id, clientX, clientY);
-    refresh();
+    await refresh();
+    focusNewNode(id);
   };
 
   const clearGraph = () => {
@@ -506,6 +533,15 @@
   };
   const getHiddenStyle = (visible: boolean) => (visible ? "" : "visibility:hidden;pointer-events:none;");
 
+  const handleNodePointerEnter = ({ node }) => {
+    hoveredNodeId = node.id;
+    updateNode(node.id, { class: "force-hovered" });
+  };
+  const handleNodePointerLeave = ({ node }) => {
+    hoveredNodeId = null;
+    updateNode(node.id, { class: "" });
+  };
+
   globals.refresh = refresh;
   globals.graph = graph;
   globals.setFocusedNode = setFocusedNode;
@@ -539,6 +575,8 @@
   onnodedragstop={handleNodeDragStop}
   onpanecontextmenu={handlePaneContextMenu}
   onnodecontextmenu={handleNodeContextMenu}
+  onnodepointerenter={handleNodePointerEnter}
+  onnodepointerleave={handleNodePointerLeave}
   ondelete={handleDelete}
   {isValidConnection}
   minZoom={0.2}
