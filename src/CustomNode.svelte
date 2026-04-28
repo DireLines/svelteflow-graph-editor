@@ -70,6 +70,13 @@
     e.stopPropagation();
     // }
   };
+  const handleLabelKeydown = (e: KeyboardEvent) => {
+    e.stopPropagation();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      editable.blur();
+    }
+  };
 </script>
 
 <div class="control-panel">
@@ -129,7 +136,7 @@
       onmousedowncapture={stopPropagation}
       onmouseupcapture={stopPropagation}
       onclickcapture={stopPropagation}
-      onkeydowncapture={stopPropagation}
+      onkeydowncapture={handleLabelKeydown}
       oncompositionstartcapture={stopPropagation}
       oncompositionendcapture={stopPropagation}
     >
