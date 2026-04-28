@@ -56,7 +56,8 @@
   let undoRedoState = $state.raw(getUndoRedoState());
 
   let hoveredNodeId: string | null = null;
-
+  type ImportMode = "replace" | "merge" | "as-node";
+  let importMode = $state<ImportMode>("replace");
   let fileInput: HTMLInputElement; // for “Load” dialog
 
   // enter file selection for load
@@ -113,8 +114,34 @@
         //old format
         data = displayStateToGraph(data);
       }
-      setGraph(new Graph(data.nodes, data.edges, data?.title ?? DEFAULT_GRAPH_TITLE));
-      await refresh().then(() => fitView());
+      const importedGraph = new Graph(data.nodes, data.edges, data?.title ?? DEFAULT_GRAPH_TITLE);
+
+      if (importMode === "replace") {
+        setGraph(importedGraph);
+        await refresh().then(() => fitView());
+      } else if (importMode === "merge") {
+        graph.addGraphAtNode(importedGraph, null);
+        nextNodeId = getHighestNumericId(graph.nodes) + 1;
+        await refresh();
+      } else if (importMode === "as-node") {
+        const id = getId();
+        const newNode: NodeData = {
+          id,
+          children: [],
+          label: importedGraph.title,
+          completed: false,
+          size: { width: 150, height: 36 },
+          position: { x: 0, y: 0 },
+          backgroundColor: "#111",
+        };
+        graph.addNode(newNode, null);
+        graph.addGraphAtNode(importedGraph, id);
+        nextNodeId = getHighestNumericId(graph.nodes) + 1;
+        await refresh();
+        await new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+        resizeNodeToEncapsulateChildren(id, {});
+        await refresh();
+      }
     } catch (err) {
       console.error("Failed to load/parse JSON", err);
     } finally {
@@ -237,7 +264,7 @@
       resizeNodeToEncapsulateChildren(
         parent.id,
         { ...getNodesById(nodes), [id]: { ...nodeDataToNode(newNode), parentId: parent.id } },
-        resizedNodesById
+        resizedNodesById,
       );
     }
     return newNode;
@@ -487,7 +514,7 @@
       newParentPosLocal,
       "(",
       newParentPos,
-      ")"
+      ")",
     );
     const parentPosDiff = subPositions(newParentPosLocal, thisNode.position);
     console.log("parent has moved by ", parentPosDiff);
@@ -609,7 +636,14 @@
   <MiniMap />
   <Panel style="display:flex; flex-direction: column; gap:2px;">
     <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
-    <button onclick={triggerLoad}> 📂 Import </button>
+    <div style="display:flex; flex-direction: row; gap:2px; align-items:center;">
+      <button onclick={triggerLoad}> 📂 Import </button>
+      <select bind:value={importMode}>
+        <option value="replace">replace</option>
+        <option value="merge">merge at root</option>
+        <option value="as-node">as node</option>
+      </select>
+    </div>
     <button onclick={clearGraph}> Clear </button>
     <div style="display:flex; flex-direction: row; gap:20px;">
       <button

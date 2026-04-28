@@ -404,7 +404,12 @@ export class Graph {
       if (!newSource && !newTarget) continue;
       const resolvedSource = newSource ?? edge.source;
       const resolvedTarget = newTarget ?? edge.target;
-      this.edges.push({ ...edge, id: `${resolvedSource}->${resolvedTarget}`, source: resolvedSource, target: resolvedTarget });
+      this.edges.push({
+        ...edge,
+        id: `${resolvedSource}->${resolvedTarget}`,
+        source: resolvedSource,
+        target: resolvedTarget,
+      });
     }
   }
   setTitle(newTitle: string) {
