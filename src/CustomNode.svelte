@@ -6,6 +6,7 @@
     useNodeConnections,
     useNodesData,
     useSvelteFlow,
+    useViewport,
     NodeResizeControl,
   } from "@xyflow/svelte";
   import { onMount, onDestroy } from "svelte";
@@ -15,6 +16,10 @@
   let { isConnectable, id, data, parentId, width }: NodeProps = $props();
   const fontSize = $derived(Math.max(MIN_FONT_SIZE, width ? width * FONT_SCALE : MIN_FONT_SIZE));
   const { updateNodeData } = useSvelteFlow();
+  const viewport = useViewport();
+  const zoom = $derived(viewport.current.zoom);
+  const MIN_PANEL_WORLD_SCALE = 1; // increase to keep panel larger when zoomed in
+  const panelScale = $derived(Math.max(MIN_PANEL_WORLD_SCALE, 1 / zoom));
 
   let displayedContent: HTMLElement;
   onMount(() => {
@@ -81,7 +86,7 @@
   };
 </script>
 
-<div class="control-panel">
+<div class="control-panel" style="transform: translateX(-50%) translateY(-100%) scale({panelScale}); top: 0;">
   <input
     type="checkbox"
     title="mark as not in progress"

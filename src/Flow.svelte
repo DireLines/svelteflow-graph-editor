@@ -576,11 +576,11 @@
 
   const handleNodePointerEnter = ({ node }) => {
     hoveredNodeId = node.id;
-    updateNode(node.id, { class: "force-hovered" });
+    updateNode(node.id, { class: "force-hovered", zIndex: 9999 });
   };
   const handleNodePointerLeave = ({ node }) => {
     hoveredNodeId = null;
-    updateNode(node.id, { class: "" });
+    updateNode(node.id, { class: "", zIndex: 0 });
   };
 
   globals.refresh = refresh;
