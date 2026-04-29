@@ -11,8 +11,7 @@
   import { onMount, onDestroy } from "svelte";
   import { globals } from "./App.svelte";
   import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
-  export const FONT_SCALE = 0.06;
-  export const MIN_FONT_SIZE = 12;
+  import { MIN_FONT_SIZE, FONT_SCALE } from "./nodes-and-edges";
   let { isConnectable, id, data, parentId, width }: NodeProps = $props();
   const fontSize = $derived(Math.max(MIN_FONT_SIZE, width ? width * FONT_SCALE : MIN_FONT_SIZE));
   const { updateNodeData } = useSvelteFlow();

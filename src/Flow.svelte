@@ -23,6 +23,8 @@
     addDefaultsToEdge,
     nodeDataToNode,
     DEFAULT_GRAPH_TITLE,
+    MIN_FONT_SIZE,
+    FONT_SCALE,
   } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage, undo, redo, getUndoRedoState } from "./save-load";
@@ -455,13 +457,12 @@
     //labelSize will be different after resizing to fit children - estimate new size of label
     //font-size is proportional to node width, so wider nodes have larger text
     //height = oldHeight * (newFont/oldFont)^2 * (oldWidth/newWidth)
-    const FONT_SCALE = 0.04;
     const widthRatio = labelSize.width / childBounds.width;
     const vertPad = 10;
-    const currentFontSize = Math.max(12, (labelSize.width + 2 * padding) * FONT_SCALE);
+    const currentFontSize = Math.max(MIN_FONT_SIZE, (labelSize.width + 2 * padding) * FONT_SCALE);
     const newNodeWidth = childBounds.width + 2 * padding;
-    const newFontSize = Math.max(12, newNodeWidth * FONT_SCALE);
-    const heightOfOneLine = newFontSize * 1.7;
+    const newFontSize = Math.max(MIN_FONT_SIZE, newNodeWidth * FONT_SCALE);
+    const heightOfOneLine = newFontSize * 1.5;
     let resultLabelHeight = heightOfOneLine;
     if (childBounds.width > 0) {
       const fontSizeRatio = newFontSize / currentFontSize;

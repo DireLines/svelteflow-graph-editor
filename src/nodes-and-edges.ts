@@ -2,6 +2,8 @@ import { MarkerType, type Node, type Edge, Position } from "@xyflow/svelte";
 import { subPositions } from "./math";
 import { getHighestNumericId, isNil } from "./util";
 export const DEFAULT_GRAPH_TITLE = "My Graph";
+export const FONT_SCALE = 0.05;
+export const MIN_FONT_SIZE = 12;
 
 export const nodeDefaults = {
   type: "custom",
