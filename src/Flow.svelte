@@ -453,14 +453,19 @@
     const childBounds = getBoundingRect(childRectsFlowCoordinates);
 
     //labelSize will be different after resizing to fit children - estimate new size of label
-    //label contains same text, so takes up roughly the same area
-    //TODO if label font size is proportional to node size, also need to account for that
+    //font-size is proportional to node width, so wider nodes have larger text
+    //height = oldHeight * (newFont/oldFont)^2 * (oldWidth/newWidth)
+    const FONT_SCALE = 0.04;
     const widthRatio = labelSize.width / childBounds.width;
     const vertPad = 10;
-    const heightOfOneLine = 14;
+    const currentFontSize = Math.max(12, (labelSize.width + 2 * padding) * FONT_SCALE);
+    const newNodeWidth = childBounds.width + 2 * padding;
+    const newFontSize = Math.max(12, newNodeWidth * FONT_SCALE);
+    const heightOfOneLine = newFontSize * 1.7;
     let resultLabelHeight = heightOfOneLine;
     if (childBounds.width > 0) {
-      resultLabelHeight = Math.max(heightOfOneLine, labelSize.height * widthRatio);
+      const fontSizeRatio = newFontSize / currentFontSize;
+      resultLabelHeight = Math.max(heightOfOneLine, labelSize.height * fontSizeRatio * widthRatio);
     }
     const newLabelSize = {
       width: childBounds.width,
@@ -616,7 +621,7 @@
   onnodepointerleave={handleNodePointerLeave}
   ondelete={handleDelete}
   {isValidConnection}
-  minZoom={0.2}
+  minZoom={0.05}
   maxZoom={6}
 >
   <Panel position="top-center" class="titlebar" aria-hidden="true">

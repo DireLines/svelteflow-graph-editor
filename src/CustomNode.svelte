@@ -11,7 +11,10 @@
   import { onMount, onDestroy } from "svelte";
   import { globals } from "./App.svelte";
   import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
-  let { isConnectable, id, data, parentId }: NodeProps = $props();
+  export const FONT_SCALE = 0.06;
+  export const MIN_FONT_SIZE = 12;
+  let { isConnectable, id, data, parentId, width }: NodeProps = $props();
+  const fontSize = $derived(Math.max(MIN_FONT_SIZE, width ? width * FONT_SCALE : MIN_FONT_SIZE));
   const { updateNodeData } = useSvelteFlow();
 
   let displayedContent: HTMLElement;
@@ -129,6 +132,7 @@
   <div class="sf-node" bind:this={displayedContent}>
     <div
       class="sf-node__label"
+      style="font-size: {fontSize}px"
       contenteditable="true"
       spellcheck="false"
       bind:this={editable}
