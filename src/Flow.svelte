@@ -25,6 +25,8 @@
     DEFAULT_GRAPH_TITLE,
     MIN_FONT_SIZE,
     FONT_SCALE,
+    PADDING_SCALE,
+    MIN_PADDING,
   } from "./nodes-and-edges";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage, undo, redo, getUndoRedoState } from "./save-load";
@@ -446,13 +448,12 @@
     const childRectsFlowCoordinates = children
       .map((n) => getNodeRectLocalCoordinates(n, resizedNodesById))
       .map((r) => ({ ...r, ...localToFlowPosition(r, nodeId) }));
-    //4. padding
-    const padding = 20; // padding on all sides (radius, not diameter)
-    //TODO: padding should be proportional to node size
-
     //determine new size of this node
     //bounding rectangle of children (flow coordinates)
     const childBounds = getBoundingRect(childRectsFlowCoordinates);
+    //4. padding — scale with content width to avoid circular dependency on node size
+    const contentRefWidth = childBounds.width > 0 ? childBounds.width : labelSize.width || 200;
+    const padding = Math.max(MIN_PADDING, contentRefWidth * PADDING_SCALE);
 
     //labelSize will be different after resizing to fit children - estimate new size of label
     //font-size is proportional to node width, so wider nodes have larger text
@@ -576,11 +577,11 @@
 
   const handleNodePointerEnter = ({ node }) => {
     hoveredNodeId = node.id;
-    updateNode(node.id, { class: "force-hovered", zIndex: 9999 });
+    // updateNode(node.id, { class: "force-hovered", zIndex: 9999 });
   };
   const handleNodePointerLeave = ({ node }) => {
     hoveredNodeId = null;
-    updateNode(node.id, { class: "", zIndex: 0 });
+    // updateNode(node.id, { class: "", zIndex: 0 });
   };
 
   globals.refresh = refresh;

@@ -8,6 +8,10 @@ export const BORDER_SCALE = 0.006;
 export const MIN_BORDER_WIDTH = 1;
 export const BORDER_RADIUS_SCALE = 0.02;
 export const MIN_BORDER_RADIUS = 3;
+export const HANDLE_SCALE = 0.04;
+export const MIN_HANDLE_SIZE = 8;
+export const PADDING_SCALE = 0.07;
+export const MIN_PADDING = 15;
 
 export const nodeDefaults = {
   type: "custom",

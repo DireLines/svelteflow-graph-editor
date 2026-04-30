@@ -19,12 +19,15 @@
     BORDER_SCALE,
     MIN_BORDER_RADIUS,
     BORDER_RADIUS_SCALE,
+    MIN_HANDLE_SIZE,
+    HANDLE_SCALE,
   } from "./nodes-and-edges";
   let { isConnectable, id, data, parentId, width }: NodeProps = $props();
   const fontSize = $derived(Math.max(MIN_FONT_SIZE, width ? width * FONT_SCALE : MIN_FONT_SIZE));
   const { updateNodeData } = useSvelteFlow();
   const borderWidth = $derived(Math.max(MIN_BORDER_WIDTH, width ? width * BORDER_SCALE : MIN_BORDER_WIDTH));
   const borderRadius = $derived(Math.max(MIN_BORDER_RADIUS, width ? width * BORDER_RADIUS_SCALE : MIN_BORDER_RADIUS));
+  const handleSize = $derived(Math.max(MIN_HANDLE_SIZE, width ? width * HANDLE_SCALE : MIN_HANDLE_SIZE));
   const viewport = useViewport();
   const zoom = $derived(viewport.current.zoom);
   const MIN_PANEL_WORLD_SCALE = 1; // increase to keep panel larger when zoomed in
@@ -149,7 +152,7 @@
   > -->
 </div>
 <div style={getOpacity()}>
-  <Handle type="target" position={Position.Left} {isConnectable} />
+  <Handle type="target" position={Position.Left} {isConnectable} style="width: {handleSize}px; height: {handleSize}px;" />
   <div class="sf-node" bind:this={displayedContent}>
     <div
       class="sf-node__label"
@@ -196,5 +199,5 @@
       <line x1="4" y1="4" x2="10" y2="10" />
     </svg>
   </NodeResizeControl>
-  <Handle type="source" position={Position.Right} {isConnectable} />
+  <Handle type="source" position={Position.Right} {isConnectable} style="width: {handleSize}px; height: {handleSize}px;" />
 </div>
