@@ -4,6 +4,10 @@ import { getHighestNumericId, isNil } from "./util";
 export const DEFAULT_GRAPH_TITLE = "My Graph";
 export const FONT_SCALE = 0.06;
 export const MIN_FONT_SIZE = 12;
+export const BORDER_SCALE = 0.006;
+export const MIN_BORDER_WIDTH = 1;
+export const BORDER_RADIUS_SCALE = 0.02;
+export const MIN_BORDER_RADIUS = 3;
 
 export const nodeDefaults = {
   type: "custom",

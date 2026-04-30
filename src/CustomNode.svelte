@@ -12,10 +12,19 @@
   import { onMount, onDestroy } from "svelte";
   import { globals } from "./App.svelte";
   import { registerNodeLabelElement, unregisterNodeLabelElement } from "./nodeElements";
-  import { MIN_FONT_SIZE, FONT_SCALE } from "./nodes-and-edges";
+  import {
+    MIN_FONT_SIZE,
+    FONT_SCALE,
+    MIN_BORDER_WIDTH,
+    BORDER_SCALE,
+    MIN_BORDER_RADIUS,
+    BORDER_RADIUS_SCALE,
+  } from "./nodes-and-edges";
   let { isConnectable, id, data, parentId, width }: NodeProps = $props();
   const fontSize = $derived(Math.max(MIN_FONT_SIZE, width ? width * FONT_SCALE : MIN_FONT_SIZE));
   const { updateNodeData } = useSvelteFlow();
+  const borderWidth = $derived(Math.max(MIN_BORDER_WIDTH, width ? width * BORDER_SCALE : MIN_BORDER_WIDTH));
+  const borderRadius = $derived(Math.max(MIN_BORDER_RADIUS, width ? width * BORDER_RADIUS_SCALE : MIN_BORDER_RADIUS));
   const viewport = useViewport();
   const zoom = $derived(viewport.current.zoom);
   const MIN_PANEL_WORLD_SCALE = 1; // increase to keep panel larger when zoomed in
@@ -27,6 +36,14 @@
   });
   onDestroy(() => {
     unregisterNodeLabelElement(id);
+  });
+
+  $effect(() => {
+    const nodeEl = displayedContent?.closest(".svelte-flow__node") as HTMLElement | null;
+    if (nodeEl) {
+      nodeEl.style.borderWidth = `${borderWidth}px`;
+      nodeEl.style.borderRadius = `${borderRadius}px`;
+    }
   });
 
   let editable: HTMLElement;
