@@ -68,9 +68,11 @@
     // globals.resizeNodeToEncapsulateChildren(parentId, {});
   };
 
-  const handleCheckboxChange = (e) => {
-    globals.graph.updateNode(id, { completed, inProgress });
-    updateNodeData(id, { completed, inProgress });
+  const setTaskState = (newCompleted: boolean, newInProgress: boolean) => {
+    completed = newCompleted;
+    inProgress = newInProgress;
+    globals.graph.updateNode(id, { completed: newCompleted, inProgress: newInProgress });
+    updateNodeData(id, { completed: newCompleted, inProgress: newInProgress });
     globals.refresh();
   };
 
@@ -107,52 +109,35 @@
 </script>
 
 <div class="control-panel" style="transform: translateX(-50%) translateY(-100%) scale({panelScale}); top: 0;">
-  <input
-    type="checkbox"
-    title="mark as not in progress"
-    checked={!(completed || inProgress)}
-    onclick={() => {
-      inProgress = false;
-      completed = false;
-    }}
-    onchange={handleCheckboxChange}
-  />
-  <input
-    type="checkbox"
+  <button
+    class="state-btn"
+    class:active={!(completed || inProgress)}
+    title="mark as to-do"
+    onclick={() => setTaskState(false, false)}>○</button
+  >
+  <button
+    class="state-btn state-btn--progress"
+    class:active={inProgress}
     title="mark as in progress"
-    checked={inProgress ? true : false}
-    onclick={() => {
-      inProgress = true;
-      completed = false;
-    }}
-    onchange={handleCheckboxChange}
-  />
-  <input
-    type="checkbox"
-    title="mark as complete"
-    checked={completed ? true : false}
-    onclick={() => {
-      completed = true;
-      inProgress = false;
-    }}
-    onchange={handleCheckboxChange}
-  />
-
-  <!-- add more buttons here -->
-  <!-- TODO: click to edit node -->
-  <button onclick={() => console.log("edit")}>✏️</button>
+    onclick={() => setTaskState(false, true)}>→</button
+  >
+  <button
+    class="state-btn state-btn--done"
+    class:active={completed}
+    title="mark as done"
+    onclick={() => setTaskState(true, false)}>✓</button
+  >
+  <div class="control-panel-divider"></div>
+  <!-- <button title="edit" onclick={() => console.log("edit")}>✏️</button> -->
   <button title="duplicate" onclick={() => globals.duplicateNode(id)}>⧉</button>
-  <!-- TODO: click to focus -->
-  <!-- <button
-    title="focus node"
-    onclick={() => {
-      console.log("focus");
-      globals.setFocusedNode(id);
-    }}>⬇</button
-  > -->
 </div>
 <div style={getOpacity()}>
-  <Handle type="target" position={Position.Left} {isConnectable} style="width: {handleSize}px; height: {handleSize}px;" />
+  <Handle
+    type="target"
+    position={Position.Left}
+    {isConnectable}
+    style="width: {handleSize}px; height: {handleSize}px;"
+  />
   <div class="sf-node" bind:this={displayedContent}>
     <div
       class="sf-node__label"
@@ -199,5 +184,10 @@
       <line x1="4" y1="4" x2="10" y2="10" />
     </svg>
   </NodeResizeControl>
-  <Handle type="source" position={Position.Right} {isConnectable} style="width: {handleSize}px; height: {handleSize}px;" />
+  <Handle
+    type="source"
+    position={Position.Right}
+    {isConnectable}
+    style="width: {handleSize}px; height: {handleSize}px;"
+  />
 </div>

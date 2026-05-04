@@ -36,17 +36,112 @@
   left: 50%;
   transform-origin: bottom center;
   display: none;
-  gap: 0.5rem;
+  gap: 3px;
+  align-items: center;
   background: #1e1e1e;
   color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  padding: 3px 5px;
+  border-radius: 5px;
   pointer-events: auto;
+}
+
+.control-panel button {
+  background: transparent;
+  border: 1px solid #444;
+  color: #666;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  padding: 0;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+  line-height: 1;
+}
+
+.control-panel button:hover {
+  border-color: #777;
+  color: #bbb;
+}
+
+.state-btn.active {
+  border-color: #666;
+  color: #ccc;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.state-btn--progress.active {
+  border-color: #f7c923;
+  color: #f7c923;
+  background: rgba(247, 201, 35, 0.12);
+}
+
+.state-btn--done.active {
+  border-color: #49954a;
+  color: #49954a;
+  background: rgba(73, 149, 74, 0.12);
+}
+
+.control-panel-divider {
+  width: 1px;
+  height: 13px;
+  background: #3a3a3a;
+  margin: 0 1px;
+  flex-shrink: 0;
 }
 
 .svelte-flow__node:hover .control-panel,
 .svelte-flow__node.force-hovered .control-panel {
   display: flex;
+}
+
+/* Sidebar panel */
+.svelte-flow__panel.sidebar-panel {
+  background: #1e1e1e;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.sidebar-panel button {
+  background: transparent;
+  border: 1px solid #444;
+  color: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  padding: 3px 8px;
+  height: 22px;
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.sidebar-panel button:hover {
+  border-color: #777;
+  color: #bbb;
+}
+
+.sidebar-panel select {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #aaa;
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 2px 4px;
+  height: 22px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.sidebar-panel select:focus {
+  outline: none;
+  border-color: #666;
 }
 
 .svelte-flow__node.selectable:focus {

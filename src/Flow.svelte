@@ -641,7 +641,7 @@
   <Background />
   <Controls />
   <MiniMap />
-  <Panel style="display:flex; flex-direction: column; gap:2px;">
+  <Panel class="sidebar-panel" style="display:flex; flex-direction: column; gap:3px;">
     <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
     <div style="display:flex; flex-direction: row; gap:2px; align-items:center;">
       <button onclick={triggerLoad}> 📂 Import </button>
@@ -652,7 +652,7 @@
       </select>
     </div>
     <button onclick={clearGraph}> Clear </button>
-    <div style="display:flex; flex-direction: row; gap:20px;">
+    <div style="display:flex; flex-direction: row; gap:3px;">
       <button
         style={getHiddenStyle(undoRedoState.canUndo)}
         onclick={() => {
