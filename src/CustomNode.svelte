@@ -30,8 +30,8 @@
   const handleSize = $derived(Math.max(MIN_HANDLE_SIZE, width ? width * HANDLE_SCALE : MIN_HANDLE_SIZE));
   const viewport = useViewport();
   const zoom = $derived(viewport.current.zoom);
-  const MIN_PANEL_WORLD_SCALE = 1; // increase to keep panel larger when zoomed in
-  const panelScale = $derived(Math.max(MIN_PANEL_WORLD_SCALE, 1 / zoom));
+  const MIN_PANEL_WORLD_SIZE = 1; // increase to keep panel larger when zoomed in
+  const panelScale = $derived(Math.max(MIN_PANEL_WORLD_SIZE, 1.5 / zoom)); //the 1.5 is so it starts scaling to zoom earlier
 
   let displayedContent: HTMLElement;
   onMount(() => {
