@@ -581,7 +581,7 @@
   };
   const handleNodePointerLeave = ({ node }) => {
     hoveredNodeId = null;
-    // updateNode(node.id, { class: "", zIndex: 0 });
+    updateNode(node.id, { class: "" });
   };
 
   globals.refresh = refresh;
