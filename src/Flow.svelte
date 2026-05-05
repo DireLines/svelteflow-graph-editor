@@ -553,12 +553,16 @@
     nextNodeId = getHighestNumericId(graph.nodes) + 1;
     await refresh();
   };
-  const setFocusedNode = (nodeId: string) => {
-    //TODO: handle setting to null to go back to root
+  const setFocusedNode = (nodeId: string | null) => {
     focusedNodeId = nodeId;
     refresh().then(() => {
       fitView();
     });
+  };
+  const moveUp = () => {
+    if (focusedNodeId === null) return;
+    const parentId = graph.getParent(focusedNodeId)?.id ?? null;
+    setFocusedNode(parentId);
   };
   let titleEditable: HTMLElement;
   // Whenever the user types, resize the box
@@ -637,6 +641,9 @@
     >
       {title}
     </h1>
+    {#if focusedNodeId !== null}
+      <button class="move-up-btn" title="move up" onclick={moveUp} style="scale:1.5;">⬆</button>
+    {/if}
   </Panel>
   <Background />
   <Controls />
@@ -692,7 +699,38 @@
   /* Make the whole panel non-interactive so you can drag/pan beneath it */
   .titlebar {
     pointer-events: none;
-    padding-top: 0.5rem; /* a little breathing room from the top edge */
+    padding-top: 0.5rem;
+  }
+
+  .move-up-btn {
+    pointer-events: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+    margin-top: 0.25rem;
+    background: transparent;
+    border: 1px solid #444;
+    color: #666;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    padding: 0;
+    line-height: 1;
+    transition:
+      color 0.12s,
+      border-color 0.12s,
+      background 0.12s;
+  }
+
+  .move-up-btn:hover {
+    border-color: #777;
+    color: #bbb;
   }
 
   .title {
