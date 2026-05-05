@@ -130,6 +130,13 @@
   <div class="control-panel-divider"></div>
   <!-- <button title="edit" onclick={() => console.log("edit")}>✏️</button> -->
   <button title="duplicate" onclick={() => globals.duplicateNode(id)}>⧉</button>
+  <button
+    title="focus node"
+    onclick={() => {
+      console.log("focus");
+      globals.setFocusedNode(id);
+    }}>⬇</button
+  >
 </div>
 <div style={getOpacity()}>
   <Handle
