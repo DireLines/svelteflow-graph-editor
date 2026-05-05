@@ -72,7 +72,6 @@
   //save graph to local storage and refresh display
   const refresh = async (shouldSave: boolean = true) => {
     console.log("refresh");
-    //TODO update project name component with focused node
     //TODO why is top-level node still being displayed?
     if (shouldSave) {
       saveGraphToLocalStorage(graph);
@@ -171,7 +170,7 @@
     URL.revokeObjectURL(url);
   };
   //TODO: default to focusedNodeId rather than undefined
-  const getParentNode = (clientX, clientY, ignoreNodeId = null) => {
+  const getParentNodeId = (clientX, clientY, ignoreNodeId = null) => {
     // project the screen coordinates to pane coordinates
     const position = screenToFlowPosition({
       x: clientX,
@@ -204,7 +203,7 @@
         }
       }
       if (!hasChild) {
-        parent = node;
+        parent = node.id;
         break;
       }
     }
@@ -236,15 +235,15 @@
     return localToFlowPosition(addPositions(localPosition, thisNode.position), thisNode.parentId);
   };
   const makeNode = (id, clientX, clientY) => {
-    let parent = getParentNode(clientX, clientY);
+    let parentId = getParentNodeId(clientX, clientY);
     // project the screen coordinates to pane coordinates
     let position = screenToFlowPosition({
       x: clientX,
       y: clientY,
     });
-    if (parent) {
+    if (parentId) {
       //adjust position to be relative to parent
-      position = flowToLocalPosition(position, parent.id);
+      position = flowToLocalPosition(position, parentId);
     }
     const estimateLabelWidth = (label) => 50 + 7 * (label.length - 5);
     const label = `Task ${id}`;
@@ -261,13 +260,13 @@
       backgroundColor: "#111",
       position,
     };
-    graph.addNode(newNode, parent?.id);
+    graph.addNode(newNode, parentId);
     const resizedNodesById = {};
     resizedNodesById[id] = { ...position, ...size };
-    if (parent) {
+    if (parentId) {
       resizeNodeToEncapsulateChildren(
-        parent.id,
-        { ...getNodesById(nodes), [id]: { ...nodeDataToNode(newNode), parentId: parent.id } },
+        parentId,
+        { ...getNodesById(nodes), [id]: { ...nodeDataToNode(newNode), parentId: parentId } },
         resizedNodesById,
       );
     }
@@ -316,23 +315,23 @@
     console.log("handleNodeDragStop", event.nodes[0].id);
     const { clientX, clientY } = event?.event;
     const thisNode = event.targetNode;
-    const parent = getParentNode(clientX, clientY, thisNode.id);
+    const parentId = getParentNodeId(clientX, clientY, thisNode.id);
     const oldParentId = thisNode.parentId;
-    const newParentId = parent?.id ?? defaultParentId;
-    if (parent?.id === thisNode.id) {
+    const newParentId = parentId ?? defaultParentId;
+    if (parentId === thisNode.id) {
       return;
     }
     //due to some frontend sloppiness, the node we ended with the cursor on can be a child of the dragged node
     //you can trigger this most easily by dragging a parent node, grabbing a position right next to the border of its child
     //we don't want to create a cycle in the parent-child hierarchy
     //so check that parent is not a child or deep child of thisNode before continuing
-    if (graph.isAncestor(thisNode.id, parent?.id)) {
+    if (graph.isAncestor(thisNode.id, parentId)) {
       return;
     }
     //reparent on backend
     let newPos = localToFlowPosition(thisNode.position, thisNode.parentId);
-    if (parent) {
-      newPos = flowToLocalPosition(newPos, parent.id);
+    if (parentId) {
+      newPos = flowToLocalPosition(newPos, parentId);
     }
     updateNode(thisNode.id, { position: newPos, parentId: newParentId });
     graph.reparent(oldParentId, newParentId, thisNode.id);
@@ -555,7 +554,7 @@
   };
   const setFocusedNode = (nodeId: string | null) => {
     focusedNodeId = nodeId;
-    refresh().then(() => {
+    refresh(false).then(() => {
       fitView();
     });
   };
@@ -566,16 +565,22 @@
   };
   let titleEditable: HTMLElement;
   // Whenever the user types, resize the box
-  const handleTitleInput = () => {
-    graph.setTitle(titleEditable.innerText);
-    saveGraphToLocalStorage(graph);
-  };
   const handleTitleBlur = () => {
-    //TODO edit label of focused node if focusedNode not null
     title = titleEditable.innerText;
-    graph.setTitle(titleEditable.innerText);
+    if (focusedNodeId === null) {
+      graph.setTitle(titleEditable.innerText);
+    } else {
+      globals.graph.updateNode(focusedNodeId, { label: title });
+    }
     saveGraphToLocalStorage(graph);
     refresh(false);
+  };
+  const handleTitleKeydown = (e: KeyboardEvent) => {
+    e.stopPropagation();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      titleEditable.blur();
+    }
   };
   const getHiddenStyle = (visible: boolean) => (visible ? "" : "visibility:hidden;pointer-events:none;");
 
@@ -636,8 +641,8 @@
       bind:this={titleEditable}
       contenteditable="true"
       spellcheck="false"
-      oninput={handleTitleInput}
       onblur={handleTitleBlur}
+      onkeydowncapture={handleTitleKeydown}
     >
       {title}
     </h1>
