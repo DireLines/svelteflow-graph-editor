@@ -432,6 +432,9 @@
     if (!(nodeId in nodesById)) {
       return;
     }
+    if (nodeId === focusedNodeId) {
+      return;
+    }
     //gather data needed
     //1. current size of parent's label
     const labelSize = getNodeLabelSize(nodeId);
@@ -554,11 +557,14 @@
     nextNodeId = getHighestNumericId(graph.nodes) + 1;
     await refresh();
   };
-  const setFocusedNode = (nodeId: string | null) => {
+  const setFocusedNode = async (nodeId: string | null) => {
+    const prevFocusedNode = focusedNodeId;
     focusedNodeId = nodeId;
     refresh(false).then(() => {
       fitView();
     });
+    await new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+    resizeNodeToEncapsulateChildren(prevFocusedNode, {});
   };
   const moveUp = () => {
     if (focusedNodeId === null) return;
