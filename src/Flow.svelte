@@ -316,7 +316,7 @@
     const { clientX, clientY } = event?.event;
     const thisNode = event.targetNode;
     const parentId = getParentNodeId(clientX, clientY, thisNode.id);
-    const oldParentId = thisNode.parentId;
+    const oldParentId = thisNode.parentId ?? defaultParentId;
     const newParentId = parentId ?? defaultParentId;
     if (parentId === thisNode.id) {
       return;
@@ -328,12 +328,14 @@
     if (graph.isAncestor(thisNode.id, parentId)) {
       return;
     }
+    console.log("handleNodeDragStop 0:", graph.getNode("1").children.length);
     //reparent on backend
     let newPos = localToFlowPosition(thisNode.position, thisNode.parentId);
     if (parentId) {
       newPos = flowToLocalPosition(newPos, parentId);
     }
-    updateNode(thisNode.id, { position: newPos, parentId: newParentId });
+    const newParentIdForDisplay = newParentId === focusedNodeId ? null : newParentId;
+    updateNode(thisNode.id, { position: newPos, parentId: newParentIdForDisplay });
     graph.reparent(oldParentId, newParentId, thisNode.id);
     graph.refreshParentIds();
     graph.updateNode(thisNode.id, { position: newPos });

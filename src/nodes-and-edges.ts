@@ -212,6 +212,10 @@ export class Graph {
       console.error("tried to reparent", childId, "but no node with that id exists");
       return;
     }
+    console.log("reparent:", oldParentId, newParentId, childId);
+    if (oldParentId === newParentId) {
+      return;
+    }
     const childCopy = { ...child };
     if (!isNil(oldParentId)) {
       const oldParent = this.getNode(oldParentId as string);

@@ -30,8 +30,8 @@
   const handleSize = $derived(Math.max(MIN_HANDLE_SIZE, width ? width * HANDLE_SCALE : MIN_HANDLE_SIZE));
   const viewport = useViewport();
   const zoom = $derived(viewport.current.zoom);
-  const MIN_PANEL_WORLD_SIZE = 1; // increase to keep panel larger when zoomed in
-  const panelScale = $derived(Math.max(MIN_PANEL_WORLD_SIZE, 1.5 / zoom)); //the 1.5 is so it starts scaling to zoom earlier
+  const MIN_HOVER_MENU_WORLD_SIZE = 0.75; // increase to keep hover menu larger when zoomed in
+  const hoverMenuScale = $derived(Math.max(MIN_HOVER_MENU_WORLD_SIZE, 1.5 / zoom)); //the 1.5 is so it starts scaling to zoom earlier
 
   let displayedContent: HTMLElement;
   onMount(() => {
@@ -108,7 +108,7 @@
   };
 </script>
 
-<div class="control-panel" style="transform: translateX(-50%) translateY(-100%) scale({panelScale}); top: 0;">
+<div class="hover-menu" style="transform: translateX(-50%) translateY(-100%) scale({hoverMenuScale}); top: 0;">
   <button
     class="state-btn"
     class:active={!(completed || inProgress)}
@@ -127,13 +127,12 @@
     title="mark as done"
     onclick={() => setTaskState(true, false)}>✓</button
   >
-  <div class="control-panel-divider"></div>
+  <div class="hover-menu-divider"></div>
   <!-- <button title="edit" onclick={() => console.log("edit")}>✏️</button> -->
   <button title="duplicate" onclick={() => globals.duplicateNode(id)}>⧉</button>
   <button
     title="focus node"
     onclick={() => {
-      console.log("focus");
       globals.setFocusedNode(id);
     }}>⬇</button
   >
