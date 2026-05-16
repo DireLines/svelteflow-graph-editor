@@ -55,7 +55,7 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
 const elapsedTimeLogger = (prefix: string) => {
   let startTimeThisStage = Date.now();
   const msgPrefix = prefix ? `${prefix}: ` : "";
-  return (message) => {
+  return (message: string) => {
     const now = Date.now();
     const elapsed = now - startTimeThisStage;
     startTimeThisStage = now;

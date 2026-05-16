@@ -34,6 +34,7 @@
   import { getNodeLabelElement } from "./nodeElements";
   import { getHighestNumericId, isNil, slugify } from "./util";
   import { globals } from "./App.svelte";
+  const FOCUSED_NODE_ID_KEY = "focused";
   const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode, getZoom, getNodesBounds, fitView } =
     useSvelteFlow();
 
@@ -42,7 +43,7 @@
 
   //backend graph - source of truth
   let graph = $state.raw<Graph>(loadGraphFromLocalStorage());
-  let focusedNodeId = $state.raw<string | null>(null);
+  let focusedNodeId = $state.raw<string | null>(localStorage.getItem(FOCUSED_NODE_ID_KEY) ?? null);
   //number used and incremented when new node generated
   let nextNodeId: number = getHighestNumericId(graph.nodes) + 1;
   const getId = () => `${nextNodeId++}`;
@@ -560,6 +561,7 @@
   const setFocusedNode = async (nodeId: string | null) => {
     const prevFocusedNode = focusedNodeId;
     focusedNodeId = nodeId;
+    localStorage.setItem(FOCUSED_NODE_ID_KEY, focusedNodeId ?? "");
     refresh(false).then(() => {
       fitView();
     });
