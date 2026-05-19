@@ -371,13 +371,13 @@ export class Graph {
     }
     for (const node of result.nodes) {
       if (this.isCompletedOrParentCompleted(node.id)) {
-        node.style = "border-color: #49954aff";
+        node.style = "--task-border: #49954a; --task-border-bright: #7ed87f; border-color: #49954a;";
       } else {
         if (this.isWorkable(node.id)) {
-          node.style = "border-color: #4e86bfff;";
+          node.style = "--task-border: #4e86bf; --task-border-bright: #a8d0f0; border-color: #4e86bf;";
         }
         if (this.isInProgress(node.id)) {
-          node.style = "border-color: #f7c923ff;";
+          node.style = "--task-border: #f7c923; --task-border-bright: #fce570; border-color: #f7c923;";
         }
       }
     }

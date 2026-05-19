@@ -104,7 +104,7 @@
   const setGraph = (newGraph: Graph) => {
     graph = newGraph;
     nextNodeId = getHighestNumericId(graph.nodes) + 1;
-    focusedNodeId = null;
+    // focusedNodeId = null;
     globals.graph = graph;
   };
   const loadGraphFromFile = async (event) => {
@@ -122,6 +122,7 @@
 
       if (importMode === "replace") {
         setGraph(importedGraph);
+        setFocusedNode(null);
         await refresh().then(() => fitView());
       } else if (importMode === "merge") {
         graph.addGraphAtNode(importedGraph, null);
@@ -141,7 +142,7 @@
         graph.addNode(newNode, null);
         graph.addGraphAtNode(importedGraph, id);
         nextNodeId = getHighestNumericId(graph.nodes) + 1;
-        await refresh();
+        await refresh(false);
         await new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
         resizeNodeToEncapsulateChildren(id, {});
         await refresh();

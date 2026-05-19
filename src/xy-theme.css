@@ -194,16 +194,16 @@
 }
 
 .svelte-flow__node.selectable:focus {
-  border-color: #d9d9d9;
+  border-color: var(--task-border-bright, #d9d9d9) !important;
 }
 
 .svelte-flow__node.selectable:hover,
 .svelte-flow__node.draggable:hover {
-  border-color: var(--xy-theme-hover);
+  border-color: var(--task-border-bright, var(--xy-theme-hover)) !important;
 }
 
 .svelte-flow__node.selectable.selected {
-  border-color: var(--xy-theme-selected);
+  border-color: var(--task-border-bright, var(--xy-theme-selected)) !important;
 }
 
 .svelte-flow__node-group {
