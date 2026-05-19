@@ -671,7 +671,6 @@
         {#if focusedNodeId !== null}
           <button class="move-up-btn" title="move up" onclick={moveUp}>⬆</button>
           <button class="move-up-btn" title="top level" onclick={() => setFocusedNode(null)}>⬆⬆</button>
-          <div class="hover-menu-divider"></div>
         {/if}
         <!-- TODO put back once we know how to refer to theme colors -->
         <!-- <select bind:value={colorMode}>
