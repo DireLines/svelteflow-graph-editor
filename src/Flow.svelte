@@ -686,10 +686,10 @@
   <Background />
   <Controls />
   <MiniMap />
-  <Panel class="sidebar-panel" style="display:flex; flex-direction: column; gap:3px; scale:1.25;">
-    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
+  <Panel class="sidebar-panel" style="display:flex; flex-direction: column; gap:3px; ">
+    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Save </button>
     <div style="display:flex; flex-direction: row; gap:2px; align-items:center;">
-      <button onclick={triggerLoad}> 📂 Import </button>
+      <button onclick={triggerLoad}> 📂 Load </button>
       <select bind:value={importMode}>
         <option value="replace">replace</option>
         <option value="merge">merge at root</option>
