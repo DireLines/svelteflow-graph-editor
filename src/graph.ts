@@ -372,11 +372,13 @@ export class Graph {
     for (const node of result.nodes) {
       if (this.isCompletedOrParentCompleted(node.id)) {
         node.style = "border-color: #49954aff";
-      } else if (this.isWorkable(node.id)) {
-        node.style = "border-color: #4e86bfff;";
-      }
-      if (this.isInProgress(node.id)) {
-        node.style = "border-color: #f7c923ff;";
+      } else {
+        if (this.isWorkable(node.id)) {
+          node.style = "border-color: #4e86bfff;";
+        }
+        if (this.isInProgress(node.id)) {
+          node.style = "border-color: #f7c923ff;";
+        }
       }
     }
     return result;
