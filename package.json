@@ -11,6 +11,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@bokuweb/zstd-wasm": "^0.0.27",
     "@xyflow/svelte": "1.0.1",
     "jsondiffpatch": "^0.7.6",
     "svelte": "^5.28.2"

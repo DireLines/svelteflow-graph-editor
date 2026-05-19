@@ -34,6 +34,7 @@
   import { getNodeLabelElement } from "./nodeElements";
   import { getHighestNumericId, isNil, slugify } from "./util";
   import { globals } from "./App.svelte";
+  import { zstdReady, compress, decompress } from "./zstd";
   const FOCUSED_NODE_ID_KEY = "focused";
   const { deleteElements, screenToFlowPosition, getIntersectingNodes, updateNode, getZoom, getNodesBounds, fitView } =
     useSvelteFlow();
@@ -63,6 +64,7 @@
   let hoveredNodeId: string | null = null;
   type ImportMode = "replace" | "merge" | "as-node";
   let importMode = $state<ImportMode>("replace");
+  let compressOnSave = $state(true);
   let fileInput: HTMLInputElement; // for “Load” dialog
 
   // enter file selection for load
@@ -112,7 +114,14 @@
     if (!file) return;
 
     try {
-      const text = await file.text();
+      let text: string;
+      if (file.name.endsWith(".zst")) {
+        await zstdReady;
+        const buf = new Uint8Array(await file.arrayBuffer());
+        text = new TextDecoder().decode(decompress(buf));
+      } else {
+        text = await file.text();
+      }
       let data = JSON.parse(text);
       if (data.nodes.length > 0 && isNil(data.nodes[0]?.children)) {
         //old format
@@ -156,9 +165,17 @@
   };
 
   //TODO: when calling, use project name for filename
-  const saveObjToFile = (stateObj: any, filename: string = "graph-project.json") => {
+  const saveObjToFile = async (stateObj: any, filename: string = "graph-project.json") => {
     const json = JSON.stringify(stateObj);
-    const blob = new Blob([json], { type: "application/json" });
+    let blob: Blob;
+    if (compressOnSave) {
+      await zstdReady;
+      const compressed = compress(new TextEncoder().encode(json), 3);
+      blob = new Blob([compressed], { type: "application/octet-stream" });
+      if (!filename.endsWith(".zst")) filename += ".zst";
+    } else {
+      blob = new Blob([json], { type: "application/json" });
+    }
     const url = URL.createObjectURL(blob);
     const tempLink = document.createElement("a");
 
@@ -632,7 +649,7 @@
 <!-- Hidden file input for “Load” -->
 <input
   type="file"
-  accept="application/json"
+  accept="application/json,.json,.zst"
   bind:this={fileInput}
   onchange={loadGraphFromFile}
   style="display: none;"
@@ -688,7 +705,13 @@
   <Controls />
   <MiniMap />
   <Panel class="sidebar-panel" style="display:flex; flex-direction: column; gap:3px; ">
-    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Save </button>
+    <div style="display:flex; flex-direction:row; gap:4px; align-items:center;">
+      <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Save </button>
+      <label style="display:flex; align-items:center; gap:2px; font-size:11px; color:#aaa; cursor:pointer;">
+        <input type="checkbox" bind:checked={compressOnSave} />
+        compress
+      </label>
+    </div>
     <div style="display:flex; flex-direction: row; gap:2px; align-items:center;">
       <button onclick={triggerLoad}> 📂 Load </button>
       <select bind:value={importMode}>
