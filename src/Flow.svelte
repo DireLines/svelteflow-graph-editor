@@ -394,6 +394,7 @@
   const clearGraph = () => {
     setGraph(new Graph([], []));
     globals.graph = graph;
+    setFocusedNode(null);
     refresh();
   };
 

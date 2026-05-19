@@ -1,13 +1,85 @@
+import { create } from "jsondiffpatch";
 import { DEFAULT_GRAPH_TITLE, displayStateToGraph, Graph, serializeEdge } from "./graph";
 import { isNil } from "./util";
+
+const jdp = create({
+  // Match array items by id field so diffs stay small when nodes/edges shift position
+  objectHash: (obj: any) => obj?.id ?? JSON.stringify(obj),
+});
 
 const STORAGE_KEY = "graph";
 const REVISIONS_KEY = "revisions";
 const REVISION_STATE_KEY = "revision";
-const MAX_REVISIONS = 50;
+const MAX_REVISIONS = 1000;
+
+// Storage format v2:
+//   REVISIONS_KEY  → { version: 2, entries: [fullState, delta1, delta2, ...] }
+//   REVISION_STATE_KEY → { revision: currentIndex, numRevisions: entries.length }
+//
+// entries[0] is always a full snapshot; entries[i > 0] is a jsondiffpatch delta
+// from state[i-1] to state[i].  null delta means no change between saves.
+
+interface RevisionsStore {
+  version: 2;
+  entries: any[];
+}
+
+interface RevisionState {
+  revision: number;
+  numRevisions: number;
+}
+
+const emptyRevisionState: RevisionState = { revision: 0, numRevisions: 1 };
 const emptyGraph = new Graph([], [], DEFAULT_GRAPH_TITLE);
-const emptyRevisions = [emptyGraph];
-const emptyRevisionState = { revision: 0, numRevisions: 1 };
+
+const loadRevisions = (): { store: RevisionsStore; state: RevisionState } => {
+  const revisionsJson = localStorage.getItem(REVISIONS_KEY);
+  const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
+
+  const state: RevisionState = revisionStateJson ? JSON.parse(revisionStateJson) : { ...emptyRevisionState };
+
+  if (!revisionsJson) {
+    return {
+      store: { version: 2, entries: [JSON.parse(JSON.stringify(emptyGraph))] },
+      state: { revision: 0, numRevisions: 1 },
+    };
+  }
+
+  const parsed = JSON.parse(revisionsJson);
+
+  // Migrate old format: plain array of full snapshots → base + diffs
+  if (Array.isArray(parsed) && parsed.length > 0) {
+    const entries: any[] = [parsed[0]];
+    for (let i = 1; i < parsed.length; i++) {
+      entries.push(jdp.diff(parsed[i - 1], parsed[i]) ?? null);
+    }
+    const revision = Math.min(state.revision, entries.length - 1);
+    return {
+      store: { version: 2, entries },
+      state: { revision, numRevisions: entries.length },
+    };
+  }
+
+  return { store: parsed as RevisionsStore, state };
+};
+
+// Reconstruct full state at targetIndex by replaying diffs from the base.
+// Deep-clones entries before patching: jdp.patch inserts delta values by reference
+// into the state, so subsequent patches would mutate the delta objects and corrupt
+// stored history. Cloning keeps the original entries intact.
+const reconstructState = (entries: any[], targetIndex: number): any => {
+  const cloned = JSON.parse(JSON.stringify(entries.slice(0, targetIndex + 1)));
+  const state = cloned[0];
+  for (let i = 1; i <= targetIndex; i++) {
+    if (cloned[i] != null) {
+      jdp.patch(state, cloned[i]);
+    }
+  }
+  return state;
+};
+
+const parseGraphFromState = (parsed: any): Graph =>
+  new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
 
 export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORAGE_KEY) => {
   console.log("saveGraphToLocalStorage");
@@ -16,25 +88,41 @@ export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORA
   logElapsedTime("save graph");
 
   {
-    //append new revision
-    const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-    const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
-    let revisions = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
-    let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
-    //if appending in the middle, forget revision history after this point
-    if (revisionState.revision < revisions.length - 1 && revisions.length > 0) {
-      revisions = revisions.slice(0, revisionState.revision + 1);
+    const { store, state } = loadRevisions();
+    let entries = store.entries;
+
+    // Reconstruct current state so we can diff against it
+    const currentState = reconstructState(entries, state.revision);
+
+    // Discard any future entries when writing mid-history
+    entries = entries.slice(0, state.revision + 1);
+
+    // Compute and append delta
+    const newStateObj = JSON.parse(JSON.stringify(graph));
+    const delta = jdp.diff(currentState, newStateObj) ?? null;
+    if (delta === null) {
+      console.log("no diff - skipping save");
+      return;
     }
-    revisions.push(graph); //add revision
-    revisions = revisions.slice(-MAX_REVISIONS); //only keep last MAX_REVISIONS revisions
-    revisionState = { revision: revisions.length - 1, numRevisions: revisions.length };
-    localStorage.setItem(REVISIONS_KEY, JSON.stringify(revisions));
-    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(revisionState));
+    entries.push(delta);
+
+    // Trim oldest entries when over MAX_REVISIONS, rebasing to a new full snapshot
+    if (entries.length > MAX_REVISIONS) {
+      const trimCount = entries.length - MAX_REVISIONS;
+      const newBase = reconstructState(entries, trimCount);
+      entries = [newBase, ...entries.slice(trimCount + 1)];
+    }
+
+    const newRevisionIndex = entries.length - 1;
+    const newStore: RevisionsStore = { version: 2, entries };
+    const newState: RevisionState = { revision: newRevisionIndex, numRevisions: entries.length };
+    localStorage.setItem(REVISIONS_KEY, JSON.stringify(newStore));
+    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(newState));
     logElapsedTime("append revision");
   }
 };
+
 export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Graph => {
-  //TODO: query whether undos/redos are possible as well
   let initial: Graph;
   const empty = { nodes: [], edges: [] };
   try {
@@ -42,7 +130,7 @@ export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Gra
     const parsed = json ? JSON.parse(json) : empty;
     initial = new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
     if (parsed.nodes.length > 0 && isNil(parsed.nodes[0]?.children)) {
-      //old format
+      // old format
       initial = displayStateToGraph(parsed);
       saveGraphToLocalStorage(initial);
     }
@@ -65,39 +153,40 @@ const elapsedTimeLogger = (prefix: string) => {
 
 export const undo = (): Graph => {
   const logElapsedTime = elapsedTimeLogger("undo");
-  const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-  const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
-  let revisions = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
-  let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
-  if (revisionState.revision > 0) {
-    revisionState.revision -= 1;
-    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(revisionState));
+  const { store, state } = loadRevisions();
+
+  if (state.revision > 0) {
+    state.revision -= 1;
+    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(state));
   }
-  const parsed = revisions[revisionState.revision];
+
+  const parsed = reconstructState(store.entries, state.revision);
   logElapsedTime("undo");
-  return new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
+  return parseGraphFromState(parsed);
 };
 
 export const redo = (): Graph => {
   const logElapsedTime = elapsedTimeLogger("redo");
-  const revisionsJson = localStorage.getItem(REVISIONS_KEY);
-  const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
-  let revisions = revisionsJson ? JSON.parse(revisionsJson) : emptyRevisions;
-  let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
-  if (revisionState.revision < revisions.length - 1) {
-    revisionState.revision += 1;
-    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(revisionState));
+  const { store, state } = loadRevisions();
+
+  if (state.revision < store.entries.length - 1) {
+    state.revision += 1;
+    localStorage.setItem(REVISION_STATE_KEY, JSON.stringify(state));
   }
-  const parsed = revisions[revisionState.revision];
+
+  const parsed = reconstructState(store.entries, state.revision);
   logElapsedTime("redo");
-  return new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
+  return parseGraphFromState(parsed);
 };
 
 export const getUndoRedoState = () => {
   const revisionStateJson = localStorage.getItem(REVISION_STATE_KEY);
-  let revisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
+  const revisionState: RevisionState = revisionStateJson ? JSON.parse(revisionStateJson) : emptyRevisionState;
   if (revisionState.numRevisions === 1) {
     return { canUndo: false, canRedo: false };
   }
-  return { canUndo: revisionState.revision > 0, canRedo: revisionState.revision < revisionState.numRevisions - 1 };
+  return {
+    canUndo: revisionState.revision > 0,
+    canRedo: revisionState.revision < revisionState.numRevisions - 1,
+  };
 };

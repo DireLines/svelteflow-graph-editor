@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@xyflow/svelte": "1.0.1",
+    "jsondiffpatch": "^0.7.6",
     "svelte": "^5.28.2"
   },
   "devDependencies": {
