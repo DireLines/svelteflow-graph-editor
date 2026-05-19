@@ -27,7 +27,7 @@
     FONT_SCALE,
     PADDING_SCALE,
     MIN_PADDING,
-  } from "./nodes-and-edges";
+  } from "./graph";
   import CustomNode from "./CustomNode.svelte";
   import { saveGraphToLocalStorage, loadGraphFromLocalStorage, undo, redo, getUndoRedoState } from "./save-load";
   import { addPositions, subPositions, getBoundingRect, getNodeRectLocalCoordinates } from "./math";
@@ -397,6 +397,11 @@
     refresh();
   };
 
+  const clearCompleted = () => {
+    globals.graph.clearCompletedUnderNode(null);
+    refresh();
+  };
+
   const handleDelete = async ({ nodes: deletedNodes, edges: deletedEdges }) => {
     for (const node of deletedNodes) {
       graph.deleteNode(node.id);
@@ -661,23 +666,12 @@
       >
         {title}
       </h1>
-      <br />
       <div class="titlebar-controls">
         {#if focusedNodeId !== null}
           <button class="move-up-btn" title="move up" onclick={moveUp}>⬆</button>
           <button class="move-up-btn" title="top level" onclick={() => setFocusedNode(null)}>⬆⬆</button>
           <div class="hover-menu-divider"></div>
         {/if}
-        <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Save </button>
-        <div class="hover-menu-divider"></div>
-        <button onclick={triggerLoad}> 📂 Load </button>
-        <select bind:value={importMode}>
-          <option value="replace">replace</option>
-          <option value="merge">merge at root</option>
-          <option value="as-node">as node</option>
-        </select>
-        <div class="hover-menu-divider"></div>
-        <button onclick={clearGraph}> Clear </button>
         <!-- TODO put back once we know how to refer to theme colors -->
         <!-- <select bind:value={colorMode}>
           <option value="dark">dark mode</option>
@@ -692,25 +686,46 @@
   <Background />
   <Controls />
   <MiniMap />
-  <Panel class="sidebar-panel" style="display:flex; flex-direction: row; gap:3px; scale:1.5">
-    <button
-      style={getHiddenStyle(undoRedoState.canUndo)}
-      onclick={() => {
-        setGraph(undo());
-        refresh(false);
-      }}
-    >
-      ↩
-    </button>
-    <button
-      style={getHiddenStyle(undoRedoState.canRedo)}
-      onclick={() => {
-        setGraph(redo());
-        refresh(false);
-      }}
-    >
-      ↪
-    </button>
+  <Panel class="sidebar-panel" style="display:flex; flex-direction: column; gap:3px; scale:1.25;">
+    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
+    <div style="display:flex; flex-direction: row; gap:2px; align-items:center;">
+      <button onclick={triggerLoad}> 📂 Import </button>
+      <select bind:value={importMode}>
+        <option value="replace">replace</option>
+        <option value="merge">merge at root</option>
+        <option value="as-node">as node</option>
+      </select>
+    </div>
+    <button onclick={clearGraph}> Clear </button>
+    <button onclick={clearCompleted}> Clear Completed </button>
+    <div style="display:flex; flex-direction: row; gap:3px;">
+      <button
+        style={getHiddenStyle(undoRedoState.canUndo)}
+        onclick={() => {
+          setGraph(undo());
+          refresh(false);
+        }}
+      >
+        ↩
+      </button>
+      <button
+        style={getHiddenStyle(undoRedoState.canRedo)}
+        onclick={() => {
+          setGraph(redo());
+          refresh(false);
+        }}
+      >
+        ↪
+      </button>
+    </div>
+    <!-- TODO put back once we know how to refer to theme colors -->
+    <!-- <select bind:value={colorMode}>
+      <option value="dark">dark mode</option>
+      <option value="light">light mode</option>
+      <option value="system">system</option>
+    </select> -->
+    <!--TODO filter by set of assignees-->
+    <!--TODO node search bar-->
   </Panel>
 </SvelteFlow>
 

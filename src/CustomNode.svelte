@@ -21,7 +21,7 @@
     BORDER_RADIUS_SCALE,
     MIN_HANDLE_SIZE,
     HANDLE_SCALE,
-  } from "./nodes-and-edges";
+  } from "./graph";
   let { isConnectable, id, data, parentId, width }: NodeProps = $props();
   const fontSize = $derived(Math.max(MIN_FONT_SIZE, width ? width * FONT_SCALE : MIN_FONT_SIZE));
   const { updateNodeData } = useSvelteFlow();

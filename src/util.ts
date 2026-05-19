@@ -1,4 +1,4 @@
-import { preorderTraverse } from "./nodes-and-edges";
+import { preorderTraverse } from "./graph";
 export const isNil = (x: any) => x === null || x === undefined;
 
 const containsOnlyDigits = (value: string) => {

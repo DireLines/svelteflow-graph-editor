@@ -438,6 +438,14 @@ export class Graph {
     }
     return result;
   }
+  clearCompletedUnderNode(nodeId: string | null) {
+    const nodesBelow = nodeId === null ? this.nodes : getNodesBelow(this.getNode(nodeId));
+    for (const node of preorderTraverse(nodesBelow)) {
+      if (node.completed) {
+        this.deleteNode(node.id);
+      }
+    }
+  }
 }
 
 const getNodesBelow = (node: NodeData, maxDepthBelow: number = Infinity): NodeData[] => {

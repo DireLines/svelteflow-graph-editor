@@ -1,4 +1,4 @@
-import { DEFAULT_GRAPH_TITLE, displayStateToGraph, Graph, serializeEdge } from "./nodes-and-edges";
+import { DEFAULT_GRAPH_TITLE, displayStateToGraph, Graph, serializeEdge } from "./graph";
 import { isNil } from "./util";
 
 const STORAGE_KEY = "graph";
