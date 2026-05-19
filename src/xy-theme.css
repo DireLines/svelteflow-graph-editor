@@ -35,14 +35,16 @@
   position: absolute;
   left: 50%;
   transform-origin: bottom center;
-  display: none;
+  display: flex;
   gap: 3px;
   align-items: center;
   background: #1e1e1e;
   color: white;
   padding: 3px 5px;
   border-radius: 5px;
-  pointer-events: auto;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0ms;
 }
 
 .hover-menu button {
@@ -98,13 +100,55 @@
 
 .svelte-flow__node:hover .hover-menu,
 .svelte-flow__node.force-hovered .hover-menu {
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+/* Titlebar controls */
+.titlebar-controls button {
+  background: transparent;
+  border: 1px solid #444;
+  color: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 5px 12px;
+  height: 33px;
+  transition:
+    color 0.12s,
+    border-color 0.12s;
+  white-space: nowrap;
+}
+
+.titlebar-controls button:hover {
+  border-color: #777;
+  color: #bbb;
+}
+
+.titlebar-controls select {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #aaa;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 3px 6px;
+  height: 33px;
+  cursor: pointer;
+}
+
+.titlebar-controls select:focus {
+  outline: none;
+  border-color: #666;
 }
 
 /* Sidebar panel */
 .svelte-flow__panel.sidebar-panel {
-  background: #1e1e1e;
-  border-radius: 6px;
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
   padding: 5px;
 }
 

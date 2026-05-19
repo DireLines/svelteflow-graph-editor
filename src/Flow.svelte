@@ -650,62 +650,67 @@
   maxZoom={6}
 >
   <Panel position="top-center" class="titlebar" aria-hidden="true">
-    <h1
-      class="title"
-      bind:this={titleEditable}
-      contenteditable="true"
-      spellcheck="false"
-      onblur={handleTitleBlur}
-      onkeydowncapture={handleTitleKeydown}
-    >
-      {title}
-    </h1>
-    {#if focusedNodeId !== null}
-      <button class="move-up-btn" title="move up" onclick={moveUp} style="scale:1.5;">⬆</button>
-    {/if}
+    <div class="titlebar-container">
+      <h1
+        class="title"
+        bind:this={titleEditable}
+        contenteditable="true"
+        spellcheck="false"
+        onblur={handleTitleBlur}
+        onkeydowncapture={handleTitleKeydown}
+      >
+        {title}
+      </h1>
+      <br />
+      <div class="titlebar-controls">
+        {#if focusedNodeId !== null}
+          <button class="move-up-btn" title="move up" onclick={moveUp}>⬆</button>
+          <button class="move-up-btn" title="top level" onclick={() => setFocusedNode(null)}>⬆⬆</button>
+          <div class="hover-menu-divider"></div>
+        {/if}
+        <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Save </button>
+        <div class="hover-menu-divider"></div>
+        <button onclick={triggerLoad}> 📂 Load </button>
+        <select bind:value={importMode}>
+          <option value="replace">replace</option>
+          <option value="merge">merge at root</option>
+          <option value="as-node">as node</option>
+        </select>
+        <div class="hover-menu-divider"></div>
+        <button onclick={clearGraph}> Clear </button>
+        <!-- TODO put back once we know how to refer to theme colors -->
+        <!-- <select bind:value={colorMode}>
+          <option value="dark">dark mode</option>
+          <option value="light">light mode</option>
+          <option value="system">system</option>
+        </select> -->
+        <!--TODO filter by set of assignees-->
+        <!--TODO node search bar-->
+      </div>
+    </div>
   </Panel>
   <Background />
   <Controls />
   <MiniMap />
-  <Panel class="sidebar-panel" style="display:flex; flex-direction: column; gap:3px;">
-    <button onclick={() => saveObjToFile(graph.getSerialized(), slugify(graph.title) + ".json")}> 💾 Export </button>
-    <div style="display:flex; flex-direction: row; gap:2px; align-items:center;">
-      <button onclick={triggerLoad}> 📂 Import </button>
-      <select bind:value={importMode}>
-        <option value="replace">replace</option>
-        <option value="merge">merge at root</option>
-        <option value="as-node">as node</option>
-      </select>
-    </div>
-    <button onclick={clearGraph}> Clear </button>
-    <div style="display:flex; flex-direction: row; gap:3px;">
-      <button
-        style={getHiddenStyle(undoRedoState.canUndo)}
-        onclick={() => {
-          setGraph(undo());
-          refresh(false);
-        }}
-      >
-        ↩
-      </button>
-      <button
-        style={getHiddenStyle(undoRedoState.canRedo)}
-        onclick={() => {
-          setGraph(redo());
-          refresh(false);
-        }}
-      >
-        ↪
-      </button>
-    </div>
-    <!-- TODO put back once we know how to refer to theme colors -->
-    <!-- <select bind:value={colorMode}>
-      <option value="dark">dark mode</option>
-      <option value="light">light mode</option>
-      <option value="system">system</option>
-    </select> -->
-    <!--TODO filter by set of assignees-->
-    <!--TODO node search bar-->
+  <Panel class="sidebar-panel" style="display:flex; flex-direction: row; gap:3px; scale:1.5">
+    <button
+      style={getHiddenStyle(undoRedoState.canUndo)}
+      onclick={() => {
+        setGraph(undo());
+        refresh(false);
+      }}
+    >
+      ↩
+    </button>
+    <button
+      style={getHiddenStyle(undoRedoState.canRedo)}
+      onclick={() => {
+        setGraph(redo());
+        refresh(false);
+      }}
+    >
+      ↪
+    </button>
   </Panel>
 </SvelteFlow>
 
@@ -721,39 +726,26 @@
     padding-top: 0.5rem;
   }
 
-  .move-up-btn {
+  .titlebar-container {
     pointer-events: auto;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 100%;
-    margin-top: 0.25rem;
-    background: transparent;
-    border: 1px solid #444;
-    color: #666;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    cursor: pointer;
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem 0.4rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    padding: 0;
-    line-height: 1;
-    transition:
-      color 0.12s,
-      border-color 0.12s,
-      background 0.12s;
+    gap: 4px;
   }
 
-  .move-up-btn:hover {
-    border-color: #777;
-    color: #bbb;
+  .titlebar-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
   }
 
   .title {
-    pointer-events: auto; /* flip this to 'auto' only if you add buttons/links inside */
+    pointer-events: auto;
     margin: 0;
     line-height: 1;
     padding: 0.25rem 0.75rem;
@@ -762,8 +754,6 @@
     letter-spacing: 0.02em;
     color: rgba(255, 255, 255, 0.95);
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(4px); /* tasteful readability chip; remove if you prefer */
-    border-radius: 10%;
   }
 
   @media print {
