@@ -326,7 +326,7 @@ export class Graph {
     this.refreshParentIds();
 
     const { nodes, edges } = this;
-    if (focusedNodeId === null) {
+    if (focusedNodeId === null || focusedNodeId === "") {
       //just doing from root of the graph
       result.nodes.push(...nodes.map(nodeDataToNode));
       for (const node of nodes) {
@@ -504,7 +504,7 @@ export const displayStateToGraph = (displayState: DisplayState): Graph => {
   // Assign children to their parent
   for (const node of displayState.nodes) {
     const currentNode = nodeMap.get(node.id);
-    if (node.parentId == null) {
+    if (node.parentId === null) {
       result.nodes.push(currentNode); // Root node
     } else {
       const parentNode = nodeMap.get(node.parentId);

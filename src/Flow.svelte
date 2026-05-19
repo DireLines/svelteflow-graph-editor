@@ -561,7 +561,11 @@
   const setFocusedNode = async (nodeId: string | null) => {
     const prevFocusedNode = focusedNodeId;
     focusedNodeId = nodeId;
-    localStorage.setItem(FOCUSED_NODE_ID_KEY, focusedNodeId ?? "");
+    if (focusedNodeId === null) {
+      localStorage.removeItem(FOCUSED_NODE_ID_KEY);
+    } else {
+      localStorage.setItem(FOCUSED_NODE_ID_KEY, focusedNodeId);
+    }
     refresh(false).then(() => {
       fitView();
     });
