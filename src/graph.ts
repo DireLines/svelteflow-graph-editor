@@ -12,6 +12,7 @@ export const HANDLE_SCALE = 0.04;
 export const MIN_HANDLE_SIZE = 8;
 export const PADDING_SCALE = 0.07;
 export const MIN_PADDING = 15;
+export const TUTORIAL_LABEL = "Right-click to make a new node";
 
 export const nodeDefaults = {
   type: "custom",
@@ -320,7 +321,7 @@ export class Graph {
       nodes: [],
       edges: [],
       title: this.title,
-      description: "right-click to make a new node. left click to drag or edit nodes",
+      description: TUTORIAL_LABEL,
       backgroundColor: "#111",
     };
     this.refreshParentIds();

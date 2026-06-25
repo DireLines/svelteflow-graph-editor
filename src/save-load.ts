@@ -1,5 +1,5 @@
 import { create } from "jsondiffpatch";
-import { DEFAULT_GRAPH_TITLE, displayStateToGraph, Graph, serializeEdge } from "./graph";
+import { DEFAULT_GRAPH_TITLE, displayStateToGraph, Graph, serializeEdge, TUTORIAL_LABEL } from "./graph";
 import { isNil } from "./util";
 
 const jdp = create({
@@ -11,7 +11,6 @@ const STORAGE_KEY = "graph";
 const REVISIONS_KEY = "revisions";
 const REVISION_STATE_KEY = "revision";
 const MAX_REVISIONS = 1000;
-
 // Storage format v2:
 //   REVISIONS_KEY  → { version: 2, entries: [fullState, delta1, delta2, ...] }
 //   REVISION_STATE_KEY → { revision: currentIndex, numRevisions: entries.length }
@@ -31,6 +30,25 @@ interface RevisionState {
 
 const emptyRevisionState: RevisionState = { revision: 0, numRevisions: 1 };
 const emptyGraph = new Graph([], [], DEFAULT_GRAPH_TITLE);
+
+// First-load tutorial graph: a single node explaining the basic controls.
+const makeTutorialGraph = (): Graph => {
+  return new Graph(
+    [
+      {
+        id: "1",
+        children: [],
+        label: TUTORIAL_LABEL,
+        completed: false,
+        size: { width: 520, height: 36 },
+        position: { x: 0, y: 0 },
+        backgroundColor: "#111",
+      },
+    ],
+    [],
+    DEFAULT_GRAPH_TITLE,
+  );
+};
 
 const loadRevisions = (): { store: RevisionsStore; state: RevisionState } => {
   const revisionsJson = localStorage.getItem(REVISIONS_KEY);
@@ -124,10 +142,15 @@ export const saveGraphToLocalStorage = (graph: Graph, storageKey: string = STORA
 
 export const loadGraphFromLocalStorage = (storageKey: string = STORAGE_KEY): Graph => {
   let initial: Graph;
-  const empty = { nodes: [], edges: [] };
   try {
     const json = localStorage.getItem(storageKey);
-    const parsed = json ? JSON.parse(json) : empty;
+    if (!json) {
+      // First load: seed a tutorial node so the canvas isn't blank.
+      initial = makeTutorialGraph();
+      saveGraphToLocalStorage(initial);
+      return initial;
+    }
+    const parsed = JSON.parse(json);
     initial = new Graph(parsed.nodes, parsed.edges.map(serializeEdge), parsed.title ?? DEFAULT_GRAPH_TITLE);
     if (parsed.nodes.length > 0 && isNil(parsed.nodes[0]?.children)) {
       // old format
