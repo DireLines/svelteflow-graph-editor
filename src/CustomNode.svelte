@@ -42,6 +42,10 @@
   });
 
   $effect(() => {
+    //read `data` so this re-runs on every refresh (new data ref), not only when
+    //borderWidth/borderRadius change. on go-up the wrapper element's inline border
+    //styles get reset while width stays the same, so we must reapply each refresh.
+    data;
     const nodeEl = displayedContent?.closest(".svelte-flow__node") as HTMLElement | null;
     if (nodeEl) {
       nodeEl.style.borderWidth = `${borderWidth}px`;
