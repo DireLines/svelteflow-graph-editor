@@ -1,5 +1,7 @@
 # svelteflow-graph-editor
 
+[graphout.work](https://graphout.work)
+
 A graph editor with nesting for planning personal or team projects where you have tasks, subtasks and dependencies between tasks. Supports importing from / exporting to several formats.
 
 This version is made for ease of editing and clarity of presentation, not for scaling to very large projects or doing analysis or automated suggestions on them.
@@ -7,5 +9,4 @@ This version is made for ease of editing and clarity of presentation, not for sc
 To run locally:
 `npm install && npm run dev && open http://localhost:5173`
 
-Originally set up in stackblitz, which is a pretty good in-browser scratchpad for svelte projects:
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/DireLines/svelteflow-graph-editor)
+Originally set up in [stackblitz](https://stackblitz.com/~/github.com/DireLines/svelteflow-graph-editor), which is a pretty good in-browser scratchpad for svelte projects.
